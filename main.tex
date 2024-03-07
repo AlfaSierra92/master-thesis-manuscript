@@ -1,0 +1,58 @@
+% https://texblog.org/2013/02/13/latex-documentclass-options-illustrated/
+\documentclass[a4paper,12pt,draft,onecolumn,twoside,openright,notitlepage]{book}
+
+\usepackage[italian,english]{babel}
+
+% Margini, presi da 
+\usepackage[left=3.5cm,right=2.5cm,top=3cm,bottom=2cm]{geometry}
+
+% Times New Roman
+\usepackage{times}
+
+% Abilita il supporto alle immagini
+\usepackage{graphicx}
+%Path relative to the main .tex file 
+\graphicspath{ {./images/} }
+
+% Mette i counter della pagina con sezione e sottolineatura
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+% Li toglie nelle pagine vuote
+\usepackage{emptypage}
+
+% Dà un po' di spazio in più alle parole in caso non ci entrino nella riga
+\setlength{\emergencystretch}{4em}
+
+% Supporto ai line break negli URL
+\usepackage{xurl}
+
+\begin{document}
+
+
+\input{chapters/titlepage}
+
+\input{chapters/dedica}
+
+\input{chapters/abstract_it}
+
+\input{chapters/abstract}
+
+\tableofcontents
+
+\input{chapters/01}
+
+\input{chapters/02}
+
+\input{chapters/03}
+
+\input{chapters/04}
+
+\bibliographystyle{plain}
+\bibliography{references}{}
+
+\input{chapters/appendix}
+
+\input{chapters/acks}
+
+\end{document}
