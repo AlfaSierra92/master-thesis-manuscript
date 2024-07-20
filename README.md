@@ -1,5 +1,5 @@
-# Official thesis repo
-It will be private until the D-Day.
+# Thesis template
+A template for a master thesis at UniMORE.  
 ## Important reminder
 You are forbidden from using the University's logo.  
 ## A preview?

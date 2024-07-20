@@ -1,13 +1,18 @@
 % https://texblog.org/2013/02/13/latex-documentclass-options-illustrated/
-\documentclass[a4paper,12pt,draft,onecolumn,twoside,openright,notitlepage]{book}
+\documentclass[a4paper,12pt,draft,onecolumn,twoside,openright,notitlepage,openany]{book}
+% Con openany rimuove le pagine bianche messe apposta per iniziare un nuovo capitolo su pagina bianca (io stampo solo fronte)
 
-\usepackage[italian,english]{babel}
-\usepackage{draftwatermark}
-\SetWatermarkText{Draft}
-\SetWatermarkScale{1}
+\usepackage[utf8]{inputenc}
+
+\usepackage[italian]{babel}
+\usepackage{setspace} % per interlinea
+\onehalfspacing % interlinea 1.5
+
+\usepackage{lipsum}
 
 % Margini, presi da 
-\usepackage[left=3.5cm,right=2.5cm,top=3cm,bottom=2cm]{geometry}
+\usepackage[left=3.5cm,right=2.5cm,top=3cm,bottom=3cm,asymmetric]{geometry}
+% Uso asymmetric per avere il bordo della rilegatura leggermente più grande
 
 % Times New Roman
 \usepackage{times}
@@ -19,25 +24,17 @@
 
 % Mette i counter della pagina con sezione e sottolineatura
 \usepackage{fancyhdr}
+\setlength{\headheight}{15pt}
 \pagestyle{fancy}
 
 % Li toglie nelle pagine vuote
 \usepackage{emptypage}
 
-% Dà un po' di spazio in più alle parole in caso non ci entrino nella riga
-\setlength{\emergencystretch}{4em}
-
-% Supporto ai line break negli URL
-\usepackage{xurl}
-
 \begin{document}
-
 
 \input{chapters/titlepage}
 
 \input{chapters/dedica}
-
-\input{chapters/abstract_it}
 
 \input{chapters/abstract}
 
@@ -49,12 +46,9 @@
 
 \input{chapters/03}
 
-\input{chapters/04}
-
-\bibliographystyle{plain}
-\bibliography{references}{}
-
-\input{chapters/appendix}
+%\input{chapters/appendix}
+\bibliographystyle{ieeetr} % o un altro stile bibliografico di tua scelta
+\bibliography{bibliography}
 
 \input{chapters/acks}
 
