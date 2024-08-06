@@ -1,10 +1,29 @@
 \chapter{Testbed}
 
-\section{Rock 3a board}
-Ciao \cite{shen2013distributed}
-\lipsum[1-30]
+Per l'implementazione del testbed necessario a eseguire una varietà di test, sono state esaminate numerose schede di sviluppo disponibili sul mercato, caratterizzate da prezzi competitivi e disponibilità immediata. A causa dell'aumento esponenziale dei costi delle varie versioni di Raspberry Pi, soprattutto a seguito della pandemia di Covid-19 e della conseguente scarsità di offerta, si è deciso di escludere a priori queste opzioni.
+
+Inizialmente, si è considerata l'Arduino Yun, una scheda del noto brand Arduino. Tuttavia, si è subito riscontrato che le sue prestazioni erano insufficienti e che gli strumenti forniti non garantivano la flessibilità desiderata. In particolare, la shell risultava poco performante e non era possibile impostare tempi di sleep inferiori a un secondo. Inoltre, è importante notare che l'Arduino Yun è stato deprecato a favore di altre schede, che, sebbene più performanti, non offrivano lo stesso rapporto qualità-prezzo.
+
+Successivamente, si è passati all'analisi di router Mikrotik, ma anche in questo caso le prestazioni e la flessibilità nelle configurazioni non hanno soddisfatto le aspettative.
+
+Alla fine, la soluzione ottimale è stata trovata nelle schede Rock 3 Model A. Queste schede, pur essendo leggermente più economiche rispetto ai Raspberry Pi, offrivano le prestazioni, la flessibilità e il costo contenuto ricercati. Sono state utilizzate quattro unità, tutte configurate in modo identico con Raspbian OS come sistema operativo. Ulteriori dettagli verranno forniti in seguito.
+
+\section{Rock 3 Model A board}
+
+Il Rock 3 Model A è una scheda di sviluppo avanzata, progettata per applicazioni che richiedono elevate prestazioni di calcolo, rendendola particolarmente adatta per progetti di Internet of Things (IoT), edge computing e server leggeri. 
+
+Al centro di questa scheda si trova il processore Rockchip RK3566, un potente quad-core ARM Cortex-A55 che può raggiungere una frequenza di clock fino a 2.0 GHz. Questa architettura a 64 bit consente di gestire una vasta gamma di applicazioni moderne in modo efficiente. La scheda è dotata di 2 GB di RAM LPDDR4, che garantiscono prestazioni elevate e una gestione efficace delle applicazioni multitasking. Per quanto riguarda l'archiviazione, il Rock 3 Model A offre uno slot per schede microSD, permettendo di espandere facilmente la capacità di memoria, oltre a supportare eMMC fino a 64 GB. Per la connettività, è equipaggiata con una porta Gigabit Ethernet, che assicura una connessione di rete ad alta velocità, e diverse porte USB 3.0 e USB 2.0 per il collegamento di dispositivi esterni. 
+
+Sebbene non sia una caratteristica fondamentale per i nostri scopi, è interessante notare che la scheda include anche una GPU Mali-G52, che consente una buona elaborazione grafica, rendendola adatta per applicazioni multimediali e giochi leggeri. Il Rock 3 Model A offre ampie possibilità di espandibilità, grazie ai pin GPIO (General Purpose Input/Output) che consentono di collegare sensori, attuatori e altri dispositivi. Supporta varie interfacce di comunicazione, come I2C, SPI e UART, facilitando l'integrazione con altri componenti hardware. Per quanto riguarda l'alimentazione, la scheda può essere alimentata tramite un connettore DC o tramite USB-C, offrendo flessibilità nelle opzioni di alimentazione.
+
+La compatibilità con diversi sistemi operativi, tra cui varie distribuzioni Linux come Raspbian e Android, rende il Rock 3 Model A estremamente versatile per una varietà di progetti; in particolare, nel nostro caso, si è preferito adottare Raspbian OS in quanto risulta essere quello più simile ad un classico sistema \textit{Linux-based}.
 
 \subsection[Atheros Wi-Fi card]{Atheros Wi-Fi card}
+Il Rock 3 descritto sopra non monta \textit{out-of-the-box} una scheda di rete che fornisce la connettività Wireless (IEEE 802.11), in virtù di ciò si è reso necessario aggiungerne una esterna collegandola mediante l'interfaccia \textit{PCI Express - M.2 Specification} che la board fornisce per permettere l'espansione delle sue funzionalità hardware.
+
+Tra le varie soluzione in commercio, la scelta è ricaduta sull'adattatore Qualcomm Atheros AR9462. Esso supporta gli standard Wi-Fi 802.11a/b/g/n e permette l'utilizzo della modalità OCB (\textit{Outside the Context of BSS}) utilizzata nel nostro caso al fine di permettere la comunicazione senza fili tra i vari dispositivi senza la necessità di stabilire un \textit{Basic Service Set}.
+
+Infine, la natura completamente open-source dei suoi driver ha permesso di effetturare il tweaking necessario al nostro scopo.
 
 \subsection[Connessione con le board]{Connessione con le board}
 
