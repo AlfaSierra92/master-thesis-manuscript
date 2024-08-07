@@ -23,18 +23,98 @@ Il Rock 3 descritto sopra non monta \textit{out-of-the-box} una scheda di rete c
 
 Tra le varie soluzione in commercio, la scelta è ricaduta sull'adattatore Qualcomm Atheros AR9462. Esso supporta gli standard Wi-Fi 802.11a/b/g/n e permette l'utilizzo della modalità OCB (\textit{Outside the Context of BSS}) utilizzata nel nostro caso al fine di permettere la comunicazione senza fili tra i vari dispositivi senza la necessità di stabilire un \textit{Basic Service Set}.
 
-Infine, la natura completamente open-source dei suoi driver ha permesso di effetturare il tweaking necessario al nostro scopo.
+Infine, la natura completamente open-source dei suoi driver ha permesso di apportare ad esso le modifiche necessarie al nostro scopo.
 
 \subsection[Connessione con le board]{Connessione con le board}
+Le quattro schede utilizzate nel progetto, come descritto prima, sono dotate di due interfacce di rete distinte, ciascuna con un ruolo specifico nel funzionamento complessivo del sistema. La prima interfaccia è una connessione wireless, utilizzata esclusivamente per l'esecuzione dei test.
 
-\subsection[Tweaking]{Tweaking}
+La seconda interfaccia è una connessione Ethernet, progettata specificamente per consentire un'interazione diretta con le schede, permettendo così l'invio di comandi per la configurazione, l'avvio e la chiusura dei test, tutti gestiti da un PC.
+
+I quattro dispositivi sono stati collegati a uno switch Ethernet a cinque porte, mentre la porta aggiuntiva è stata riservata per la connessione del PC. Nella seguente immagine è mostrata la topologia di rete con i vari indirizzi IP assegnati.
+
+La connessione avviene mediante il protocollo sicuro SSH, ma non ci si soffermerà su di esso in quanto questo esula dagli obiettivi del presente testo.
+
+\section{Tweaking}
+Per rendere possibili alcune configurazioni nei dispositivi Rock e la raccolta dei dati, si è reso necessario mettere mano nalel codice sorgente del Kernel Linux ed applicare alcune patch.
+
+Nella fattispecie, si è dovuto provvedere ad abilitare la \textit{Debug Mode} messa a disposizione dal driver \textit{Ath9k} della scheda di rete wireless ma disabilitata in maniera predefinita, una piccola modifica all'output delle statistiche di rete accessibili dall'utente e l'abilitazione delle code separate per le quattro \textit{Access Categories}.
+
+Tutto ciò è stato reso possibile grazie a patch e a informazioni fornite dalla comunità open source e alla documentazione del produttore.
+
+Viene fornita, inizialmente, una descrizione separata delle varie modifiche apportate, esplicitiando alla fine del trittico il processo di compilazione necessario. Importante notare che le varie patch sono state scritte esclusivamente per la versione del kernel Linux \textit{rockchip64-6.6}, l'ultima disponibile al momento della configurazione del testbed; non si garantisce che possano essere applicate senza ulteriori modifiche ad altre versioni, sia che esse siano sulla architettura ARM che differente.
 
 \subsection[Debug Mode]{Debug Mode}
+Per l'abilitazione della suddetta modalità, si è semplicemente messo mano al file \textit{linux-rockchip64-current.config}, file di configurazione utilizzato dalla \textit{toolchain} di compilazione del Kernel del sistema Armbian, abilitando tre differenti flag\cite{linux_wireless}:
+
+\verb|CONFIG_ATH9K_HTC_DEBUGFS=y|
+
+\verb|CONFIG_ATH9K_HWRNG=y|
+
+\verb|CONFIG_ATH9K_DEBUGFS=y|
 
 \subsection[Queues]{Queues}
+La patch fornita modifica un segmento di codice nel file wme.c del driver mac80211, che gestisce la classificazione dei pacchetti in una rete wireless.
+Molto semplicemente, si è provveduto ad eliminare la classificazione effettuata dal driver \textit{mac80211} in quanto il suo comportamento andava in conflitto con le Access Categories utilizzate e dirottava tutti i pacchetti sulla coda \textit{Best Effort (BE)}, indipendentemente dalla categoria scelta.
+Il problema è dovuto all'introduzione delle cosiddette "code software intermedie" all'interno del driver "mac80211", per i driver supportati\cite{intermediate_queue} come l'\textit{Ath9k}.
 
-\subsection[Statistiche utili]{Statistiche utili}
+\begin{lstlisting}
+    --- a/net/mac80211/wme.c        2024-06-17 11:16:29
+    +++ b/net/mac80211/wme.c        2024-06-17 11:17:12
+    @@ -176,9 +176,9 @@
+     
+            /* use the data classifier to determine what 802.1d tag the
+             * data frame has */
+    -       qos_map = rcu_dereference(sdata->qos_map);
+    -       skb->priority = cfg80211_classify8021d(skb, qos_map ?
+    -                                              &qos_map->qos_map : NULL);
+    +       //qos_map = rcu_dereference(sdata->qos_map);
+    +       //skb->priority = cfg80211_classify8021d(skb, qos_map ?
+    +                                              //&qos_map->qos_map : NULL);
+     
+      downgrade:
+            return ieee80211_downgrade_queue(sdata, sta, skb);
+\end{lstlisting}
+Questa caratteristica è stata introdotta per spostare l'implementazione delle code più verso il lato software del sottosistema wireless, consentendo all'hardware di mantenere solo code brevi e permettendo anche una maggiore equità tra le stazioni che comunicano.
 
+La possibilità di utilizzare correttamente le categorie di accesso insieme alle code software del \textit{mac80211} risulta essere in fase di implementazione da parte della comunità al momento della stesura di questo elaborato.
+
+\subsection[Statistiche occupazione canale]{Statistiche occupazione canale}
+La patch fornita modifica un segmento del codice nel file link.c del driver \textit{ath9k}, che è parte della gestione delle statistiche di monitoraggio della rete wireless. Esso in maniera predefinita restituiva, mediante il comando \verb|iw wlp1s0 survey|, varie statistiche tra cui i tempi in cui, rispettivamente, il canale risulta essere occupato, viene usato per trasmettere e ricevere da parte dell'interfaccia. 
+
+Questi valori venivano mostrati in output in maniera incrementale, ovvero ogni valore campionato era sommato al valore precedente; tale modus operandi complicava la raccolta dei dati nel nostro caso e si è provveduto a modificare il codice in modo che i valori vengano mostrati, singolarmente, volta per volta.
+\begin{lstlisting}
+    --- a/drivers/net/wireless/ath/ath9k/link.c	2024-06-21 11:46:11
+    +++ b/drivers/net/wireless/ath/ath9k/link.c	2024-06-21 11:47:38
+    @@ -524,10 +524,10 @@
+                 SURVEY_INFO_TIME_BUSY |
+                 SURVEY_INFO_TIME_RX |
+                 SURVEY_INFO_TIME_TX;
+    -		survey->time += cc->cycles / div;
+    -		survey->time_busy += cc->rx_busy / div;
+    -		survey->time_rx += cc->rx_frame / div;
+    -		survey->time_tx += cc->tx_frame / div;
+    +		survey->time = cc->cycles / div;
+    +		survey->time_busy = cc->rx_busy / div;
+    +		survey->time_rx = cc->rx_frame / div;
+    +		survey->time_tx = cc->tx_frame / div;
+         }
+     
+         if (cc->cycles < div)
+\end{lstlisting}
+Giusto per completezza, viene mostrato l'output dell'esecuzione del comando 
+
+\verb|iw| \verb|wlp1s0 survey dump|:
+\begin{lstlisting}
+root@rock-3a:~# iw wlp1s0 survey dump
+    Survey data from wlp1s0
+	frequency:			2462 MHz [in use]
+	noise:				-93 dBm
+	channel active time:		136546 ms
+	channel busy time:		1642 ms
+	channel receive time:		1496 ms
+	channel transmit time:		0 ms
+\end{lstlisting}
+Per semplicità viene mostrato qui solo l'output relativo al canale 11, omettendo le informazioni relative agli altri canali.
 \subsection[Kernel building]{Kernel building}
 
 \subsection[Impostazione interfaccia Wi-Fi]{Impostazione interfaccia Wi-Fi}
