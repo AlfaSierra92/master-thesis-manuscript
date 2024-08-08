@@ -6,7 +6,7 @@ Inizialmente, si è considerata l'Arduino Yun, una scheda del noto brand Arduino
 
 Successivamente, si è passati all'analisi di router Mikrotik, ma anche in questo caso le prestazioni e la flessibilità nelle configurazioni non hanno soddisfatto le aspettative.
 
-Alla fine, la soluzione ottimale è stata trovata nelle schede Rock 3 Model A. Queste schede, pur essendo leggermente più economiche rispetto ai Raspberry Pi, offrivano le prestazioni, la flessibilità e il costo contenuto ricercati. Sono state utilizzate quattro unità, tutte configurate in modo identico con Raspbian OS come sistema operativo. Ulteriori dettagli verranno forniti in seguito.
+Alla fine, la soluzione ottimale è stata trovata nelle schede Rock 3 Model A. Queste schede, pur essendo leggermente più economiche rispetto ai Raspberry Pi, offrivano le prestazioni, la flessibilità e il costo contenuto ricercati. Sono state utilizzate quattro unità, tutte configurate in modo identico con Armbian OS come sistema operativo. Ulteriori dettagli verranno forniti in seguito.
 
 \section{Rock 3 Model A board}
 
@@ -16,7 +16,7 @@ Al centro di questa scheda si trova il processore Rockchip RK3566, un potente qu
 
 Sebbene non sia una caratteristica fondamentale per i nostri scopi, è interessante notare che la scheda include anche una GPU Mali-G52, che consente una buona elaborazione grafica, rendendola adatta per applicazioni multimediali e giochi leggeri. Il Rock 3 Model A offre ampie possibilità di espandibilità, grazie ai pin GPIO (General Purpose Input/Output) che consentono di collegare sensori, attuatori e altri dispositivi. Supporta varie interfacce di comunicazione, come I2C, SPI e UART, facilitando l'integrazione con altri componenti hardware. Per quanto riguarda l'alimentazione, la scheda può essere alimentata tramite un connettore DC o tramite USB-C, offrendo flessibilità nelle opzioni di alimentazione.
 
-La compatibilità con diversi sistemi operativi, tra cui varie distribuzioni Linux come Raspbian e Android, rende il Rock 3 Model A estremamente versatile per una varietà di progetti; in particolare, nel nostro caso, si è preferito adottare Raspbian OS in quanto risulta essere quello più simile ad un classico sistema \textit{Linux-based}.
+La compatibilità con diversi sistemi operativi, tra cui varie distribuzioni Linux come Armbian e Android, rende il Rock 3 Model A estremamente versatile per una varietà di progetti; in particolare, nel nostro caso, si è preferito adottare Armbian OS in quanto risulta essere quello più simile ad un classico sistema \textit{Linux-based} ed inoltre, cosa non di poco conto, fornisce una toolchain comprendente una serie di strumenti e componenti necessari per la compilazione e per il debugging.
 
 \subsection[Atheros Wi-Fi card]{Atheros Wi-Fi card}
 Il Rock 3 descritto sopra non monta \textit{out-of-the-box} una scheda di rete che fornisce la connettività Wireless (IEEE 802.11), in virtù di ciò si è reso necessario aggiungerne una esterna collegandola mediante l'interfaccia \textit{PCI Express - M.2 Specification} che la board fornisce per permettere l'espansione delle sue funzionalità hardware.
@@ -33,6 +33,23 @@ La seconda interfaccia è una connessione Ethernet, progettata specificamente pe
 I quattro dispositivi sono stati collegati a uno switch Ethernet a cinque porte, mentre la porta aggiuntiva è stata riservata per la connessione del PC. Nella seguente immagine è mostrata la topologia di rete con i vari indirizzi IP assegnati.
 
 La connessione avviene mediante il protocollo sicuro SSH, ma non ci si soffermerà su di esso in quanto questo esula dagli obiettivi del presente testo.
+
+\subsection[Impostazione interfaccia Wi-Fi]{Impostazione interfaccia Wi-Fi}
+L'interfaccia Wi-Fi di ogni singolo dispositivo Rock, al fine di avere una conessione wireless di tipo OCB funzionante, è stata configurata con i seguenti comandi:
+
+\begin{lstlisting}
+    ip link set dev wlp1s0 down
+    # imposta la tipologia come ad-hoc
+    iw wlp1s0 set type ocb
+    # accende l'interfaccia
+    ip link set dev wlp1s0 up
+    
+    iw wlp1s0 ocb join 2462 10MHz
+    ip addr add 192.168.100.xxx/24 dev wlp1s0
+    ip route add default via 192.168.100.xxx dev wlp1s0
+\end{lstlisting}
+
+Non si entrerà nel dettaglio di questi comandi, del resto abbastanza ovvi; ci si limita ad esplicitare che l'interfaccia è stata settata in modalità OCB (\textit{Outside the Context of BSS}), è stato scelto il canale 11, con frequenza fondamentale f\ped{0} pari a 2462 MHz e che, naturalmente, viene assegnato un indirizzo IP con la rispettiva rotta.
 
 \section{Tweaking}
 Per rendere possibili alcune configurazioni nei dispositivi Rock e la raccolta dei dati, si è reso necessario mettere mano nalel codice sorgente del Kernel Linux ed applicare alcune patch.
@@ -53,7 +70,7 @@ Per l'abilitazione della suddetta modalità, si è semplicemente messo mano al f
 \verb|CONFIG_ATH9K_DEBUGFS=y|
 
 \subsection[Queues]{Queues}
-La patch fornita modifica un segmento di codice nel file wme.c del driver mac80211, che gestisce la classificazione dei pacchetti in una rete wireless.
+La patch \textit{00550-ac.patch} fornita modifica un segmento di codice nel file wme.c del driver mac80211, che gestisce la classificazione dei pacchetti in una rete wireless.
 Molto semplicemente, si è provveduto ad eliminare la classificazione effettuata dal driver \textit{mac80211} in quanto il suo comportamento andava in conflitto con le Access Categories utilizzate e dirottava tutti i pacchetti sulla coda \textit{Best Effort (BE)}, indipendentemente dalla categoria scelta.
 Il problema è dovuto all'introduzione delle cosiddette "code software intermedie" all'interno del driver "mac80211", per i driver supportati\cite{intermediate_queue} come l'\textit{Ath9k}.
 
@@ -79,7 +96,7 @@ Questa caratteristica è stata introdotta per spostare l'implementazione delle c
 La possibilità di utilizzare correttamente le categorie di accesso insieme alle code software del \textit{mac80211} risulta essere in fase di implementazione da parte della comunità al momento della stesura di questo elaborato.
 
 \subsection[Statistiche occupazione canale]{Statistiche occupazione canale}
-La patch fornita modifica un segmento del codice nel file link.c del driver \textit{ath9k}, che è parte della gestione delle statistiche di monitoraggio della rete wireless. Esso in maniera predefinita restituiva, mediante il comando \verb|iw wlp1s0 survey|, varie statistiche tra cui i tempi in cui, rispettivamente, il canale risulta essere occupato, viene usato per trasmettere e ricevere da parte dell'interfaccia. 
+La patch fornita, di nome \textit{00551-ac.patch}, modifica un segmento del codice nel file link.c del driver \textit{ath9k}, che è parte della gestione delle statistiche di monitoraggio della rete wireless. Esso in maniera predefinita restituiva, mediante il comando \verb|iw wlp1s0 survey|, varie statistiche tra cui i tempi in cui, rispettivamente, il canale risulta essere occupato, viene usato per trasmettere e ricevere da parte dell'interfaccia. 
 
 Questi valori venivano mostrati in output in maniera incrementale, ovvero ogni valore campionato era sommato al valore precedente; tale modus operandi complicava la raccolta dei dati nel nostro caso e si è provveduto a modificare il codice in modo che i valori vengano mostrati, singolarmente, volta per volta.
 \begin{lstlisting}
@@ -116,8 +133,25 @@ root@rock-3a:~# iw wlp1s0 survey dump
 \end{lstlisting}
 Per semplicità viene mostrato qui solo l'output relativo al canale 11, omettendo le informazioni relative agli altri canali.
 \subsection[Kernel building]{Kernel building}
+Per la compilazione dell'intero sistema Armbian o, nello specifico, del Kernel, ci si è basati sulla toolchain messaci a disposizione dalla comunità open source. 
 
-\subsection[Impostazione interfaccia Wi-Fi]{Impostazione interfaccia Wi-Fi}
+La toolchain di Armbian è una componente essenziale per sviluppare e ottimizzare software per dispositivi ARM, specialmente quando si lavora con macchine host x86. Il cuore di questa toolchain è il compilatore GCC, configurato specificamente per il target ARM. Questo compilatore traduce il codice sorgente in codice eseguibile ottimizzato per le architetture ARM, permettendo di sfruttare appieno le capacità hardware dei dispositivi.
+
+Un suo aspetto cruciale è la cross-compilazione. Lavorare con dispositivi ARM spesso significa confrontarsi con limitazioni di risorse hardware che rendono impraticabile la compilazione diretta. La cross-compilazione risolve questo problema permettendo di compilare il software su una macchina più potente (solitamente un PC x86) e poi eseguirlo sul dispositivo ARM. Questo processo non solo accelera notevolmente la compilazione, ma evita anche il rischio di esaurire le risorse durante la build.
+
+Il sistema di build automatizzato di Armbian gioca un ruolo centrale nella gestione di questo processo. Gli script e gli strumenti inclusi orchestrano la compilazione del kernel, del bootloader e dei vari pacchetti software, assicurando che tutto sia perfettamente integrato e ottimizzato. Questo sistema è pensato per gestire le complessità della cross-compilazione, semplificando il processo per gli sviluppatori.
+
+Non ci si dilungherà nelle modalità di download e installazione di tutto il pacchetto, in quanto è tranquillamente reperibile in rete e richiede, per la sua configurazione iniziale, componenti esterne quali Docker. Una volta installato e funzionante, fatte le modifiche ad-hoc al file di configurazione (il citato precedentemente file \textit{linux-rockchip64-current.config}) ed inserite le patch già menzionate nella cartella
+
+\verb|~/build/patch/kernel/archive/rockchip64-6.6 |
+
+\noindent e si procede alla compilazione mediante il comando 
+
+\verb|./compile.sh kernel ARTIFACT_IGNORE_CACHE='yes' \| 
+
+\verb|BOARD=rock-3a BRANCH=current|
+
+\noindent Il processo restituirà il nuovo kernel pacchettizzato all'interno di file \textit{.deb}, che andranno installati sui dispositivi come di consueto.
 
 \section{iPerf con Access Categories abilitate}
 
