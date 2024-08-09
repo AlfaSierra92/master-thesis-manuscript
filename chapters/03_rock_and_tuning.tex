@@ -8,6 +8,8 @@ Successivamente, si è passati all'analisi di router Mikrotik, ma anche in quest
 
 Alla fine, la soluzione ottimale è stata trovata nelle schede Rock 3 Model A. Queste schede, pur essendo leggermente più economiche rispetto ai Raspberry Pi, offrivano le prestazioni, la flessibilità e il costo contenuto ricercati. Sono state utilizzate quattro unità, tutte configurate in modo identico con Armbian OS come sistema operativo. Ulteriori dettagli verranno forniti in seguito.
 
+Per l'esecuzione delle varie prove, sono stati utilizzati due software: iPerf 2 e Netcat versione OpenBSD.
+
 \section{Rock 3 Model A board}
 
 Il Rock 3 Model A è una scheda di sviluppo avanzata, progettata per applicazioni che richiedono elevate prestazioni di calcolo, rendendola particolarmente adatta per progetti di Internet of Things (IoT), edge computing e server leggeri. 
@@ -23,7 +25,15 @@ Il Rock 3 descritto sopra non monta \textit{out-of-the-box} una scheda di rete c
 
 Tra le varie soluzione in commercio, la scelta è ricaduta sull'adattatore Qualcomm Atheros AR9462. Esso supporta gli standard Wi-Fi 802.11a/b/g/n e permette l'utilizzo della modalità OCB (\textit{Outside the Context of BSS}) utilizzata nel nostro caso al fine di permettere la comunicazione senza fili tra i vari dispositivi senza la necessità di stabilire un \textit{Basic Service Set}.
 
-Infine, la natura completamente open-source dei suoi driver ha permesso di apportare ad esso le modifiche necessarie al nostro scopo.
+Un altro aspetto fondamentale che ha reso possibile il nostro lavoro è la possibilità di accedere a una vasta gamma di dati e statistiche sul funzionamento dell'interfaccia di rete, abilitando i flag appropriati durante la compilazione del kernel. Queste informazioni, infatti, non sono generalmente disponibili per la maggior parte delle schede di rete commerciali, rendendo la nostra analisi molto più approfondita e dettagliata. E' possibile accedere a tali statistiche mediante il comando \verb|iw wlp1s0 survey dump| oppure andando ad effettuare un dump dei registri interni della scheda con
+
+\begin{lstlisting}
+cat /sys/kernel/debug/ieee80211/phy0/ath9k/regdump
+\end{lstlisting}
+
+\noindent Non ci soffermeremo su quest'ultima possibilità in quanto esula dal nostro scopo.
+
+Infine, la natura completamente open-source dei suoi driver ha permesso di apportare ad esso le piccole modifiche necessarie al nostro scopo.
 
 \subsection[Connessione con le board]{Connessione con le board}
 Le quattro schede utilizzate nel progetto, come descritto prima, sono dotate di due interfacce di rete distinte, ciascuna con un ruolo specifico nel funzionamento complessivo del sistema. La prima interfaccia è una connessione wireless, utilizzata esclusivamente per l'esecuzione dei test.
@@ -96,7 +106,7 @@ Questa caratteristica è stata introdotta per spostare l'implementazione delle c
 La possibilità di utilizzare correttamente le categorie di accesso insieme alle code software del \textit{mac80211} risulta essere in fase di implementazione da parte della comunità al momento della stesura di questo elaborato.
 
 \subsection[Statistiche occupazione canale]{Statistiche occupazione canale}
-La patch fornita, di nome \textit{00551-ac.patch}, modifica un segmento del codice nel file link.c del driver \textit{ath9k}, che è parte della gestione delle statistiche di monitoraggio della rete wireless. Esso in maniera predefinita restituiva, mediante il comando \verb|iw wlp1s0 survey|, varie statistiche tra cui i tempi in cui, rispettivamente, il canale risulta essere occupato, viene usato per trasmettere e ricevere da parte dell'interfaccia. 
+La patch fornita, di nome \textit{00551-ac.patch}, modifica un segmento del codice nel file link.c del driver \textit{ath9k}, che è parte della gestione delle statistiche di monitoraggio della rete wireless. Esso in maniera predefinita restituiva, mediante il comando \verb|iw wlp1s0 survey| \verb|dump|, varie statistiche tra cui i tempi in cui, rispettivamente, il canale risulta essere occupato, viene usato per trasmettere e ricevere da parte dell'interfaccia. 
 
 Questi valori venivano mostrati in output in maniera incrementale, ovvero ogni valore campionato era sommato al valore precedente; tale modus operandi complicava la raccolta dei dati nel nostro caso e si è provveduto a modificare il codice in modo che i valori vengano mostrati, singolarmente, volta per volta.
 \begin{lstlisting}
@@ -132,6 +142,8 @@ root@rock-3a:~# iw wlp1s0 survey dump
 	channel transmit time:		0 ms
 \end{lstlisting}
 Per semplicità viene mostrato qui solo l'output relativo al canale 11, omettendo le informazioni relative agli altri canali.
+
+Per calcolare il carico del canale, ovvero la percentuale di tempo in cui il canale wireless è occupato, sono stati raccolti due valori fondamentali: il \textit{channel active time} e il \textit{channel busy time}. Il primo rappresenta il tempo in cui l'interfaccia è attiva per trasmettere, ricevere o ascoltare il canale, mentre il secondo indica il tempo in cui l'interfaccia è attiva ma in attesa a causa dell'occupazione del canale\cite{han2016adaptive}.
 \subsection[Kernel building]{Kernel building}
 Per la compilazione dell'intero sistema Armbian o, nello specifico, del Kernel, ci si è basati sulla toolchain messaci a disposizione dalla comunità open source. 
 
@@ -154,9 +166,19 @@ Non ci si dilungherà nelle modalità di download e installazione di tutto il pa
 \noindent Il processo restituirà il nuovo kernel pacchettizzato all'interno di file \textit{.deb}, che andranno installati sui dispositivi come di consueto.
 
 \section{iPerf con Access Categories abilitate}
+iPerf è un software di benchmarking di rete utilizzato per misurare le prestazioni della larghezza di banda e della latenza nelle connessioni TCP e UDP. Permette di misurare la larghezza di banda disponibile tra due punti di rete, offrendo la possibilità di testare sia il protocollo TCP, orientato alla connessione, sia il protocollo UDP, non orientato alla connessione. Il software funziona in modalità client-server, dove un'istanza di iPerf agisce da server e l'altra da client, permettendo di eseguire test in entrambe le direzioni.
 
-\subsection[Editing del sorgente]{Editing del sorgente}
+Le modalità con cui tale software è stato utilizzato verranno discusse più avanti nell'apposito capitolo; qui ci si soffermerà, più che altro, sulle modifiche effettuate al codice sorgente.
 
-\subsection[Compilazione]{Compilazione}
+La patch, che per chiarezza di lettura non è stata inserita in questo paragrafo ma potrà essere trovata in appendice, abilita il supporto alle 4 code EDCA del livello MAC. L'opzione -A, specifica per iPerf in modalità client, può ora essere usata per specificare una classe di traffico a cui inviare il flusso in uscita (-A BK o -A BE o -A VI o -A VO). Se non si specifica alcuna classe di traffico, le opzioni rimangono quelle di un pacchetto iPerf 2 standard (cioè si utilizza effettivamente AC\_BE).
+
+Da notare che la patch è stata sviluppata per la versione 2 del software (nello specifico la v2.2.0); esiste anche la versione 3 che, tuttavia, non è stata presa in considerazione in quanto i cambiamenti architetturali effettuati al programma non consentivano, facilmente, l'impletazione delle modifiche necessarie.
 
 \section{Netcat OpenBSD}
+Netcat, spesso abbreviato in nc, è un potente strumento di rete utilizzato per leggere e scrivere dati attraverso connessioni di rete TCP o UDP. È spesso descritto come "il coltellino svizzero" degli strumenti di rete, grazie alla sua versatilità.
+
+Netcat può essere utilizzato per una varietà di scopi, tra cui il debugging delle connessioni di rete, il trasferimento di file, la creazione di tunnel e la comunicazione tra sistemi. Può funzionare sia in modalità client, per connettersi a un server, sia in modalità server, per ascoltare le connessioni in arrivo su una porta specifica.
+
+Esistono differenti porting e implementazioni; le più importanti sono GNU e OpenBSD; esse sono simili se non per alcune differenze nelle funzionalità offerte e in alcuni parametri di esecuzione disponibili (la versione BSD, per esempio, supporta IPv6, proxy e gli Unix socket che la tradizionale non ha). 
+
+Nel nostro caso, la necessità di dover eseguire il comando netcat col paramentro \verb|-q 0|, ovvero disabilitare l'attesa dopo l'EOF su stdin, ha portato ad utilizzare l'OpenBSD anzichè la tradizionale.
