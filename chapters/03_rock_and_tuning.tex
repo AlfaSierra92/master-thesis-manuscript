@@ -6,7 +6,14 @@ Inizialmente, si è considerata l'Arduino Yun, una scheda del noto brand Arduino
 
 Successivamente, si è passati all'analisi di router Mikrotik, ma anche in questo caso le prestazioni e la flessibilità nelle configurazioni non hanno soddisfatto le aspettative.
 
-Alla fine, la soluzione ottimale è stata trovata nelle schede Rock 3 Model A. Queste schede, pur essendo leggermente più economiche rispetto ai Raspberry Pi, offrivano le prestazioni, la flessibilità e il costo contenuto ricercati. Sono state utilizzate quattro unità, tutte configurate in modo identico con Armbian OS come sistema operativo. Ulteriori dettagli verranno forniti in seguito.
+Alla fine, la soluzione ottimale è stata trovata nelle schede Rock 3 Model A (\ref{fig:testbed}). Queste schede, pur essendo leggermente più economiche rispetto ai Raspberry Pi, offrivano le prestazioni, la flessibilità e il costo contenuto ricercati. Sono state utilizzate quattro unità, tutte configurate in modo identico con Armbian OS come sistema operativo. Ulteriori dettagli verranno forniti in seguito.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{testbed_cambia.png}
+    \caption{Testbed}
+    \label{fig:testbed}
+\end{figure}
 
 Per l'esecuzione delle varie prove, sono stati utilizzati due software: iPerf 2 e Netcat versione OpenBSD.
 
@@ -40,7 +47,14 @@ Le quattro schede utilizzate nel progetto, come descritto prima, sono dotate di 
 
 La seconda interfaccia è una connessione Ethernet, progettata specificamente per consentire un'interazione diretta con le schede, permettendo così l'invio di comandi per la configurazione, l'avvio e la chiusura dei test, tutti gestiti da un PC.
 
-I quattro dispositivi sono stati collegati a uno switch Ethernet a cinque porte, mentre la porta aggiuntiva è stata riservata per la connessione del PC. Nella seguente immagine è mostrata la topologia di rete con i vari indirizzi IP assegnati.
+I quattro dispositivi sono stati collegati a uno switch Ethernet a cinque porte, mentre la porta aggiuntiva è stata riservata per la connessione del PC. Nell'immagine \ref{fig:etichetta} è mostrata la topologia di rete con i vari indirizzi IP assegnati.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{topology.png}
+    \caption{Topologia rete}
+    \label{fig:etichetta}
+\end{figure}
 
 La connessione avviene mediante il protocollo sicuro SSH, ma non ci si soffermerà su di esso in quanto questo esula dagli obiettivi del presente testo.
 
