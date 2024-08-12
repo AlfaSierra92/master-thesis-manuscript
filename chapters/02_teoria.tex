@@ -23,13 +23,34 @@ Per facilitare questo, l'IEEE ha introdotto un emendamento specifico al protocol
     \centering
     \includegraphics[width=0.7\textwidth]{WAVE-protocol-stack.png}
     \caption{Stack protocollo WAVE}
-    \label{fig:etichetta}
+    \label{fig:wave_stack}
 \end{figure}
+
+Di seguito, presentiamo un elenco che fornisce ulteriori dettagli sui protocolli menzionati nella Figura \ref{fig:wave_stack}, partendo dal layer fisico e salendo di volta in volta:
+
+\begin{itemize}
+    \item \textit{IEEE 802.11-2016, IEEE Std 802.11p: Wireless Access in Vehicular Environments}.
+    \item \textit{IEEE 1609.0: IEEE Guide for Wireless Access in Vehicular Environments (WAVE) Architecture}\cite{8686445}, con le sue varie componenti: 
+        \begin{itemize}
+            \item \textit{IEEE 1609.4: IEEE Standard for Wireless Access in Vehicular Environments (WAVE) - Multi-Channel Operation}\cite{7435228}; per il \textit{channel routing} e il \textit{channel coordination}.
+            \item \textit{IEEE 1609.3: IEEE Standard for Wireless Access in Vehicular Environments (WAVE) - Networking Services}\cite{9374154}; per i sopracitati \textit{WAVE Short Messages}.
+            \item \textit{IEEE 1609.2: IEEE Standard for Wireless Access in Vehicular Environments - Security Services for Applications and Management Messages}\cite{10075082}; per tutti gli aspetti relativi alla sicurezza.
+        \end{itemize}
+\end{itemize}
+
+Risultano, anche, essere presenti anche altre varie componenti del protocollo \textit{IEEE 1609.0} su cui non ci si soffermerà e riportare per completezza:
+
+\begin{itemize}
+    \item \textit{IEEE 1609.11:  IEEE Standard for Wireless Access in Vehicular Environments (WAVE) - Over-the-Air Electronic Payment Data}; standard per i pagamenti elettronici in applicazione \textit{WAVE based}.
+    \item \textit{IEEE 1609.12:  IEEE Standard for Wireless Access in Vehicular Environments (WAVE) - Identifier Allocations}; standard per l'allocazione degli identificatori \textit{WAVE}.
+\end{itemize}
+
+Per concludere, alla luce del fatto che il contesto preso in esame, quello veicolare, richiede uno scambio di informazioni con latenze minime, \textit{WAVE} si basa interamente su una nuova modalità Wireless, simile alla classica \textit{ad hoc}, chiamata \textit{OCB (Outside Context of a Basic Service Set)}. Questo è un approccio che consente la trasmissione di dati al di fuori delle limitazioni tradizionali delle reti Wi-Fi, permettendo una comunicazione più flessibile e diretta tra i dispositivi, senza la necessità di passare attraverso infrastrutture quali i punti di accesso (\textit{Access Point}).
 
 \subsection[Physical layer]{Physical layer}
 
 \subsection[MAC layer]{MAC layer}
 
-\subsection[EDCA]{EDCA}
+\section[EDCA]{EDCA}
 
 \subsection[IEEE 1609.4 for multi-channel operations]{IEEE 1609.4 for multi-channel operations}
