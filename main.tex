@@ -1,5 +1,5 @@
 % https://texblog.org/2013/02/13/latex-documentclass-options-illustrated/
-\documentclass[a4paper,12pt,draft,onecolumn,twoside,openright,notitlepage,openany]{book}
+\documentclass[a4paper,12pt,onecolumn,twoside,openright,notitlepage,openany]{book}
 % RIMUOVI DRAFT PER LE IMMAGINI
 % Con openany rimuove le pagine bianche messe apposta per iniziare un nuovo capitolo su pagina bianca (io stampo solo fronte)
 
@@ -62,6 +62,16 @@ escapeinside={\%*}{*)}          % if you want to add a comment within your code
 
 % Li toglie nelle pagine vuote
 \usepackage{emptypage}
+
+\usepackage{hyperref} % Per i link nell'indice
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={DCC},
+    pdfpagemode=FullScreen,
+    }
 
 \begin{document}
 
