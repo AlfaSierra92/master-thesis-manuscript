@@ -6,20 +6,20 @@ Inizialmente, si è considerata l'Arduino Yun, una scheda del noto brand Arduino
 
 Successivamente, si è passati all'analisi di router Mikrotik, ma anche in questo caso le prestazioni e la flessibilità nelle configurazioni non hanno soddisfatto le aspettative.
 
-Alla fine, la soluzione ottimale è stata trovata nelle schede Rock 3 Model A (\ref{fig:testbed}). Queste schede, pur essendo leggermente più economiche rispetto ai Raspberry Pi, offrivano le prestazioni, la flessibilità e il costo contenuto ricercati. Sono state utilizzate quattro unità, tutte configurate in modo identico con Armbian OS come sistema operativo. Ulteriori dettagli verranno forniti in seguito.
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.7\textwidth]{testbed_cambia.png}
-    \caption{Testbed}
-    \label{fig:testbed}
-\end{figure}
+Alla fine, la soluzione ottimale è stata trovata nelle schede Rock 3 Model A. Queste schede, pur essendo leggermente più economiche rispetto ai Raspberry Pi, offrivano le prestazioni, la flessibilità e il costo contenuto ricercati. Sono state utilizzate quattro unità, tutte configurate in modo identico con Armbian OS come sistema operativo. Ulteriori dettagli verranno forniti in seguito.
 
 Per l'esecuzione delle varie prove, sono stati utilizzati due software: iPerf 2 e Netcat versione OpenBSD.
 
 \section{Rock 3 Model A board}
 
-Il Rock 3 Model A è una scheda di sviluppo avanzata, progettata per applicazioni che richiedono elevate prestazioni di calcolo, rendendola particolarmente adatta per progetti di Internet of Things (IoT), edge computing e server leggeri. 
+Il Rock 3 Model A (Figura \ref{fig:rock}) è una scheda di sviluppo avanzata, progettata per applicazioni che richiedono elevate prestazioni di calcolo, rendendola particolarmente adatta per progetti di Internet of Things (IoT), edge computing e server leggeri. 
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{ROCK_3A.png}
+    \caption{Rock 3 Model A}
+    \label{fig:rock}
+\end{figure}
 
 Al centro di questa scheda si trova il processore Rockchip RK3566, un potente quad-core ARM Cortex-A55 che può raggiungere una frequenza di clock fino a 2.0 GHz. Questa architettura a 64 bit consente di gestire una vasta gamma di applicazioni moderne in modo efficiente. La scheda è dotata di 2 GB di RAM LPDDR4, che garantiscono prestazioni elevate e una gestione efficace delle applicazioni multitasking. Per quanto riguarda l'archiviazione, il Rock 3 Model A offre uno slot per schede microSD, permettendo di espandere facilmente la capacità di memoria, oltre a supportare eMMC fino a 64 GB. Per la connettività, è equipaggiata con una porta Gigabit Ethernet, che assicura una connessione di rete ad alta velocità, e diverse porte USB 3.0 e USB 2.0 per il collegamento di dispositivi esterni. 
 
@@ -47,7 +47,7 @@ Le quattro schede utilizzate nel progetto, come descritto prima, sono dotate di 
 
 La seconda interfaccia è una connessione Ethernet, progettata specificamente per consentire un'interazione diretta con le schede, permettendo così l'invio di comandi per la configurazione, l'avvio e la chiusura dei test, tutti gestiti da un PC.
 
-I quattro dispositivi sono stati collegati a uno switch Ethernet a cinque porte, mentre la porta aggiuntiva è stata riservata per la connessione del PC. Nell'immagine \ref{fig:etichetta} è mostrata la topologia di rete con i vari indirizzi IP assegnati.
+I quattro dispositivi sono stati collegati a uno switch Ethernet a cinque porte, mentre la porta aggiuntiva è stata riservata per la connessione del PC. Nella figura \ref{fig:etichetta} è mostrata la topologia di rete con i vari indirizzi IP assegnati.
 
 \begin{figure}[h!]
     \centering
