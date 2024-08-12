@@ -9,3 +9,6 @@
 **/*.toc
 *.bbl
 *.blg
+.DS_Store
+main.lof
+main.lot
