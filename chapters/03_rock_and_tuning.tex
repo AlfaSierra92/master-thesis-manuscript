@@ -75,6 +75,14 @@ L'interfaccia Wi-Fi di ogni singolo dispositivo Rock, al fine di avere una cones
 
 Non si entrerà nel dettaglio di questi comandi, del resto abbastanza ovvi; ci si limita ad esplicitare che l'interfaccia è stata settata in modalità OCB (\textit{Outside the Context of BSS}), è stato scelto il canale 11, con frequenza fondamentale f\ped{0} pari a 2462 MHz e che, naturalmente, viene assegnato un indirizzo IP con la rispettiva rotta.
 
+Nel nostro progetto, abbiamo deciso di utilizzare una frequenza appartenente alla banda ISM (\textit{Industrial, Scientific and Medical}) anziché quelle specificamente designate dallo standard 802.11p. Questa scelta è stata motivata principalmente dalla necessità di semplificare l'implementazione e garantire la compatibilità hardware.
+
+La banda ISM è ampiamente utilizzata e supportata da numerosi dispositivi commerciali, inclusi quelli a nostra disposizione, il che facilita l'accesso e l'implementazione della tecnologia senza richiedere hardware specializzato. Al contrario, le frequenze stabilite dall'802.11p sono progettate specificamente per le comunicazioni veicolari e richiedono attrezzature più avanzate e costose, che non sempre sono disponibili o compatibili con il nostro sistema.
+
+Inoltre, l'hardware impiegato nel nostro progetto non era completamente compatibile con le frequenze specifiche dell'IEEE 802.11p, il che avrebbe comportato ulteriori complicazioni e ritardi nell'implementazione. L'acquisto di attrezzature adeguate per supportare l'IEEE 802.11p avrebbe comportato un significativo aumento dei costi, rendendo il progetto meno sostenibile dal punto di vista economico.
+
+Optando per la banda ISM, siamo stati in grado di garantire una maggiore interoperabilità e una configurazione più rapida, consentendoci di concentrarci sugli aspetti funzionali del nostro sistema. A livello pratico, questa scelta non comporta sostanziali differenze, se non per il fatto che, lavorando con un canale appartenente alla banda 5.9 GHz avremmo potuto ottenere prestazioni leggermente migliori grazie a una minore congestione della banda. Ciò ci permette di mantenere un sistema efficiente senza dover affrontare le complessità e i costi associati all'implementazione delle specifiche IEEE 802.11p.
+
 \section{Tweaking}
 Per rendere possibili alcune configurazioni nei dispositivi Rock e la raccolta dei dati, si è reso necessario mettere mano nalel codice sorgente del Kernel Linux ed applicare alcune patch.
 
