@@ -87,7 +87,100 @@ Parlando circa le frequenze utilizzate, l'IEEE 802.11p opera nella banda di freq
 Il canale 178 (5.890 GHz) è un canale di controllo, responsabile della gestione della trasmissione e della creazione del collegamento. Inoltre, sono disponibili sei canali di servizio per la comunicazione bidirezionale tra diversi tipi di unità.
 
 \subsection[Layer MAC]{Layer MAC}
+Non esiste una netta distinzione tra il layer MAC dell'IEEE 802.11p con il relativo omonimo del classico IEEE 802.11, se non per alcuni concetti:
 
-\section[EDCA]{EDCA}
+\begin{itemize}
+    \item come già esplicitato quando si è iniziato a parlare di \textit{WAVE} poc'anzi, esso si basa principalmente sulla modalità \textit{OCB} anzichè le classiche, come ad esempio la \textit{Infrastructure mode}.
+    \item per l'accesso al canale, sfrutta una variante della \textit{DCF (Distributed Coordination Function)} chiamata \textit{EDCA (Enhanced Distributed Channel Access)}, sviluppata appositamente per supportare politiche di QoS. A breve verrà affrontato questa nuova \textit{feature} maggiormente nel dettaglio.
+\end{itemize}
+
+\subsection[EDCA]{EDCA}
+Nell'EDCA, la differenziazione del servizio è garantita attraverso l'assegnazione di diversi parametri di contesa a ciascuna \textit{Access Category (AC)}. Una stazione QoS può supportare fino a otto priorità utente, che vengono mappate su quattro AC. Ogni AC compete per l'accesso al canale utilizzando impostazioni diverse di AIFS (\textit{Arbitration Inter-frame Space}) e CW (\textit{Contention Window})\cite{4024121}.
+
+A differenza della DCF, dove il DIFS (\textit{Distributed Inter-frame Space}) è utilizzato come IFS (\textit{Inter Frame Space}) comune per consentire a una stazione di accedere al canale, l'EDCF adotta AIFS distinti per ciascuna AC al fine di ottenere una differenziazione nell'accesso. L'AIFS per una specifica AC è definito come segue:
+
+\[AIFS[AC] = AIFSN[AC] * \sigma + SIFS\]
+
+dove
+\begin{itemize}
+    \item \textit{AIFSN[AC]} denota un numero per differenziare le AIFS per ogni AC diversa (vedi Tabella \ref{table:2});
+    \item \textit{\textsigma} è un intervallo di tempo dipendente dal layer fisico;
+    \item \textit{SIFS (\textit{Short Inter Frame Space})} è il tempo tra un frame di dati e uno di ACK.
+\end{itemize}
+
+Questi parametri variano in base a determinate caratteristiche della connessione, come la modulazione utilizzata e l'adozione di tecniche MIMO (Tabella \ref{table:2}).
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|>{\centering\arraybackslash}p{10em}|>{\centering\arraybackslash}p{7em}|>{\centering\arraybackslash}p{7em}|>{\centering\arraybackslash}p{7em}|} 
+     \hline
+     \textbf{AC} & \textbf{CWmin} & \textbf{CWmax} & \textbf{AIFSN} \\ 
+     \hline
+     \textbf{AC\_VO (Voice)} & (aCWmin+1)/4-1 & (aCWmin+1)/2-1 & 2 \\ 
+     \hline
+     \textbf{AC\_VI (Video)} & (aCWmin+1)/2-1 & aCWmin & 2 \\
+     \hline
+     \textbf{AC\_BE (Best Effort)} & aCWmin & aCWmax & 7 \\
+     \hline
+     \textbf{AC\_BK (Background)} & aCWmin & aCWmax & 7 \\
+     \hline
+    \end{tabular}
+    \caption{Parametri delle diverse AC}
+    \label{table:2}
+\end{table}
+
+Nella Tabella \ref{table:3} sono riportati i parametri nel caso di aCWmin=31 e aCWmax=1023, come usati, per esempio, nel caso di utilizzo di OFDM e MIMO (\textit{IEEE 802.11n}).
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|>{\centering\arraybackslash}p{10em}|>{\centering\arraybackslash}p{7em}|>{\centering\arraybackslash}p{7em}|>{\centering\arraybackslash}p{7em}|} 
+     \hline
+     \textbf{AC} & \textbf{CWmin} & \textbf{CWmax} & \textbf{AIFSN} \\ 
+     \hline
+     \textbf{AC\_VO (Voice)} & 7 & 15 & 2 \\ 
+     \hline
+     \textbf{AC\_VI (Video)} & 15 & 31 & 2 \\
+     \hline
+     \textbf{AC\_BE (Best Effort)} & 31 & 1023 & 7 \\
+     \hline
+     \textbf{AC\_BK (Background)} & 31 & 1023 & 7 \\
+     \hline
+    \end{tabular}
+    \caption{Parametri delle diverse AC}
+    \label{table:3}
+\end{table}
+
+E' banale notare che la categoria ad accesso prioritario sarà \textit{AC\_V0}, con la priorità che andrà a scendere siano a \textit{AC\_BK}.
+
+Per comprendere la differenziazione del servizio introdotta da AIFS e CW, possiamo considerare l'esempio mostrato nella Figura \ref{fig:aifs}, in cui sono presenti due stazioni, ciascuna con pacchetti in AC1 e AC4. La differenza di AIFSN (AIFS Number) è di 5, il che significa che l'AC1 della STA1 (Stazione 1) ridurrà il suo contatore di backoff 5 slot prima dell'AC4 della STA2 (Stazione 2). Inoltre, durante questo intervallo, il contatore di backoff dell'AC ad alta priorità può arrivare a zero, consentendo la trasmissione del pacchetto. Questo porta all'occupazione del canale a causa della trasmissione del pacchetto ad alta priorità e alla successiva risincronizzazione.
+
+\clearpage
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{aifs.png}
+    \caption{Accesso al canale nell'EDCA}
+    \label{fig:aifs}
+\end{figure}
+
+Ad ogni differente AC viene assegnata una differente coda; i vari frame vengono accodati nella coda appropriata in base alla \textit{Class Of Service (CoS)} di appartenenza; quest'ultime risultano essere quelle definite in un altro standard, ovvero l'IEEE 802.1D\cite{1309630}. Il mapping tra classe del frame e AC viene effettuata in questo modo:
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|>{\centering\arraybackslash}p{10em}|>{\centering\arraybackslash}p{7em}|} 
+     \hline
+     \textbf{AC} & \textbf{User Priorities} \\ 
+     \hline
+     \textbf{AC\_VO (Voice)} & 6, 7 \\ 
+     \hline
+     \textbf{AC\_VI (Video)} & 4, 5 \\
+     \hline
+     \textbf{AC\_BE (Best Effort)} & 0, 3 \\
+     \hline
+     \textbf{AC\_BK (Background)} & 1, 2 \\
+     \hline
+    \end{tabular}
+    \caption{Mappature delle AC con le \textit{User Priorities}}
+    \label{table:4}
+\end{table}
+
+E', comunque, sempre presente una sorta di casualità tra un AIFSN e un altro in modo da evitare che frame messi nella coda con priorità maggiore monopolizzino il canale a discapito di quelli a priorità minore.
 
 \subsection[IEEE 1609.4 for multi-channel operations]{IEEE 1609.4 for multi-channel operations}
