@@ -46,7 +46,45 @@ Risultano, anche, essere presenti altre varie componenti del protocollo \textit{
 Per concludere, alla luce del fatto che il contesto preso in esame, quello veicolare, richiede uno scambio di informazioni con latenze minime, \textit{WAVE} si basa interamente su una nuova modalità Wireless, simile alla classica \textit{ad hoc}, chiamata \textit{OCB (Outside Context of a Basic Service Set)}. Questo è un approccio che consente la trasmissione di dati al di fuori delle limitazioni tradizionali delle reti Wi-Fi, permettendo una comunicazione più flessibile e diretta tra i dispositivi, senza la necessità di passare attraverso infrastrutture quali i punti di accesso (\textit{Access Point}).
 
 \subsection[Layer fisico]{Layer fisico}
-L'802.11p è uno standard della famiglia IEEE 802.11 progettato specificamente per la comunicazione wireless in ambienti vehicolari. È una tecnologia di rete che consente la comunicazione tra veicoli e tra veicoli e infrastrutture, facilitando applicazioni come la sicurezza stradale, la gestione del traffico e i servizi di infotainment.
+L'IEEE 802.11p è uno standard della famiglia IEEE 802.11 progettato specificamente per la comunicazione wireless in ambienti vehicolari. È una tecnologia di rete che consente la comunicazione tra veicoli e tra veicoli e infrastrutture, facilitando applicazioni come la sicurezza stradale, la gestione del traffico e i servizi di infotainment.
+
+Esso, innanzitutto, è basato su una modulazione OFDM (\textit{Orthogonal Frequencies Division Multiplexing}), ove in un totale di 64 sottoportanti, 48 vengono utilizzate per la trasmissione delle informazioni e 4 sono pilota; supporta velocità differenti in base alla modulazione delle sottoportanti e alla larghezza di banda utilizzati.
+
+Di seguito una tabella riassuntiva dei parametri appena citati, suddivisi per \textit{bandwidth}:
+
+\clearpage % Forza la stampa delle tabelle e figure in sospeso
+
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{|p{7em}|p{7em}|p{7em}|p{7em}|} 
+     \hline
+     \textbf{Parametri} & \textbf{20 MHz} & \textbf{10 MHz} & \textbf{5 MHz} \\ 
+     \hline
+     \textbf{Bit rate (Mbit/s)} & 6, 9, 12, 18, 24, 36, 48, 54 & 3, 4.5, 6, 9, 12, 18, 24, 27 & 1.5, 2.25, 3, 4.5, 6, 9, 12, 13.5 \\ 
+     \hline
+     \textbf{Modulation} & BPSK, QPSK, 16/64QAM & BPSK, QPSK, 16/64QAM & BPSK, QPSK, 16/64QAM \\
+     \hline
+     \textbf{Code rate} & 1/2, 2/3, 3/4 & 1/2, 2/3, 3/4 & 1/2, 2/3, 3/4 \\
+     \hline
+     \textbf{Subcarriers} & 52 & 52 & 52 \\
+     \hline
+     \textbf{Spacing} & 312.5 kHz & 156.25 kHz & 78.125 kHz \\ 
+     \hline
+    \end{tabular}
+    \caption{Parametri delle diverse larghezze di banda}
+    \label{table:1}
+\end{table}
+
+Parlando circa le frequenze utilizzate, l'IEEE 802.11p opera nella banda di frequenza di 5,9 GHz (5,850 - 5,925 GHz), con le larghezze di canale citate nella Tabella \ref{table:1}. Questo standard consente l'uso di circa 9 canali, come illustrato nella Figura \ref{fig:frequency}. Tra questi, i canali 172 (5.860 GHz) e 184 (5.920 GHz) sono dedicati alla sicurezza: il primo fornisce una soluzione robusta per la sicurezza, mentre il secondo funge da protezione contro la congestione su altri canali\cite{ad_hoc_new}.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{frequency.png}
+    \caption{Frequenze dell'IEEE 802.11p}
+    \label{fig:frequency}
+\end{figure}
+
+Il canale 178 (5.890 GHz) è un canale di controllo, responsabile della gestione della trasmissione e della creazione del collegamento. Inoltre, sono disponibili sei canali di servizio per la comunicazione bidirezionale tra diversi tipi di unità.
 
 \subsection[Layer MAC]{Layer MAC}
 
