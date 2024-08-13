@@ -192,7 +192,7 @@ iPerf è un software di benchmarking di rete utilizzato per misurare le prestazi
 
 Le modalità con cui tale software è stato utilizzato verranno discusse più avanti nell'apposito capitolo; qui ci si soffermerà, più che altro, sulle modifiche effettuate al codice sorgente.
 
-La patch, che per chiarezza di lettura non è stata inserita in questo paragrafo ma potrà essere trovata in appendice, abilita il supporto alle 4 code EDCA del livello MAC. L'opzione -A, specifica per iPerf in modalità client, può ora essere usata per specificare una classe di traffico a cui inviare il flusso in uscita (-A BK o -A BE o -A VI o -A VO). Se non si specifica alcuna classe di traffico, le opzioni rimangono quelle di un pacchetto iPerf 2 standard (cioè si utilizza effettivamente AC\_BE).
+La patch, che per chiarezza di lettura non è stata inserita in questo paragrafo ma potrà essere trovata in appendice (\autoref{iperf_ac}), abilita il supporto alle 4 code EDCA del livello MAC. L'opzione -A, specifica per iPerf in modalità client, può ora essere usata per specificare una classe di traffico a cui inviare il flusso in uscita (-A BK o -A BE o -A VI o -A VO). Se non si specifica alcuna classe di traffico, le opzioni rimangono quelle di un pacchetto iPerf 2 standard (cioè si utilizza effettivamente AC\_BE).
 
 Da notare che la patch è stata sviluppata per la versione 2 del software (nello specifico la v2.2.0); esiste anche la versione 3 che, tuttavia, non è stata presa in considerazione in quanto i cambiamenti architetturali effettuati al programma non consentivano, facilmente, l'impletazione delle modifiche necessarie.
 
