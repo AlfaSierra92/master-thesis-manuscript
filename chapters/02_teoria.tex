@@ -95,16 +95,16 @@ Non esiste una netta distinzione tra il layer MAC dell'IEEE 802.11p con il relat
 \end{itemize}
 
 \subsection[EDCA]{EDCA}
-Nell'EDCA, la differenziazione del servizio è garantita attraverso l'assegnazione di diversi parametri di contesa a ciascuna \textit{Access Category (AC)}. Una stazione QoS può supportare fino a otto priorità utente, che vengono mappate su quattro AC. Ogni AC compete per l'accesso al canale utilizzando impostazioni diverse di AIFS (\textit{Arbitration Inter-frame Space}) e CW (\textit{Contention Window})\cite{4024121}.
+Nell'EDCA, la differenziazione del servizio è garantita attraverso l'assegnazione di diversi parametri di contesa a ciascuna \textit{Access Category (AC)}. Una stazione QoS può supportare fino a otto priorità utente, che vengono mappate su quattro AC. Ogni AC compete per l'accesso al canale utilizzando impostazioni diverse di AIFS (\textit{Arbitration Inter-frame Space}) e CW (\textit{Contention Window})\cite{4024121}; per completezza, si riporta che l'AIFS determina quanto tempo ogni stazione deve attendere prima di poter iniziare a trasmettere, mentre la CW quanto tempo ciascuna stazione deve aspettare in modo casuale prima di tentare di trasmettere.
 
-A differenza della DCF, dove il DIFS (\textit{Distributed Inter-frame Space}) è utilizzato come IFS (\textit{Inter Frame Space}) comune per consentire a una stazione di accedere al canale, l'EDCF adotta AIFS distinti per ciascuna AC al fine di ottenere una differenziazione nell'accesso. L'AIFS per una specifica AC è definito come segue:
+A differenza della DCF, dove il DIFS (\textit{Distributed Inter-frame Space}) è utilizzato come IFS (\textit{Inter Frame Space}) comune per consentire a una stazione di accedere al canale, l'EDCF (\textit{Enhanced Distributed Channel Function}) adotta AIFS distinti per ciascuna AC al fine di ottenere una differenziazione nell'accesso. L'AIFS per una specifica AC è definito come segue:
 
 \[AIFS[AC] = AIFSN[AC] * \sigma + SIFS\]
 
-dove
+\noindent dove
 \begin{itemize}
     \item \textit{AIFSN[AC]} denota un numero per differenziare le AIFS per ogni AC diversa (vedi Tabella \ref{table:2});
-    \item \textit{\textsigma} è un intervallo di tempo dipendente dal layer fisico;
+    \item \textit{\textsigma} \textit{(slot time)} è un intervallo di tempo dipendente dal layer fisico;
     \item \textit{SIFS (\textit{Short Inter Frame Space})} è il tempo tra un frame di dati e uno di ACK.
 \end{itemize}
 
@@ -128,7 +128,7 @@ Questi parametri variano in base a determinate caratteristiche della connessione
     \label{table:2}
 \end{table}
 
-Nella Tabella \ref{table:3} sono riportati i parametri nel caso di aCWmin=31 e aCWmax=1023, come usati, per esempio, nel caso di utilizzo di OFDM e MIMO (\textit{IEEE 802.11n}).
+Nella Tabella \ref{table:3}, invece, sono riportati i parametri nel caso di aCWmin=31 e aCWmax=1023, come usati, per esempio, nel caso di utilizzo di OFDM e MIMO (\textit{IEEE 802.11n}).
 \begin{table}[h!]
     \centering
     \begin{tabular}{|>{\centering\arraybackslash}p{10em}|>{\centering\arraybackslash}p{7em}|>{\centering\arraybackslash}p{7em}|>{\centering\arraybackslash}p{7em}|} 
@@ -152,7 +152,6 @@ E' banale notare che la categoria ad accesso prioritario sarà \textit{AC\_V0}, 
 
 Per comprendere la differenziazione del servizio introdotta da AIFS e CW, possiamo considerare l'esempio mostrato nella Figura \ref{fig:aifs}, in cui sono presenti due stazioni, ciascuna con pacchetti in AC1 e AC4. La differenza di AIFSN (AIFS Number) è di 5, il che significa che l'AC1 della STA1 (Stazione 1) ridurrà il suo contatore di backoff 5 slot prima dell'AC4 della STA2 (Stazione 2). Inoltre, durante questo intervallo, il contatore di backoff dell'AC ad alta priorità può arrivare a zero, consentendo la trasmissione del pacchetto. Questo porta all'occupazione del canale a causa della trasmissione del pacchetto ad alta priorità e alla successiva risincronizzazione.
 
-\clearpage
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.7\textwidth]{aifs.png}
@@ -160,7 +159,7 @@ Per comprendere la differenziazione del servizio introdotta da AIFS e CW, possia
     \label{fig:aifs}
 \end{figure}
 
-Ad ogni differente AC viene assegnata una differente coda; i vari frame vengono accodati nella coda appropriata in base alla \textit{Class Of Service (CoS)} di appartenenza; quest'ultime risultano essere quelle definite in un altro standard, ovvero l'IEEE 802.1D\cite{1309630}. Il mapping tra classe del frame e AC viene effettuata in questo modo:
+Ad ogni differente AC viene assegnata una differente coda; i vari frame vengono accodati nella coda appropriata in base alla \textit{Class Of Service (CoS)} di appartenenza; quest'ultime risultano essere quelle definite in un altro standard, ovvero l'IEEE 802.1D\cite{1309630}. Il mapping tra classe del frame e AC viene effettuata in questo modo (Tabella \ref{table:4}):
 
 \begin{table}[h!]
     \centering
