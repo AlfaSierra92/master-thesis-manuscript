@@ -26,7 +26,14 @@ L'IEEE 802.11 è un insieme di standard sviluppato dall'Institute of Electrical 
 
 La prima versione, 802.11-1997, offriva una velocità massima di 2 Mbps e operava nella banda di frequenza a 2.4 GHz. Nel 1999, sono stati introdotti gli standard 802.11b e 802.11a. L'802.11b ha aumentato la velocità massima a 11 Mbps, diventando il primo standard Wi-Fi ampiamente adottato, mentre l'802.11a operava a 5 GHz e supportava velocità fino a 54 Mbps, sebbene avesse una portata inferiore rispetto all'802.11b. Successivamente, nel 2003, è stato introdotto l'802.11g, che combinava le migliori caratteristiche dei due standard precedenti, supportando velocità fino a 54 Mbps nella banda a 2.4 GHz.
 
-L'802.11n, lanciato nel 2009, ha introdotto la tecnologia MIMO (Multiple Input Multiple Output), aumentando la velocità fino a 600 Mbps e migliorando l'efficienza della rete. Nel 2013, l'802.11ac ha operato principalmente a 5 GHz, supportando velocità superiori a 1 Gbps grazie a tecnologie avanzate come il beamforming. Infine, l'802.11ax, noto anche come Wi-Fi 6, è stato introdotto nel 2019, apportando miglioramenti significativi in termini di efficienza, capacità e prestazioni in ambienti affollati, con velocità teoriche che possono raggiungere fino a 9.6 Gbps. È previsto che l'802.11be, o Wi-Fi 7, sarà disponibile nel 2024, introducendo ulteriori miglioramenti in termini di velocità e latenza.
+L'802.11n, lanciato nel 2009, ha introdotto la tecnologia MIMO (Multiple Input Multiple Output), aumentando la velocità fino a 600 Mbps e migliorando l'efficienza della rete\cite{evolution}. Nel 2013, l'802.11ac ha operato principalmente a 5 GHz, supportando velocità superiori a 1 Gbps grazie a tecnologie avanzate come il beamforming. Infine, l'802.11ax, noto anche come Wi-Fi 6, è stato introdotto nel 2019, apportando miglioramenti significativi in termini di efficienza, capacità e prestazioni in ambienti affollati, con velocità teoriche che possono raggiungere fino a 9.6 Gbps. È previsto che l'802.11be, o Wi-Fi 7, sarà disponibile nel 2024, introducendo ulteriori miglioramenti in termini di velocità e latenza (Figura \ref{fig:evo}).
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{evolution.png}
+    \caption{Evoluzione dello standard IEEE 802.11}
+    \label{fig:evo}
+\end{figure}
 
 Un aspetto fondamentale del protocollo IEEE 802.11 è la Distributed Coordination Function (DCF), che rappresenta il metodo standard per l'accesso al canale di comunicazione. DCF è simile al protocollo CSMA/CA utilizzato nelle reti cablate. Quando un nodo inizia a trasmettere dati, gli altri dispositivi devono attendere che il canale diventi libero prima di poter inviare le proprie informazioni. Dopo che una stazione ha completato la trasmissione, c'è un intervallo chiamato Short Interframe Space (SIFS), durante il quale l'access point attende prima di inviare un pacchetto di conferma (ACK). Una volta ricevuto l'ACK, la stazione successiva deve attendere il Distributed Interframe Space (DIFS) prima di tentare di trasmettere.
 
