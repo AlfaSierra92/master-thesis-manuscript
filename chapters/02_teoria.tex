@@ -12,6 +12,48 @@ Attraverso questa analisi di WAVE e EDCA, il capitolo intende fornire una compre
 
 %\section{VANET}
 
+\section{IEEE 802.11}
+Viene fatto un excursus molto breve sull'IEEE 802.11, che servirà come introduzione agli argomenti successivi. L'IEEE 802.11 è un insieme di standard sviluppati dall'Institute of Electrical and Electronics Engineers (IEEE) per le comunicazioni wireless, comunemente conosciuto come Wi-Fi. Questi standard definiscono le specifiche per la trasmissione di dati in reti locali senza fili, coprendo vari aspetti come il livello fisico (PHY) e il controllo dell'accesso al mezzo (MAC)\cite{ieee80211}.
+
+L'adozione dell'IEEE 802.11 ha rivoluzionato il modo in cui ci connettiamo a Internet e scambiamo dati, rendendo possibile l'accesso wireless in una vasta gamma di dispositivi, dai computer portatili agli smartphone. Gli standard 802.11 sono stati aggiornati nel corso degli anni per migliorare la velocità, la sicurezza e l'affidabilità delle comunicazioni.
+
+Nel contesto delle comunicazioni C-ITS (Cooperative Intelligent Transport Systems), l'IEEE 802.11 è particolarmente rilevante poiché la sua architettura e le sue tecniche di accesso al canale sono state adottate nell'architettura ITS-G5. Comprendere le basi dell'IEEE 802.11 è essenziale per apprezzare come queste tecnologie possano essere integrate per supportare la comunicazione tra veicoli e infrastrutture, migliorando la sicurezza stradale e l'efficienza del traffico.
+
+Questa panoramica sull'IEEE 802.11 fornirà un contesto utile per esplorare più a fondo le specifiche ITS-G5, i meccanismi di controllo della congestione e le tecniche di accesso al canale che saranno trattati nei capitoli successivi.
+
+\subsection[Caratteristiche]{Caratteristiche}
+L'IEEE 802.11 è un insieme di standard sviluppato dall'Institute of Electrical and Electronics Engineers (IEEE) per la comunicazione wireless nelle reti locali (WLAN), comunemente conosciuto come Wi-Fi. Questi standard definiscono le specifiche per la trasmissione di dati su reti senza fili e hanno subito diverse evoluzioni nel corso degli anni.
+
+La prima versione, 802.11-1997, offriva una velocità massima di 2 Mbps e operava nella banda di frequenza a 2.4 GHz. Nel 1999, sono stati introdotti gli standard 802.11b e 802.11a. L'802.11b ha aumentato la velocità massima a 11 Mbps, diventando il primo standard Wi-Fi ampiamente adottato, mentre l'802.11a operava a 5 GHz e supportava velocità fino a 54 Mbps, sebbene avesse una portata inferiore rispetto all'802.11b. Successivamente, nel 2003, è stato introdotto l'802.11g, che combinava le migliori caratteristiche dei due standard precedenti, supportando velocità fino a 54 Mbps nella banda a 2.4 GHz.
+
+L'802.11n, lanciato nel 2009, ha introdotto la tecnologia MIMO (Multiple Input Multiple Output), aumentando la velocità fino a 600 Mbps e migliorando l'efficienza della rete. Nel 2013, l'802.11ac ha operato principalmente a 5 GHz, supportando velocità superiori a 1 Gbps grazie a tecnologie avanzate come il beamforming. Infine, l'802.11ax, noto anche come Wi-Fi 6, è stato introdotto nel 2019, apportando miglioramenti significativi in termini di efficienza, capacità e prestazioni in ambienti affollati, con velocità teoriche che possono raggiungere fino a 9.6 Gbps. È previsto che l'802.11be, o Wi-Fi 7, sarà disponibile nel 2024, introducendo ulteriori miglioramenti in termini di velocità e latenza.
+
+Un aspetto fondamentale del protocollo IEEE 802.11 è la Distributed Coordination Function (DCF), che rappresenta il metodo standard per l'accesso al canale di comunicazione. DCF è simile al protocollo CSMA/CA utilizzato nelle reti cablate. Quando un nodo inizia a trasmettere dati, gli altri dispositivi devono attendere che il canale diventi libero prima di poter inviare le proprie informazioni. Dopo che una stazione ha completato la trasmissione, c'è un intervallo chiamato Short Interframe Space (SIFS), durante il quale l'access point attende prima di inviare un pacchetto di conferma (ACK). Una volta ricevuto l'ACK, la stazione successiva deve attendere il Distributed Interframe Space (DIFS) prima di tentare di trasmettere.
+
+Non meno importante è l'emendamento IEEE 802.11p (IEEE WAVE), che sarà descritto in modo approfondito successivamente. Questo standard è particolarmente rilevante per le applicazioni di comunicazione veicolare e per la gestione della sicurezza nelle reti di trasporto.
+
+Le caratteristiche tecniche degli standard 802.11 includono l'operatività nelle bande di frequenza a 2.4 GHz e 5 GHz, con l'802.11ax che introduce anche la banda a 6 GHz. Questi standard utilizzano diverse tecniche di modulazione, come BPSK, QPSK e 16-QAM, per ottimizzare la trasmissione dei dati. La larghezza di banda varia: mentre gli standard precedenti utilizzavano larghezze di banda di 20 MHz e 40 MHz, gli standard più recenti come 802.11ac e 802.11ax possono utilizzare larghezze di banda fino a 160 MHz. La tecnologia MIMO consente l'uso di più antenne per trasmettere e ricevere dati simultaneamente, migliorando la capacità e la velocità della rete, mentre il beamforming ottimizza la direzione del segnale verso il dispositivo ricevente, migliorando la portata e l'affidabilità della connessione.
+
+Per quanto riguarda la sicurezza, gli standard 802.11 hanno evoluto i protocolli di protezione nel tempo. Il primo protocollo, WEP (Wired Equivalent Privacy), si è rivelato vulnerabile a vari attacchi, portando all'introduzione di WPA (Wi-Fi Protected Access), che offriva una maggiore sicurezza. Successivamente, WPA2, basato su AES (Advanced Encryption Standard), ha fornito una protezione robusta, mentre WPA3, l'ultima evoluzione, migliora ulteriormente la sicurezza, specialmente in ambienti pubblici e per dispositivi IoT.
+
+\subsection[DCF]{Distributed Coordination Function}
+La Distributed Coordination Function (DCF) è la modalità standard attraverso cui i dispositivi Wi-Fi accedono al canale di comunicazione, simile al protocollo CSMA/CA utilizzato nelle reti cablate. Quando un nodo inizia a trasmettere dati, gli altri dispositivi devono attendere che il canale diventi libero prima di poter inviare le proprie informazioni.
+
+Dopo che una stazione ha completato la trasmissione dei dati, c'è un intervallo chiamato Short Interframe Space (SIFS), durante il quale l'access point (AP) attende prima di inviare un pacchetto di conferma (ACK). Una volta ricevuto l'ACK, la seconda stazione deve attendere il Distributed Interframe Space (DIFS), che è un periodo di tempo definito per consentire a più nodi di accedere al canale (Figura \ref{fig:dcf}). È fondamentale che SIFS sia minore di DIFS, poiché ciò consente ai nodi di tentare di trasmettere i dati, sebbene non necessariamente di farlo immediatamente.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{dcf.png}
+    \caption{Distributed Coordination Function}
+    \label{fig:dcf}
+\end{figure}
+
+Se il canale risulta ancora occupato, il nodo non può semplicemente attendere il DIFS; deve considerare un ulteriore intervallo di backoff per evitare conflitti. Il backoff è un valore casuale scelto all'interno di un intervallo definito da [0, CW], dove CW rappresenta la congestion window, e il suo valore può variare a seconda della situazione della rete. Minore è il valore di CW, minore sarà l'intervallo di attesa. Durante il periodo di contesa, il canale rimarrà inattivo per uno slot temporale, consentendo di decrementare il valore di CW e ridurre l'intervallo di attesa, specialmente in caso di congestione.
+
+Sebbene DCF sia un meccanismo efficace per la condivisione del canale tra più stazioni, presenta alcune limitazioni significative. Innanzitutto, non esiste un controllo della congestione, il che può portare a collisioni. Le collisioni multiple possono limitare la banda disponibile e causare seri problemi di trasmissione. Inoltre, DCF non garantisce alcuna Quality of Service (QoS), non essendoci un metodo per prioritizzare i flussi di traffico.
+
+Per affrontare queste problematiche, esiste un'altra soluzione chiamata Point Coordination Function (PCF), che può essere utilizzata solo in configurazioni infrastrutturate, dove la connessione è gestita da un access point e include meccanismi per garantire la QoS. Tuttavia, poiché PCF non è adatta per il protocollo 802.11p, è necessario integrare la QoS direttamente nella Coordination Function (CF) per garantire prestazioni adeguate nelle reti che non possono utilizzare PCF. Tale problema è stato affrontato con lo sviluppo della EDCA con la \textit{DCF (Distributed Coordination Function)}, affrontata nell'apposita sezione.
+
 \section{IEEE WAVE}
 WAVE è progettato specificamente per ambienti di trasporto, consentendo la comunicazione tra veicoli (\textit{V2V: Vehicle-to-Vehicle}) e tra veicoli e infrastrutture stradali (\textit{V2I: Vehicle-to-Infrastructure}). Questo protocollo sfrutta canali wireless dedicati per garantire una bassa latenza e una maggiore affidabilità, elementi essenziali per applicazioni critiche come la prevenzione degli incidenti e la gestione del traffico. 
 
@@ -182,4 +224,91 @@ Ad ogni differente AC viene assegnata una differente coda; i vari frame vengono 
 
 E', comunque, sempre presente una sorta di casualità tra un AIFSN e un altro in modo da evitare che frame messi nella coda con priorità maggiore monopolizzino il canale a discapito di quelli a priorità minore.
 
-\section[Decentralized Congestion Control]{Decentralized Congestion Control}
+\section[DCC]{Decentralized Congestion Control}
+Le comunicazioni C-ITS devono funzionare anche in condizioni di traffico stradale intenso. Se tutti i veicoli partecipano allo scambio di informazioni C-ITS trasmettendo messaggi periodici, è probabile che si verifichi congestione nel canale wireless. Per evitare il degrado delle prestazioni del sistema causato da un carico eccessivo del canale e garantire un accesso equo alle risorse tra le stazioni ITS-G5 vicine (ITS-S), è necessario implementare meccanismi di controllo della congestione. A tal fine, l'ETSI ha pubblicato la specifica \textit{TS 102 687}, che definisce un meccanismo di controllo della congestione decentralizzato (\textit{DCC - Decentralized Congestion Control}) come parte dello stack di protocolli ITS-G5\cite{8535090}. Il DCC è un componente obbligatorio dell'ITS-S e opera nella banda di frequenza dei 5,9 GHz.
+
+Esso ha introdotto un approccio a macchina a stati finti al livello di accesso per adattare diversi parametri di trasmissione in base al carico del canale misurato. Ogni stato della macchina è associato a un determinato intervallo di carico del canale e a un insieme specifico di parametri di trasmissione. Questo consente al DCC di ottimizzare le comunicazioni in situazioni di congestione, migliorando l'efficienza e le prestazioni del sistema C-ITS.
+
+Esistono diverse configurazioni che prevedono molteplici stati nella macchina di stato, ma ci concentreremo in particolare sulla configurazione \textit{DCC 2+1}, che comprende tre stati distinti: \textit{Relaxed}, \textit{Active} e \textit{Restrictive} (Figura \ref{fig:dcc}).
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{dcc.png}
+    \caption{DCC nella configurazione \textit{"2+1"}}
+    \label{fig:dcc}
+\end{figure}
+
+In ciascuno stato del DCC vengono definite restrizioni sui parametri di trasmissione. L'ETSI DCC considera in generale cinque meccanismi per controllare l'accesso al canale del veicolo:
+
+\begin{itemize}
+    \item \textit{Transmit Power Control (TPC)} che adatta la potenza di trasmissione;
+    \item \textit{Transmit Rate Control (TRC)} che adatta l'intervallo di trasmissione dei pacchetti;
+    \item \textit{Transmit Datarate Control (TDC)} che adatta il \textit{data rate};
+    \item \textit{DCC Sensitivity Control (DSC)} che adatta dinamicamente il \textit{CCA Sensitivity Threshold (CSThresh)}, ovvero la soglia sotto la quale il canale viene rilevato libero e non occupato;
+    \item \textit{Transmit Access Control (TAC)} che apre e chiude dinamicamente l'accesso dei pacchetti con una determinata priorità alla relativa coda di trasmissione.
+\end{itemize}
+
+\noindent Maggiori dettagli su tali parametri verranno forniti nella sezione successiva.
+
+La scelta dello stato DCC si basa sulla valutazione del Channel Busy Ratio (CBR). L'ETSI propone un metodo di riferimento per stimare il valore del CBR consistente nel campionare tale valore ad intervalli prefissati per la durata di 1 secondo (Figura \ref{fig:cbr}); tale modello può, tuttavia, cambiare in base all'hardware utilizzato e al contesto di utilizzo.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{cbr.png}
+    \caption{Misurazione del CBR}
+    \label{fig:cbr}
+\end{figure}
+
+Ogni transizione nella macchina a stati ha un valore CBR corrispondente come soglia (Figura \ref{fig:dcc}); la transizione viene eseguita in
+una delle due condizioni seguenti:
+\begin{itemize}
+    \item \textit{Passaggio a uno stato più restrittivo}: se il valore CBR era superiore alla soglia durante l'ultimo intervallo di misurazione osservato.
+    \item \textit{Passaggio a uno stato meno restrittivo}: se il CBR è stato inferiore alla soglia durante gli ultimi cinque intervalli di misurazione consecutivi osservati.
+\end{itemize}
+
+\subsection[Parametri DCC]{Parametri DCC}
+Vengono mostrati i parametri relativi al DCC con i relativi valori in base allo stato\cite{6686471} (Tabella \ref{table:5}).
+
+TPC (Transmit Power Control), DSC (DCC Sensitivity Control) e TRC (Transmit Rate Control) sono stati scelti per l'analisi perché sono direttamente rilevanti per le applicazioni di sicurezza cooperativa, dove la priorità è garantire comunicazioni affidabili e tempestive. Questi meccanismi si concentrano sull'ottimizzazione della potenza di trasmissione, della sensibilità e del tasso di trasmissione, elementi cruciali per mantenere la qualità del segnale e ridurre i ritardi in situazioni di congestione.
+
+D'altra parte, TDC (Transmit Datarate Control) e TAC (Transmit Access Control) sono stati scartati per motivi specifici. La TDC è meno pertinente perché esiste un consenso consolidato nell'impostare a 6 Mbps la velocità di trasmissione per i messaggi di sicurezza, rendendo superflua la necessità di adattamenti dinamici della velocità. Questo approccio standardizzato garantisce una trasmissione stabile, essenziale in contesti critici.
+
+La TAC, invece, è stata esclusa poiché si occupa principalmente della gestione della priorità tra diversi flussi di traffico, un aspetto meno rilevante per le comunicazioni di sicurezza. In questo contesto, l'obiettivo principale è garantire che i messaggi critici vengano trasmessi senza ritardi, piuttosto che gestire la priorità tra vari tipi di dati. Pertanto, concentrarsi su TPC, DSC e TRC consente di affrontare in modo più efficace le sfide specifiche delle comunicazioni di sicurezza cooperativa.
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|>{\centering\arraybackslash}p{3em}|>{\centering\arraybackslash}p{5em}|>{\centering\arraybackslash}p{7em}|>{\centering\arraybackslash}p{7em}|>{\centering\arraybackslash}p{7em}|} 
+     \hline
+     \textbf{Scheme} & \textbf{Metric} & \textbf{RELAXED} & \textbf{ACTIVE} & \textbf{RESTRICTIVE} \\ 
+     \hline
+     \textbf{TPC} & \textit{\( P_{t} \)} & 35 dBm & 15 dBm & -10 dBm \\ 
+     \hline
+     \textbf{DSC} & \textit{CSThresh} & -95 dBm & -85 dBm & -65 dBm \\
+     \hline
+     \textbf{TRC} & Pack. inter. & 0.04 s & 0.5 s & 1 s\\
+     \hline
+    \end{tabular}
+    \caption{Parametri DCC}
+    \label{table:5}
+\end{table}
+
+Degno di nota il fatto che, nonostante i validi obiettivi delle tecniche DCC specificate dall'ETSI, finora solo pochi studi hanno analizzato le loro prestazioni. Ci sono solo alcuni lavori, come quello di Subramanian et al. \cite{subramanian2012congestion}, ove tutti i meccanismi DCC sono stati attivati in modo simulato, e i risultati indicano che non sono efficaci nel controllare la congestione e garantire la raggiungibilità. Gli autori propongono quindi miglioramenti alla tecnica TPC, progettando una macchina a stati con sei stati e una soglia di carico del canale più alta per lo stato di congestione. Tuttavia, entrambi i lavori non distinguono gli effetti di ciascun meccanismo.
+
+\subsection[DCC con code EDCA]{Parametri DCC con code EDCA}
+
+In aggiunta alle tecniche di controllo della congestione già specificate, l'ETSI ha introdotto parametri aggiuntivi in base alle categorie di accesso (Access Categories, AC) utilizzate\cite{etsi2011intelligent} (Figura \ref{fig:dcc_edca}). Queste categorie sono fondamentali per gestire le diverse priorità e requisiti di latenza delle comunicazioni veicolari. Ogni Access Category è associata a specifiche caratteristiche di traffico, consentendo una gestione più fine delle risorse di comunicazione.
+
+Ad esempio, le applicazioni critiche per la sicurezza, come i messaggi di avviso e le comunicazioni di emergenza, possono essere classificate in una categoria di accesso con priorità più alta. Ciò implica l'adozione di parametri di controllo della congestione più stringenti per garantire che questi messaggi vengano trasmessi senza ritardi. Al contrario, le comunicazioni meno critiche possono essere assegnate a categorie con requisiti di latenza e affidabilità inferiori, permettendo una gestione più flessibile delle risorse di rete.
+
+Questa suddivisione in Access Categories consente all'ETSI di ottimizzare le prestazioni del sistema, migliorando l'efficacia delle tecniche di controllo della congestione e garantendo che le comunicazioni più importanti ricevano la priorità necessaria in situazioni di traffico intenso.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{dcc_edca.png}
+    \caption{Parametri DCC con code EDCA}
+    \label{fig:dcc_edca}
+\end{figure}
+
+Il valore \textit{ref} indica che il parametro è invariato e viene utilizzato il valore precedente del parametro di riferimento corrispondente.
+
+Da come si può notare in figura \ref{fig:dcc_edca}, in questo contesto non è stata esclusa la \textit{Transmit Datarate Control}, in quanto, vista l'applicazione del DCC con code EDCA in contesti generici e non strettamente legati alla sicurezza, non aveva più senso basarsi sullo standard \textit{de facto} della velocità di trasmissione di 6 Mbps.
