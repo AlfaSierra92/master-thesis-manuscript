@@ -17,11 +17,11 @@ Attraverso questa analisi di IEEE 802.11, WAVE, EDCA e ETSI DCC, il capitolo int
 %\section{VANET}
 
 \section{IEEE 802.11}
-Viene fatto un excursus molto breve sull'IEEE 802.11, che servirà come introduzione agli argomenti successivi. L'IEEE 802.11 è un insieme di standard sviluppati dall'Institute of Electrical and Electronics Engineers (IEEE) per le comunicazioni wireless, comunemente conosciuto come Wi-Fi. Questi standard definiscono le specifiche per la trasmissione di dati in reti locali senza fili, coprendo vari aspetti come il livello fisico (PHY) e il controllo dell'accesso al mezzo (MAC)\cite{ieee80211}.
+Viene fatto un excursus molto breve sull'IEEE 802.11, che servirà come introduzione agli argomenti successivi. L'IEEE 802.11 è un insieme di standard sviluppati dall'Institute of Electrical and Electronics Engineers (IEEE) per le comunicazioni wireless, comunemente conosciuto come Wi-Fi. Questi standard definiscono le specifiche per la trasmissione di dati in reti locali senza fili, coprendo vari aspetti come il livello fisico (PHY) e il controllo dell'accesso al mezzo (MAC) \cite{ieee80211}.
 
 L'adozione dell'IEEE 802.11 ha rivoluzionato il modo in cui ci connettiamo a Internet e scambiamo dati, rendendo possibile l'accesso wireless in una vasta gamma di dispositivi, dai computer portatili agli smartphone. Gli standard 802.11 sono stati aggiornati nel corso degli anni per migliorare la velocità, la sicurezza e l'affidabilità delle comunicazioni.
 
-Nel contesto delle comunicazioni C-ITS (Cooperative Intelligent Transport Systems), l'IEEE 802.11 è particolarmente rilevante poiché la sua architettura e le sue tecniche di accesso al canale sono state adottate nell'architettura ITS-G5. Comprendere le basi dell'IEEE 802.11 è essenziale per apprezzare come queste tecnologie possano essere integrate per supportare la comunicazione tra veicoli e infrastrutture, migliorando la sicurezza stradale e l'efficienza del traffico.
+Nel contesto delle comunicazioni \textit{C-ITS (Cooperative Intelligent Transport Systems)}, l'IEEE 802.11 è particolarmente rilevante poiché la sua architettura e le sue tecniche di accesso al canale sono state adottate nell'architettura ITS-G5 \cite{etsi302}. Comprendere le basi dell'IEEE 802.11 è essenziale per apprezzare come queste tecnologie possano essere integrate per supportare la comunicazione tra veicoli e infrastrutture, migliorando la sicurezza stradale e l'efficienza del traffico.
 
 Questa panoramica sull'IEEE 802.11 fornirà un contesto utile per esplorare più a fondo le specifiche ITS-G5, i meccanismi di controllo della congestione e le tecniche di accesso al canale che saranno trattati nei capitoli successivi.
 
@@ -30,7 +30,7 @@ L'IEEE 802.11 è un insieme di standard sviluppato dall'Institute of Electrical 
 
 La prima versione, 802.11-1997, offriva una velocità massima di 2 Mbps e operava nella banda di frequenza a 2.4 GHz. Nel 1999, sono stati introdotti gli standard 802.11b e 802.11a. L'802.11b ha aumentato la velocità massima a 11 Mbps, diventando il primo standard Wi-Fi ampiamente adottato, mentre l'802.11a operava a 5 GHz e supportava velocità fino a 54 Mbps, sebbene avesse una portata inferiore rispetto all'802.11b. Successivamente, nel 2003, è stato introdotto l'802.11g, che combinava le migliori caratteristiche dei due standard precedenti, supportando velocità fino a 54 Mbps nella banda a 2.4 GHz.
 
-L'802.11n, lanciato nel 2009, ha introdotto la tecnologia MIMO (Multiple Input Multiple Output), aumentando la velocità fino a 600 Mbps e migliorando l'efficienza della rete\cite{evolution}. Nel 2013, l'802.11ac ha operato principalmente a 5 GHz, supportando velocità superiori a 1 Gbps grazie a tecnologie avanzate come il beamforming. Infine, l'802.11ax, noto anche come Wi-Fi 6, è stato introdotto nel 2019, apportando miglioramenti significativi in termini di efficienza, capacità e prestazioni in ambienti affollati, con velocità teoriche che possono raggiungere fino a 9.6 Gbps. È previsto che l'802.11be, o Wi-Fi 7, sarà disponibile nel 2024, introducendo ulteriori miglioramenti in termini di velocità e latenza (Figura \ref{fig:evo}).
+L'802.11n, lanciato nel 2009, ha introdotto la tecnologia MIMO (Multiple Input Multiple Output), aumentando la velocità fino a 600 Mbps e migliorando l'efficienza della rete \cite{evolution}. Nel 2013, l'802.11ac ha operato principalmente a 5 GHz, supportando velocità superiori a 1 Gbps grazie a tecnologie avanzate come il beamforming. Infine, l'802.11ax, noto anche come Wi-Fi 6, è stato introdotto nel 2019, apportando miglioramenti significativi in termini di efficienza, capacità e prestazioni in ambienti affollati, con velocità teoriche che possono raggiungere fino a 9.6 Gbps. È previsto che l'802.11be, o Wi-Fi 7, sarà disponibile nel 2024, introducendo ulteriori miglioramenti in termini di velocità e latenza (Figura \ref{fig:evo}).
 
 \begin{figure}[h!]
     \centering
@@ -68,7 +68,7 @@ Per affrontare queste problematiche, esiste un'altra soluzione chiamata Point Co
 \section{IEEE WAVE}
 WAVE è progettato specificamente per ambienti di trasporto, consentendo la comunicazione tra veicoli (\textit{V2V: Vehicle-to-Vehicle}) e tra veicoli e infrastrutture stradali (\textit{V2I: Vehicle-to-Infrastructure}). Questo protocollo sfrutta canali wireless dedicati per garantire una bassa latenza e una maggiore affidabilità, elementi essenziali per applicazioni critiche come la prevenzione degli incidenti e la gestione del traffico. 
 
-Per facilitare questo, l'IEEE ha introdotto un emendamento specifico al protocollo 802.11, noto come 802.11p\cite{std2007wireless}. Questo emendamento si occupa sia del livello fisico, chiamato PHY, sia della gestione dell'accesso al canale, che riguarda il livello MAC. Non ci soffermeremo ulteriormente sui livelli superiori, se non attraverso un breve excursus, poiché il protocollo in questione supporta senza difficoltà qualsiasi tipo di livello, sia esso basato su IP o meno\cite{DSRC-Based-vehicular}. Degno di nota è il fatto che è stato previsto un apposito protocollo per l'invio di frame che non richiedono un livello di trasporto come TCP o UDP, denominato \textit{WAVE Short Message Protocol (WSMP)}.
+Per facilitare questo, l'IEEE ha introdotto un emendamento specifico al protocollo 802.11, noto come 802.11p \cite{std2007wireless}. Questo emendamento si occupa sia del livello fisico, chiamato PHY, sia della gestione dell'accesso al canale, che riguarda il livello MAC. Non ci soffermeremo ulteriormente sui livelli superiori, se non attraverso un breve excursus, poiché il protocollo in questione supporta senza difficoltà qualsiasi tipo di livello, sia esso basato su IP o meno \cite{DSRC-Based-vehicular}. Degno di nota è il fatto che è stato previsto un apposito protocollo per l'invio di frame che non richiedono un livello di trasporto come TCP o UDP, denominato \textit{WAVE Short Message Protocol (WSMP)}.
 
 \begin{figure}[h!]
     \centering
@@ -81,19 +81,19 @@ Di seguito, presentiamo un elenco che fornisce ulteriori dettagli sui protocolli
 
 \begin{itemize}
     \item \textit{IEEE 802.11-2016, IEEE Std 802.11p: Wireless Access in Vehicular Environments}.
-    \item \textit{IEEE 1609.0: IEEE Guide for Wireless Access in Vehicular Environments (WAVE) Architecture}, con le sue varie componenti\cite{8686445}: 
+    \item \textit{IEEE 1609.0: IEEE Guide for Wireless Access in Vehicular Environments (WAVE) Architecture}, con le sue varie  \cite{8686445}: 
         \begin{itemize}
-            \item \textit{IEEE 1609.4: IEEE Standard for Wireless Access in Vehicular Environments (WAVE) - Multi-Channel Operation}; per il \textit{channel routing} e il \textit{channel coordination}\cite{7435228}.
-            \item \textit{IEEE 1609.3: IEEE Standard for Wireless Access in Vehicular Environments (WAVE) - Networking Services}; per i sopracitati \textit{WAVE Short Messages}\cite{9374154}.
-            \item \textit{IEEE 1609.2: IEEE Standard for Wireless Access in Vehicular Environments - Security Services for Applications and Management Messages}; per tutti gli aspetti relativi alla sicurezza\cite{10075082}.
+            \item \textit{IEEE 1609.4: IEEE Standard for Wireless Access in Vehicular Environments (WAVE) - Multi-Channel Operation}; per il \textit{channel routing} e il \textit{channel coordination} \cite{7435228}.
+            \item \textit{IEEE 1609.3: IEEE Standard for Wireless Access in Vehicular Environments (WAVE) - Networking Services}; per i sopracitati \textit{WAVE Short Messages} \cite{9374154}.
+            \item \textit{IEEE 1609.2: IEEE Standard for Wireless Access in Vehicular Environments - Security Services for Applications and Management Messages}; per tutti gli aspetti relativi alla sicurezza \cite{10075082}.
         \end{itemize}
 \end{itemize}
 
 Risultano, anche, essere presenti altre varie componenti del protocollo \textit{IEEE 1609.0} su cui non ci si soffermerà e si riportano per completezza:
 
 \begin{itemize}
-    \item \textit{IEEE 1609.11:  IEEE Standard for Wireless Access in Vehicular Environments (WAVE) - Over-the-Air Electronic Payment Data}; standard per i pagamenti elettronici in applicazione \textit{WAVE based}\cite{5692959}.
-    \item \textit{IEEE 1609.12:  IEEE Standard for Wireless Access in Vehicular Environments (WAVE) - Identifier Allocations}; standard per l'allocazione degli identificatori \textit{WAVE}\cite{8877516}.
+    \item \textit{IEEE 1609.11:  IEEE Standard for Wireless Access in Vehicular Environments (WAVE) - Over-the-Air Electronic Payment Data}; standard per i pagamenti elettronici in applicazione \textit{WAVE based} \cite{5692959}.
+    \item \textit{IEEE 1609.12:  IEEE Standard for Wireless Access in Vehicular Environments (WAVE) - Identifier Allocations}; standard per l'allocazione degli identificatori \textit{WAVE} \cite{8877516}.
 \end{itemize}
 
 Per concludere, alla luce del fatto che il contesto preso in esame, quello veicolare, richiede uno scambio di informazioni con latenze minime, \textit{WAVE} si basa interamente su una nuova modalità Wireless, simile alla classica \textit{ad hoc}, chiamata \textit{OCB (Outside Context of a Basic Service Set)}. Questo è un approccio che consente la trasmissione di dati al di fuori delle limitazioni tradizionali delle reti Wi-Fi, permettendo una comunicazione più flessibile e diretta tra i dispositivi, senza la necessità di passare attraverso infrastrutture quali i punti di accesso (\textit{Access Point}).
@@ -128,7 +128,7 @@ Di seguito una tabella riassuntiva dei parametri appena citati, suddivisi per \t
     \label{table:1}
 \end{table}
 
-Parlando circa le frequenze utilizzate, l'IEEE 802.11p opera nella banda di frequenza di 5,9 GHz (5,850 - 5,925 GHz), con le larghezze di canale citate nella Tabella \ref{table:1}. Questo standard consente l'uso di circa 9 canali, come illustrato nella Figura \ref{fig:frequency}. Tra questi, i canali 172 (5.860 GHz) e 184 (5.920 GHz) sono dedicati alla sicurezza: il primo fornisce una soluzione robusta per la sicurezza, mentre il secondo funge da protezione contro la congestione su altri canali\cite{ad_hoc_new}.
+Parlando circa le frequenze utilizzate, l'IEEE 802.11p opera nella banda di frequenza di 5,9 GHz (5,850 - 5,925 GHz), con le larghezze di canale citate nella Tabella \ref{table:1}. Questo standard consente l'uso di circa 9 canali, come illustrato nella Figura \ref{fig:frequency}. Tra questi, i canali 172 (5.860 GHz) e 184 (5.920 GHz) sono dedicati alla sicurezza: il primo fornisce una soluzione robusta per la sicurezza, mentre il secondo funge da protezione contro la congestione su altri canali \cite{ad_hoc_new}.
 
 \begin{figure}[h!]
     \centering
@@ -148,7 +148,7 @@ Non esiste una netta distinzione tra il layer MAC dell'IEEE 802.11p con il relat
 \end{itemize}
 
 \subsection[EDCA]{EDCA}
-Nell'EDCA, la differenziazione del servizio è garantita attraverso l'assegnazione di diversi parametri di contesa a ciascuna \textit{Access Category (AC)}. Una stazione QoS può supportare fino a otto priorità utente, che vengono mappate su quattro AC. Ogni AC compete per l'accesso al canale utilizzando impostazioni diverse di AIFS (\textit{Arbitration Inter-frame Space}) e CW (\textit{Contention Window})\cite{4024121}; per completezza, si riporta che l'AIFS determina quanto tempo ogni stazione deve attendere prima di poter iniziare a trasmettere, mentre la CW quanto tempo ciascuna stazione deve aspettare in modo casuale prima di tentare di trasmettere.
+Nell'EDCA, la differenziazione del servizio è garantita attraverso l'assegnazione di diversi parametri di contesa a ciascuna \textit{Access Category (AC)}. Una stazione QoS può supportare fino a otto priorità utente, che vengono mappate su quattro AC. Ogni AC compete per l'accesso al canale utilizzando impostazioni diverse di AIFS (\textit{Arbitration Inter-frame Space}) e CW (\textit{Contention Window}) \cite{4024121}; per completezza, si riporta che l'AIFS determina quanto tempo ogni stazione deve attendere prima di poter iniziare a trasmettere, mentre la CW quanto tempo ciascuna stazione deve aspettare in modo casuale prima di tentare di trasmettere.
 
 A differenza della DCF, dove il DIFS (\textit{Distributed Inter-frame Space}) è utilizzato come IFS (\textit{Inter Frame Space}) comune per consentire a una stazione di accedere al canale, l'EDCF (\textit{Enhanced Distributed Channel Function}) adotta AIFS distinti per ciascuna AC al fine di ottenere una differenziazione nell'accesso. L'AIFS per una specifica AC è definito come segue:
 
@@ -212,7 +212,7 @@ Per comprendere la differenziazione del servizio introdotta da AIFS e CW, possia
     \label{fig:aifs}
 \end{figure}
 
-Ad ogni differente AC viene assegnata una differente coda; i vari frame vengono accodati nella coda appropriata in base alla \textit{Class Of Service (CoS)} di appartenenza; quest'ultime risultano essere quelle definite in un altro standard, ovvero l'IEEE 802.1D\cite{1309630}. Il mapping tra classe del frame e AC viene effettuata in questo modo (Tabella \ref{table:4}):
+Ad ogni differente AC viene assegnata una differente coda; i vari frame vengono accodati nella coda appropriata in base alla \textit{Class Of Service (CoS)} di appartenenza; quest'ultime risultano essere quelle definite in un altro standard, ovvero l'IEEE 802.1D \cite{1309630}. Il mapping tra classe del frame e AC viene effettuata in questo modo (Tabella \ref{table:4}):
 
 \begin{table}[h!]
     \centering
@@ -236,7 +236,7 @@ Ad ogni differente AC viene assegnata una differente coda; i vari frame vengono 
 E', comunque, sempre presente una sorta di casualità tra un AIFSN e un altro in modo da evitare che frame messi nella coda con priorità maggiore monopolizzino il canale a discapito di quelli a priorità minore.
 
 \section[DCC]{Decentralized Congestion Control}
-Le comunicazioni C-ITS devono funzionare anche in condizioni di traffico stradale intenso. Se tutti i veicoli partecipano allo scambio di informazioni C-ITS trasmettendo messaggi periodici, è probabile che si verifichi congestione nel canale wireless. Per evitare il degrado delle prestazioni del sistema causato da un carico eccessivo del canale e garantire un accesso equo alle risorse tra le stazioni ITS-G5 vicine (ITS-S), è necessario implementare meccanismi di controllo della congestione. A tal fine, l'ETSI ha pubblicato la specifica \textit{TS 102 687}, che definisce un meccanismo di controllo della congestione decentralizzato (\textit{DCC - Decentralized Congestion Control}) come parte dello stack di protocolli ITS-G5\cite{8535090}. Il DCC è un componente obbligatorio dell'ITS-S e opera nella banda di frequenza dei 5,9 GHz.
+Le comunicazioni C-ITS devono funzionare anche in condizioni di traffico stradale intenso. Se tutti i veicoli partecipano allo scambio di informazioni C-ITS trasmettendo messaggi periodici, è probabile che si verifichi congestione nel canale wireless. Per evitare il degrado delle prestazioni del sistema causato da un carico eccessivo del canale e garantire un accesso equo alle risorse tra le stazioni ITS-G5 vicine (ITS-S), è necessario implementare meccanismi di controllo della congestione. A tal fine, l'ETSI ha pubblicato la specifica \textit{TS 102 687}, che definisce un meccanismo di controllo della congestione decentralizzato (\textit{DCC - Decentralized Congestion Control}) come parte dello stack di protocolli ITS-G5 \cite{8535090}. Il DCC è un componente obbligatorio dell'ITS-S e opera nella banda di frequenza dei 5,9 GHz.
 
 Esso ha introdotto un approccio a macchina a stati finti al livello di accesso per adattare diversi parametri di trasmissione in base al carico del canale misurato. Ogni stato della macchina è associato a un determinato intervallo di carico del canale e a un insieme specifico di parametri di trasmissione. Questo consente al DCC di ottimizzare le comunicazioni in situazioni di congestione, migliorando l'efficienza e le prestazioni del sistema C-ITS.
 
@@ -278,7 +278,7 @@ una delle due condizioni seguenti:
 \end{itemize}
 
 \subsection[Parametri DCC]{Parametri DCC}
-Vengono mostrati i parametri relativi al DCC con i relativi valori in base allo stato\cite{6686471} (Tabella \ref{table:5}).
+Vengono mostrati i parametri relativi al DCC con i relativi valori in base allo stato \cite{6686471} (Tabella \ref{table:5}).
 
 TPC (Transmit Power Control), DSC (DCC Sensitivity Control) e TRC (Transmit Rate Control) sono stati scelti per l'analisi perché sono direttamente rilevanti per le applicazioni di sicurezza cooperativa, dove la priorità è garantire comunicazioni affidabili e tempestive. Questi meccanismi si concentrano sull'ottimizzazione della potenza di trasmissione, della sensibilità e del tasso di trasmissione, elementi cruciali per mantenere la qualità del segnale e ridurre i ritardi in situazioni di congestione.
 
@@ -307,7 +307,7 @@ Degno di nota il fatto che, nonostante i validi obiettivi delle tecniche DCC spe
 
 \subsection[DCC con code EDCA]{Parametri DCC con code EDCA}
 
-In aggiunta alle tecniche di controllo della congestione già specificate, l'ETSI ha introdotto parametri aggiuntivi in base alle categorie di accesso (Access Categories, AC) utilizzate\cite{etsi2011intelligent} (Figura \ref{fig:dcc_edca}). Queste categorie sono fondamentali per gestire le diverse priorità e requisiti di latenza delle comunicazioni veicolari. Ogni Access Category è associata a specifiche caratteristiche di traffico, consentendo una gestione più fine delle risorse di comunicazione.
+In aggiunta alle tecniche di controllo della congestione già specificate, l'ETSI ha introdotto parametri aggiuntivi in base alle categorie di accesso (Access Categories, AC) utilizzate \cite{etsi2011intelligent} (Figura \ref{fig:dcc_edca}). Queste categorie sono fondamentali per gestire le diverse priorità e requisiti di latenza delle comunicazioni veicolari. Ogni Access Category è associata a specifiche caratteristiche di traffico, consentendo una gestione più fine delle risorse di comunicazione.
 
 Ad esempio, le applicazioni critiche per la sicurezza, come i messaggi di avviso e le comunicazioni di emergenza, possono essere classificate in una categoria di accesso con priorità più alta. Ciò implica l'adozione di parametri di controllo della congestione più stringenti per garantire che questi messaggi vengano trasmessi senza ritardi. Al contrario, le comunicazioni meno critiche possono essere assegnate a categorie con requisiti di latenza e affidabilità inferiori, permettendo una gestione più flessibile delle risorse di rete.
 
