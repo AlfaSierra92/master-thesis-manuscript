@@ -2,19 +2,13 @@
 
 In questo capitolo, presenteremo un'introduzione teorica approfondita agli standard e alle tecnologie che hanno guidato le nostre scelte progettuali e strategiche. La comprensione di questi standard è essenziale per contestualizzare le decisioni intraprese e per apprezzare le innovazioni implementate. Ci concentreremo su diversi protocolli e specifiche tecniche che hanno influenzato lo sviluppo delle soluzioni adottate, esplorando le loro caratteristiche distintive, modalità di funzionamento e applicazioni pratiche.
 
-In particolare, inizieremo con un'analisi dettagliata dello standard IEEE 802.11, che rappresenta la base delle comunicazioni wireless. Questo standard ha introdotto una serie di tecnologie e protocolli fondamentali per la gestione delle reti senza fili, ponendo le basi per applicazioni avanzate, inclusi i sistemi automotive.
+In particolare, inizieremo con un'analisi qualitativo dello standard IEEE 802.11, che rappresenta la base delle comunicazioni wireless. Questo standard ha introdotto una serie di tecnologie e protocolli fondamentali per la gestione delle reti senza fili, ponendo le basi per applicazioni avanzate, inclusi i sistemi automotive.
 
 Successivamente, ci focalizzeremo su \textit{WAVE (Wireless Access in Vehicular Environments)}, un protocollo cruciale per la connettività dei veicoli e la gestione delle reti di trasporto intelligenti. WAVE consente la comunicazione tra veicoli e infrastrutture, facilitando la trasmissione di informazioni vitali per la sicurezza e l'efficienza del traffico.
 
 Un altro aspetto chiave che tratteremo è il meccanismo \textit{EDCA (Enhanced Distributed Channel Access)}, che rappresenta un'evoluzione del livello \textit{MAC (Media Access Control)} nelle reti wireless. EDCA introduce un metodo di accesso al canale più sofisticato rispetto al tradizionale \textit{DCF (Distributed Coordination Function)}, consentendo una gestione più efficiente delle priorità di traffico. Questo è particolarmente rilevante in scenari in cui coesistono diversi tipi di traffico (e.g. video, voce e dati) ognuno con requisiti specifici di latenza e larghezza di banda. Discuteremo come EDCA assegni diverse code di accesso per garantire che le comunicazioni più critiche ricevano la priorità necessaria, migliorando così l'esperienza complessiva degli utenti.
 
 Infine, esploreremo lo standard \textit{ETSI DCC (Dedicated Short Range Communications)}, che si integra con le tecnologie precedentemente menzionate per supportare comunicazioni a corto raggio e per applicazioni specifiche nel settore automotive. DCC è progettato per garantire comunicazioni affidabili e tempestive tra veicoli e tra veicoli e infrastrutture, contribuendo a una mobilità più sicura ed efficiente.
-
-Attraverso questa analisi di IEEE 802.11, WAVE, EDCA e ETSI DCC, il capitolo intende fornire una comprensione approfondita delle tecnologie che supportano le comunicazioni nei veicoli connessi, evidenziando come queste innovazioni possano trasformare il panorama della mobilità moderna.
-
-%\section{ITS - Intelligent Transport System}
-
-%\section{VANET}
 
 \section{IEEE 802.11}
 Viene fatto un excursus molto breve sull'IEEE 802.11, che servirà come introduzione agli argomenti successivi. L'IEEE 802.11 è un insieme di standard sviluppati dall'Institute of Electrical and Electronics Engineers (IEEE) per le comunicazioni wireless, comunemente conosciuto come Wi-Fi. Questi standard definiscono le specifiche per la trasmissione di dati in reti locali senza fili, coprendo vari aspetti come il livello fisico (PHY) e il controllo dell'accesso al mezzo (MAC) \cite{ieee80211}.
@@ -63,7 +57,7 @@ Se il canale risulta ancora occupato, il nodo non può semplicemente attendere i
 
 Sebbene DCF sia un meccanismo efficace per la condivisione del canale tra più stazioni, presenta alcune limitazioni significative. Innanzitutto, non esiste un controllo della congestione, il che può portare a collisioni. Le collisioni multiple possono limitare la banda disponibile e causare seri problemi di trasmissione. Inoltre, DCF non garantisce alcuna Quality of Service (QoS), non essendoci un metodo per prioritizzare i flussi di traffico.
 
-Per affrontare queste problematiche, esiste un'altra soluzione chiamata Point Coordination Function (PCF), che può essere utilizzata solo in configurazioni infrastrutturate, dove la connessione è gestita da un access point e include meccanismi per garantire la QoS. Tuttavia, poiché PCF non è adatta per il protocollo 802.11p, è necessario integrare la QoS direttamente nella Coordination Function (CF) per garantire prestazioni adeguate nelle reti che non possono utilizzare PCF. Tale problema è stato affrontato con lo sviluppo della EDCA con la \textit{DCF (Distributed Coordination Function)}, affrontata nell'apposita sezione.
+Per affrontare queste problematiche, esiste un'altra soluzione chiamata Point Coordination Function (PCF), che può essere utilizzata solo in configurazioni infrastrutturate, dove la connessione è gestita da un access point e include meccanismi per garantire la QoS. Tuttavia, poiché PCF non è adatta per il protocollo 802.11p, è necessario integrare la QoS direttamente nella Coordination Function (CF) per garantire prestazioni adeguate nelle reti che non possono utilizzare PCF. Tale problema è stato affrontato con lo sviluppo della EDCA con la \textit{DCF (Distributed Coordination Function)}, affrontata nella \autoref{edca}.
 
 \section{IEEE WAVE}
 WAVE è progettato specificamente per ambienti di trasporto, consentendo la comunicazione tra veicoli (\textit{V2V: Vehicle-to-Vehicle}) e tra veicoli e infrastrutture stradali (\textit{V2I: Vehicle-to-Infrastructure}). Questo protocollo sfrutta canali wireless dedicati per garantire una bassa latenza e una maggiore affidabilità, elementi essenziali per applicazioni critiche come la prevenzione degli incidenti e la gestione del traffico. 
@@ -148,6 +142,7 @@ Non esiste una netta distinzione tra il layer MAC dell'IEEE 802.11p con il relat
 \end{itemize}
 
 \subsection[EDCA]{EDCA}
+\label{edca}
 Nell'EDCA, la differenziazione del servizio è garantita attraverso l'assegnazione di diversi parametri di contesa a ciascuna \textit{Access Category (AC)}. Una stazione QoS può supportare fino a otto priorità utente, che vengono mappate su quattro AC. Ogni AC compete per l'accesso al canale utilizzando impostazioni diverse di AIFS (\textit{Arbitration Inter-frame Space}) e CW (\textit{Contention Window}) \cite{4024121}; per completezza, si riporta che l'AIFS determina quanto tempo ogni stazione deve attendere prima di poter iniziare a trasmettere, mentre la CW quanto tempo ciascuna stazione deve aspettare in modo casuale prima di tentare di trasmettere.
 
 A differenza della DCF, dove il DIFS (\textit{Distributed Inter-frame Space}) è utilizzato come IFS (\textit{Inter Frame Space}) comune per consentire a una stazione di accedere al canale, l'EDCF (\textit{Enhanced Distributed Channel Function}) adotta AIFS distinti per ciascuna AC al fine di ottenere una differenziazione nell'accesso. L'AIFS per una specifica AC è definito come segue:
