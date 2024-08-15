@@ -127,6 +127,8 @@ Questa caratteristica è stata introdotta per spostare l'implementazione delle c
 
 La possibilità di utilizzare correttamente le categorie di accesso insieme alle code software del \textit{mac80211} risulta essere in fase di implementazione da parte della comunità al momento della stesura di questo elaborato.
 
+Per ulteriori dettagli riguardo il sottosistema wireless di Linux e le sue componenti, come ad esempio \textit{mac80211}, vedere il paragrafo relativo alla fine della sezione corrente.
+
 \subsection[Statistiche occupazione canale]{Statistiche occupazione canale}
 La patch fornita, di nome \textit{00551-ac.patch}, modifica un segmento del codice nel file link.c del driver \textit{ath9k}, che è parte della gestione delle statistiche di monitoraggio della rete wireless. Esso in maniera predefinita restituiva, mediante il comando \verb|iw wlp1s0 survey| \verb|dump|, varie statistiche tra cui i tempi in cui, rispettivamente, il canale risulta essere occupato, viene usato per trasmettere e ricevere da parte dell'interfaccia. 
 
@@ -186,6 +188,25 @@ Non ci si dilungherà nelle modalità di download e installazione di tutto il pa
 \verb|BOARD=rock-3a BRANCH=current|
 
 \noindent Il processo restituirà il nuovo kernel pacchettizzato all'interno di file \textit{.deb}, che andranno installati sui dispositivi come di consueto.
+
+\subsection{Sottosistema Wireless in Linux}
+Questa sottosezione è stata redatta per fornire un contesto adeguato e chiarire alcuni concetti emersi nei paragrafi precedenti riguardanti il sottosistema wireless di Linux e la componente \textit{mac80211}.
+
+Sempre più interfacce wireless adottano l'approccio SoftMAC, che consente un controllo più preciso della gestione dei frame tramite software. Il framework \textit{mac80211} è stato introdotto e integrato nei recenti kernel Linux per fornire funzionalità comuni del livello MAC per la gestione dei frame, come la generazione e il parsing, evitando la dipendenza da driver wireless individuali\cite{wireless-profiling}; in parole povere, la composizione del frame MAC e la parte di accesso al canale viene fatta via software dal driver anzichè via hardware dall'interfaccia.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{wireless-sub.png}
+    \caption{Sottosistema wireless in Linux}
+    \label{fig:wireless-sub}
+\end{figure}
+
+La Figura \ref{fig:wireless-sub} mostra lo stack wireless di Linux, in cui il framework è parte integrante del sottosistema wireless del kernel. Esso fornisce configurazione e gestione della radio wireless e della trasmissione dei dati attraverso strumenti dello spazio utente, come il demone di utilità wireless, \textit{iw}. Insieme a \textit{mac80211}, è stato introdotto anche il componente \textit{cfg80211}, che gestisce le operazioni relative alla configurazione dell'hardware sottostante tramite l'interfaccia \textit{cfg80211\_ops}. La comunicazione tra gli strumenti dello spazio utente e \textit{cfg80211} avviene attraverso il socket netlink, \textit{nl80211}. Tra il framework e i dispositivi fisici si trovano driver individuali, come \textit{ath5k} (\textit{ath9k} nei dipositivi del testbed), che implementano funzioni comuni per il controllo dell'hardware, come definito dall'interfaccia \textit{ieee80211\_ops}. Quest'ultima altro non è che una \verb|struct| contenente un buon numero di puntatori a funzioni, collegate a "procedure" di basso livello eseguite dalla scheda di rete.
+
+Il framework funge da middleware tra l'hardware fisico e gli strumenti dello spazio utente, fornendo un'astrazione per dispositivi wireless con specifiche diverse. Inoltre, offre funzionalità comuni per i singoli driver, semplificando notevolmente lo sviluppo di nuovi driver per dispositivi SoftMAC.
+
+Oltre alla gestione dei frame, il framework fornisce meccanismi per il controllo della velocità del livello MAC. Pertanto, i driver wireless possono utilizzare i meccanismi di controllo della velocità forniti o implementare soluzioni proprie\cite{wireless-profiling}.
+
 
 \section{iPerf con Access Categories abilitate}
 iPerf è un software di benchmarking di rete utilizzato per misurare le prestazioni della larghezza di banda e della latenza nelle connessioni TCP e UDP. Permette di misurare la larghezza di banda disponibile tra due punti di rete, offrendo la possibilità di testare sia il protocollo TCP, orientato alla connessione, sia il protocollo UDP, non orientato alla connessione. Il software funziona in modalità client-server, dove un'istanza di iPerf agisce da server e l'altra da client, permettendo di eseguire test in entrambe le direzioni.
