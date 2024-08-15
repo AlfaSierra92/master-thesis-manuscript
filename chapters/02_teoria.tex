@@ -1,23 +1,21 @@
 \chapter{Standard IEEE/ETSI}
 
-In questo capitolo, presenteremo un'introduzione teorica approfondita agli standard e alle tecnologie che hanno guidato le nostre scelte progettuali e strategiche. La comprensione di questi standard è essenziale per contestualizzare le decisioni intraprese e per apprezzare le innovazioni implementate. Ci concentreremo su diversi protocolli e specifiche tecniche che hanno influenzato lo sviluppo delle soluzioni adottate, esplorando le loro caratteristiche distintive, modalità di funzionamento e applicazioni pratiche.
+In questo capitolo, presenteremo un'introduzione teorica approfondita agli standard e alle tecnologie che hanno guidato le nostre scelte progettuali e strategiche. La comprensione di questi standard è essenziale per contestualizzare le scelte fatte e per apprezzare i risultati riscontrati. Ci concentreremo su diversi protocolli e specifiche tecniche che hanno influenzato lo sviluppo del testbed scelto, esplorando le loro caratteristiche distintive, modalità di funzionamento e applicazioni pratiche.
 
-In particolare, inizieremo con un'analisi qualitativo dello standard IEEE 802.11, che rappresenta la base delle comunicazioni wireless. Questo standard ha introdotto una serie di tecnologie e protocolli fondamentali per la gestione delle reti senza fili, ponendo le basi per applicazioni avanzate, inclusi i sistemi automotive.
+In particolare, inizieremo con un'analisi qualitativa dello standard IEEE 802.11, che rappresenta la base delle comunicazioni wireless. Questo standard ha introdotto una serie di tecnologie e protocolli fondamentali per la gestione delle reti senza fili, costruendo le basi per applicazioni avanzate, inclusi i sistemi automotive.
 
-Successivamente, ci focalizzeremo su \textit{WAVE (Wireless Access in Vehicular Environments)}, un protocollo cruciale per la connettività dei veicoli e la gestione delle reti di trasporto intelligenti. WAVE consente la comunicazione tra veicoli e infrastrutture, facilitando la trasmissione di informazioni vitali per la sicurezza e l'efficienza del traffico.
+Successivamente, ci focalizzeremo su \textit{WAVE (Wireless Access in Vehicular Environments)}, un protocollo cruciale per la connettività dei veicoli e la gestione delle reti di trasporto intelligenti (ITS). WAVE consente la comunicazione tra singoli veicoli e tra veicoli ed infrastrutture, facilitando la trasmissione di informazioni vitali per la sicurezza e l'efficienza del traffico automobilistico.
 
 Un altro aspetto chiave che tratteremo è il meccanismo \textit{EDCA (Enhanced Distributed Channel Access)}, che rappresenta un'evoluzione del livello \textit{MAC (Media Access Control)} nelle reti wireless. EDCA introduce un metodo di accesso al canale più sofisticato rispetto al tradizionale \textit{DCF (Distributed Coordination Function)}, consentendo una gestione più efficiente delle priorità di traffico. Questo è particolarmente rilevante in scenari in cui coesistono diversi tipi di traffico (e.g. video, voce e dati) ognuno con requisiti specifici di latenza e larghezza di banda. Discuteremo come EDCA assegni diverse code di accesso per garantire che le comunicazioni più critiche ricevano la priorità necessaria, migliorando così l'esperienza complessiva degli utenti.
 
 Infine, esploreremo lo standard \textit{ETSI DCC (Dedicated Short Range Communications)}, che si integra con le tecnologie precedentemente menzionate per supportare comunicazioni a corto raggio e per applicazioni specifiche nel settore automotive. DCC è progettato per garantire comunicazioni affidabili e tempestive tra veicoli e tra veicoli e infrastrutture, contribuendo a una mobilità più sicura ed efficiente.
 
 \section{IEEE 802.11}
-Viene fatto un excursus molto breve sull'IEEE 802.11, che servirà come introduzione agli argomenti successivi. L'IEEE 802.11 è un insieme di standard sviluppati dall'Institute of Electrical and Electronics Engineers (IEEE) per le comunicazioni wireless, comunemente conosciuto come Wi-Fi. Questi standard definiscono le specifiche per la trasmissione di dati in reti locali senza fili, coprendo vari aspetti come il livello fisico (PHY) e il controllo dell'accesso al mezzo (MAC) \cite{ieee80211}.
+Viene fatto un excursus molto breve sull'IEEE 802.11, che servirà come introduzione agli argomenti successivi. L'IEEE 802.11 è un insieme di standard e successivi emendamenti sviluppati dall'Institute of Electrical and Electronics Engineers (IEEE) per le comunicazioni wireless, comunemente conosciuto come Wi-Fi. Questi standard definiscono le specifiche per la trasmissione di dati in reti locali senza fili, coprendo vari aspetti come il livello fisico (PHY) e il controllo dell'accesso al mezzo (MAC) \cite{ieee80211}.
 
-L'adozione dell'IEEE 802.11 ha rivoluzionato il modo in cui ci connettiamo a Internet e scambiamo dati, rendendo possibile l'accesso wireless in una vasta gamma di dispositivi, dai computer portatili agli smartphone. Gli standard 802.11 sono stati aggiornati nel corso degli anni per migliorare la velocità, la sicurezza e l'affidabilità delle comunicazioni.
+E' ormai all'ordine del giorno che l'adozione dell'IEEE 802.11 ha rivoluzionato il modo in cui ci connettiamo a Internet e scambiamo dati, rendendo possibile l'accesso wireless in una vasta gamma di dispositivi, dai computer portatili agli smartphone. Gli standard 802.11 sono stati aggiornati nel corso degli anni per migliorare la velocità, la sicurezza e l'affidabilità delle comunicazioni.
 
-Nel contesto delle comunicazioni \textit{C-ITS (Cooperative Intelligent Transport Systems)}, l'IEEE 802.11 è particolarmente rilevante poiché la sua architettura e le sue tecniche di accesso al canale sono state adottate nell'architettura ITS-G5 \cite{etsi302}. Comprendere le basi dell'IEEE 802.11 è essenziale per apprezzare come queste tecnologie possano essere integrate per supportare la comunicazione tra veicoli e infrastrutture, migliorando la sicurezza stradale e l'efficienza del traffico.
-
-Questa panoramica sull'IEEE 802.11 fornirà un contesto utile per esplorare più a fondo le specifiche ITS-G5, i meccanismi di controllo della congestione e le tecniche di accesso al canale che saranno trattati nei capitoli successivi.
+Nel contesto delle comunicazioni \textit{C-ITS (Cooperative Intelligent Transport Systems)}, l'IEEE 802.11 è particolarmente rilevante poiché la sua architettura e le sue tecniche di accesso al canale sono state adottate nell'architettura ITS-G5 \cite{etsi302} e, quindi, comprendere le sue basi è essenziale per apprezzare come queste tecnologie possano essere integrate per supportare la comunicazione tra veicoli e infrastrutture, migliorando la sicurezza stradale e l'efficienza del traffico.
 
 \subsection[Caratteristiche]{Caratteristiche}
 L'IEEE 802.11 è un insieme di standard sviluppato dall'Institute of Electrical and Electronics Engineers (IEEE) per la comunicazione wireless nelle reti locali (WLAN), comunemente conosciuto come Wi-Fi. Questi standard definiscono le specifiche per la trasmissione di dati su reti senza fili e hanno subito diverse evoluzioni nel corso degli anni.
@@ -33,7 +31,7 @@ L'802.11n, lanciato nel 2009, ha introdotto la tecnologia MIMO (Multiple Input M
     \label{fig:evo}
 \end{figure}
 
-Un aspetto fondamentale del protocollo IEEE 802.11 è la Distributed Coordination Function (DCF), che rappresenta il metodo standard per l'accesso al canale di comunicazione. DCF è simile al protocollo CSMA/CA utilizzato nelle reti cablate. Quando un nodo inizia a trasmettere dati, gli altri dispositivi devono attendere che il canale diventi libero prima di poter inviare le proprie informazioni. Dopo che una stazione ha completato la trasmissione, c'è un intervallo chiamato Short Interframe Space (SIFS), durante il quale l'access point attende prima di inviare un pacchetto di conferma (ACK). Una volta ricevuto l'ACK, la stazione successiva deve attendere il Distributed Interframe Space (DIFS) prima di tentare di trasmettere.
+Un aspetto fondamentale del protocollo IEEE 802.11 è la Distributed Coordination Function (DCF), che rappresenta il metodo standard per l'accesso al canale di comunicazione. DCF è simile al protocollo CSMA/CA (\textit{Carrier Sense Multiple Access with Collision Avoidance}) utilizzato nelle reti cablate quali Ethernet et simila; verrà descritto successivamente.
 
 Non meno importante è l'emendamento IEEE 802.11p (IEEE WAVE), che sarà descritto in modo approfondito successivamente. Questo standard è particolarmente rilevante per le applicazioni di comunicazione veicolare e per la gestione della sicurezza nelle reti di trasporto.
 
@@ -42,9 +40,9 @@ Le caratteristiche tecniche degli standard 802.11 includono l'operatività nelle
 Per quanto riguarda la sicurezza, gli standard 802.11 hanno evoluto i protocolli di protezione nel tempo. Il primo protocollo, WEP (Wired Equivalent Privacy), si è rivelato vulnerabile a vari attacchi, portando all'introduzione di WPA (Wi-Fi Protected Access), che offriva una maggiore sicurezza. Successivamente, WPA2, basato su AES (Advanced Encryption Standard), ha fornito una protezione robusta, mentre WPA3, l'ultima evoluzione, migliora ulteriormente la sicurezza, specialmente in ambienti pubblici e per dispositivi IoT.
 
 \subsection[DCF]{Distributed Coordination Function}
-La Distributed Coordination Function (DCF) è la modalità standard attraverso cui i dispositivi Wi-Fi accedono al canale di comunicazione, simile al protocollo CSMA/CA utilizzato nelle reti cablate. Quando un nodo inizia a trasmettere dati, gli altri dispositivi devono attendere che il canale diventi libero prima di poter inviare le proprie informazioni.
+La Distributed Coordination Function (DCF) è la modalità standard attraverso cui i dispositivi Wi-Fi accedono al canale di comunicazione, simile al protocollo CSMA/CA (\textit{Carrier-sense multiple access with collision avoidance}) utilizzato nelle reti cablate, tipo Ethernet et simila. Quando un nodo inizia a trasmettere dati, gli altri dispositivi devono attendere che il canale diventi libero prima di poter inviare le proprie informazioni (\textit{Carrier-sense}).
 
-Dopo che una stazione ha completato la trasmissione dei dati, c'è un intervallo chiamato Short Interframe Space (SIFS), durante il quale l'access point (AP) attende prima di inviare un pacchetto di conferma (ACK). Una volta ricevuto l'ACK, la seconda stazione deve attendere il Distributed Interframe Space (DIFS), che è un periodo di tempo definito per consentire a più nodi di accedere al canale (Figura \ref{fig:dcf}). È fondamentale che SIFS sia minore di DIFS, poiché ciò consente ai nodi di tentare di trasmettere i dati, sebbene non necessariamente di farlo immediatamente.
+Dopo che una stazione ha completato la trasmissione dei dati, c'è un intervallo chiamato Short Interframe Space (SIFS), durante il quale l'access point (AP) attende prima di inviare un pacchetto di conferma (ACK). Una volta ricevuto l'ACK, la seconda stazione deve attendere il Distributed Interframe Space (DIFS), che è un periodo di tempo definito per consentire a più nodi di accedere al canale (\textit{Collision Avoidance} - Figura \ref{fig:dcf}). È fondamentale che SIFS sia minore di DIFS, poiché ciò consente ai nodi di tentare di trasmettere i dati, sebbene non necessariamente di farlo immediatamente.
 
 \begin{figure}[h!]
     \centering
@@ -57,7 +55,7 @@ Se il canale risulta ancora occupato, il nodo non può semplicemente attendere i
 
 Sebbene DCF sia un meccanismo efficace per la condivisione del canale tra più stazioni, presenta alcune limitazioni significative. Innanzitutto, non esiste un controllo della congestione, il che può portare a collisioni. Le collisioni multiple possono limitare la banda disponibile e causare seri problemi di trasmissione. Inoltre, DCF non garantisce alcuna Quality of Service (QoS), non essendoci un metodo per prioritizzare i flussi di traffico.
 
-Per affrontare queste problematiche, esiste un'altra soluzione chiamata Point Coordination Function (PCF), che può essere utilizzata solo in configurazioni infrastrutturate, dove la connessione è gestita da un access point e include meccanismi per garantire la QoS. Tuttavia, poiché PCF non è adatta per il protocollo 802.11p, è necessario integrare la QoS direttamente nella Coordination Function (CF) per garantire prestazioni adeguate nelle reti che non possono utilizzare PCF. Tale problema è stato affrontato con lo sviluppo della EDCA con la \textit{DCF (Distributed Coordination Function)}, affrontata nella \autoref{edca}.
+Per affrontare queste problematiche, esiste un'altra soluzione chiamata Point Coordination Function (PCF), che può essere utilizzata solo in configurazioni infrastrutturate, dove la connessione è gestita da un access point e include meccanismi per garantire la QoS. Tuttavia, poiché PCF non è adatta per il protocollo 802.11p, è necessario integrare la QoS direttamente nella Coordination Function (CF) per garantire prestazioni adeguate nelle reti che non possono utilizzare PCF. Tale problema è stato affrontato con lo sviluppo della EDCA con la \textit{EDCF (Enhanced Distributed Coordination Function)}, affrontata nella \autoref{edca}.
 
 \section{IEEE WAVE}
 WAVE è progettato specificamente per ambienti di trasporto, consentendo la comunicazione tra veicoli (\textit{V2V: Vehicle-to-Vehicle}) e tra veicoli e infrastrutture stradali (\textit{V2I: Vehicle-to-Infrastructure}). Questo protocollo sfrutta canali wireless dedicati per garantire una bassa latenza e una maggiore affidabilità, elementi essenziali per applicazioni critiche come la prevenzione degli incidenti e la gestione del traffico. 
@@ -95,7 +93,7 @@ Per concludere, alla luce del fatto che il contesto preso in esame, quello veico
 \subsection[Layer fisico]{Layer fisico}
 L'IEEE 802.11p è uno standard della famiglia IEEE 802.11 progettato specificamente per la comunicazione wireless in ambienti vehicolari. È una tecnologia di rete che consente la comunicazione tra veicoli e tra veicoli e infrastrutture, facilitando applicazioni come la sicurezza stradale, la gestione del traffico e i servizi di infotainment.
 
-Esso, innanzitutto, è basato su una modulazione OFDM (\textit{Orthogonal Frequencies Division Multiplexing}), ove in un totale di 64 sottoportanti, 48 vengono utilizzate per la trasmissione delle informazioni e 4 sono pilota; supporta velocità differenti in base alla modulazione delle sottoportanti e alla larghezza di banda utilizzati.
+Esso, innanzitutto, è basato su una modulazione OFDM (\textit{Orthogonal Frequencies Division Multiplexing}), ove in un totale di 64 sottoportanti, ne vengono utilizzate solo 52: 48 per la trasmissione delle informazioni e 4 di tipo pilota; supporta velocità differenti in base alla modulazione delle sottoportanti e alla larghezza di banda utilizzati.
 
 Di seguito una tabella riassuntiva dei parametri appena citati, suddivisi per \textit{bandwidth}:
 
@@ -143,7 +141,7 @@ Non esiste una netta distinzione tra il layer MAC dell'IEEE 802.11p con il relat
 
 \subsection[EDCA]{EDCA}
 \label{edca}
-Nell'EDCA, la differenziazione del servizio è garantita attraverso l'assegnazione di diversi parametri di contesa a ciascuna \textit{Access Category (AC)}. Una stazione QoS può supportare fino a otto priorità utente, che vengono mappate su quattro AC. Ogni AC compete per l'accesso al canale utilizzando impostazioni diverse di AIFS (\textit{Arbitration Inter-frame Space}) e CW (\textit{Contention Window}) \cite{4024121}; per completezza, si riporta che l'AIFS determina quanto tempo ogni stazione deve attendere prima di poter iniziare a trasmettere, mentre la CW quanto tempo ciascuna stazione deve aspettare in modo casuale prima di tentare di trasmettere.
+Nell'EDCA, la differenziazione del servizio è garantita attraverso l'assegnazione di diversi parametri di contesa a ciascuna \textit{Access Category (AC)}. Una stazione QoS può supportare fino a otto priorità utente, che vengono mappate su quattro AC. Ogni AC compete per l'accesso al canale utilizzando impostazioni diverse di AIFS (\textit{Arbitration Inter-frame Space}) e CW (\textit{Contention Window}) \cite{4024121}; per completezza, si riporta nuovamente che l'AIFS determina quanto tempo ogni stazione deve attendere prima di poter iniziare a trasmettere, mentre la CW quanto tempo ciascuna stazione deve aspettare in modo casuale prima di tentare di trasmettere.
 
 A differenza della DCF, dove il DIFS (\textit{Distributed Inter-frame Space}) è utilizzato come IFS (\textit{Inter Frame Space}) comune per consentire a una stazione di accedere al canale, l'EDCF (\textit{Enhanced Distributed Channel Function}) adotta AIFS distinti per ciascuna AC al fine di ottenere una differenziazione nell'accesso. L'AIFS per una specifica AC è definito come segue:
 
@@ -176,7 +174,7 @@ Questi parametri variano in base a determinate caratteristiche della connessione
     \label{table:2}
 \end{table}
 
-Nella Tabella \ref{table:3}, invece, sono riportati i parametri nel caso di aCWmin=31 e aCWmax=1023, come usati, per esempio, nel caso di utilizzo di OFDM e MIMO (\textit{IEEE 802.11n}).
+Nella Tabella \ref{table:3}, invece, sono riportati i parametri nel caso di aCWmin pari a 31 e aCWmax pari a 1023, come usati, per esempio, nel caso di utilizzo di OFDM e MIMO (\textit{IEEE 802.11n}).
 \begin{table}[h!]
     \centering
     \begin{tabular}{|>{\centering\arraybackslash}p{10em}|>{\centering\arraybackslash}p{7em}|>{\centering\arraybackslash}p{7em}|>{\centering\arraybackslash}p{7em}|} 
@@ -233,7 +231,7 @@ E', comunque, sempre presente una sorta di casualità tra un AIFSN e un altro in
 \section[DCC]{Decentralized Congestion Control}
 Le comunicazioni C-ITS devono funzionare anche in condizioni di traffico stradale intenso. Se tutti i veicoli partecipano allo scambio di informazioni C-ITS trasmettendo messaggi periodici, è probabile che si verifichi congestione nel canale wireless. Per evitare il degrado delle prestazioni del sistema causato da un carico eccessivo del canale e garantire un accesso equo alle risorse tra le stazioni ITS-G5 vicine (ITS-S), è necessario implementare meccanismi di controllo della congestione. A tal fine, l'ETSI ha pubblicato la specifica \textit{TS 102 687}, che definisce un meccanismo di controllo della congestione decentralizzato (\textit{DCC - Decentralized Congestion Control}) come parte dello stack di protocolli ITS-G5 \cite{8535090}. Il DCC è un componente obbligatorio dell'ITS-S e opera nella banda di frequenza dei 5,9 GHz.
 
-Esso ha introdotto un approccio a macchina a stati finti al livello di accesso per adattare diversi parametri di trasmissione in base al carico del canale misurato. Ogni stato della macchina è associato a un determinato intervallo di carico del canale e a un insieme specifico di parametri di trasmissione. Questo consente al DCC di ottimizzare le comunicazioni in situazioni di congestione, migliorando l'efficienza e le prestazioni del sistema C-ITS.
+Esso ha introdotto un approccio a macchina a stati finti al livello di accesso per adattare diversi parametri di trasmissione in base al carico del canale misurato. Ogni stato della macchina è associato a un determinato livello di carico del canale e a un insieme specifico di parametri di trasmissione. Questo consente al DCC di ottimizzare le comunicazioni in situazioni di congestione, migliorando l'efficienza e le prestazioni del sistema C-ITS.
 
 Esistono diverse configurazioni che prevedono molteplici stati nella macchina di stato, ma ci concentreremo in particolare sulla configurazione \textit{DCC 2+1}, che comprende tre stati distinti: \textit{Relaxed}, \textit{Active} e \textit{Restrictive} (Figura \ref{fig:dcc}).
 
@@ -254,7 +252,7 @@ In ciascuno stato del DCC vengono definite restrizioni sui parametri di trasmiss
     \item \textit{Transmit Access Control (TAC)} che apre e chiude dinamicamente l'accesso dei pacchetti con una determinata priorità alla relativa coda di trasmissione.
 \end{itemize}
 
-\noindent Maggiori dettagli su tali parametri verranno forniti nella sezione successiva.
+\noindent Maggiori dettagli su tali parametri verranno forniti nella \autoref{parametri_dcc}.
 
 La scelta dello stato DCC si basa sulla valutazione del Channel Busy Ratio (CBR). L'ETSI propone un metodo di riferimento per stimare il valore del CBR consistente nel campionare tale valore ad intervalli prefissati per la durata di 1 secondo (Figura \ref{fig:cbr}); tale modello può, tuttavia, cambiare in base all'hardware utilizzato e al contesto di utilizzo.
 
@@ -273,6 +271,7 @@ una delle due condizioni seguenti:
 \end{itemize}
 
 \subsection[Parametri DCC]{Parametri DCC}
+\label{parametri_dcc}
 Vengono mostrati i parametri relativi al DCC con i relativi valori in base allo stato \cite{6686471} (Tabella \ref{table:5}).
 
 TPC (Transmit Power Control), DSC (DCC Sensitivity Control) e TRC (Transmit Rate Control) sono stati scelti per l'analisi perché sono direttamente rilevanti per le applicazioni di sicurezza cooperativa, dove la priorità è garantire comunicazioni affidabili e tempestive. Questi meccanismi si concentrano sull'ottimizzazione della potenza di trasmissione, della sensibilità e del tasso di trasmissione, elementi cruciali per mantenere la qualità del segnale e ridurre i ritardi in situazioni di congestione.
