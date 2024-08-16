@@ -1,19 +1,21 @@
 \chapter{Standard IEEE/ETSI}
 
-In questo capitolo, presenteremo un'introduzione teorica approfondita agli standard e alle tecnologie che hanno guidato le nostre scelte progettuali e strategiche. La comprensione di questi standard è essenziale per contestualizzare le scelte fatte e per apprezzare i risultati riscontrati. Ci concentreremo su diversi protocolli e specifiche tecniche che hanno influenzato lo sviluppo del testbed scelto, esplorando le loro caratteristiche distintive, modalità di funzionamento e applicazioni pratiche.
+In questo capitolo, viene presentata un'introduzione teorica approfondita agli standard e alle tecnologie che hanno guidato le nostre scelte progettuali e di ciò che riveste maggiore importanza. La comprensione di questi standard è essenziale per contestualizzare le scelte fatte e per apprezzare i risultati riscontrati. Ci si concentrerà su diversi protocolli e specifiche tecniche che hanno influenzato lo sviluppo del testbed scelto, esplorando le loro caratteristiche distintive, le modalità di funzionamento e le varie applicazioni pratiche.
 
-In particolare, inizieremo con un'analisi qualitativa dello standard IEEE 802.11, che rappresenta la base delle comunicazioni wireless. Questo standard ha introdotto una serie di tecnologie e protocolli fondamentali per la gestione delle reti senza fili, costruendo le basi per applicazioni avanzate, inclusi i sistemi automotive.
+In particolare, si inizierà con un'analisi qualitativa dello standard IEEE 802.11, che rappresenta la base delle comunicazioni wireless. Questo standard ha introdotto una serie di tecnologie e protocolli fondamentali per la gestione delle reti senza fili, costruendo le basi per applicazioni avanzate, inclusi i sistemi automotive.
 
-Successivamente, ci focalizzeremo su \textit{WAVE (Wireless Access in Vehicular Environments)}, un protocollo cruciale per la connettività dei veicoli e la gestione delle reti di trasporto intelligenti (ITS). WAVE consente la comunicazione tra singoli veicoli e tra veicoli ed infrastrutture, facilitando la trasmissione di informazioni vitali per la sicurezza e l'efficienza del traffico automobilistico.
+Successivamente, ci si focalizzerà su \textit{WAVE (Wireless Access in Vehicular Environments)}, un protocollo cruciale per la connettività dei veicoli e la gestione delle reti di trasporto intelligenti (ITS). WAVE consente la comunicazione tra singoli veicoli e tra veicoli ed infrastrutture, facilitando la trasmissione di informazioni vitali per la sicurezza e l'efficienza del traffico automobilistico.
 
-Un altro aspetto chiave che tratteremo è il meccanismo \textit{EDCA (Enhanced Distributed Channel Access)}, che rappresenta un'evoluzione del livello \textit{MAC (Media Access Control)} nelle reti wireless. EDCA introduce un metodo di accesso al canale più sofisticato rispetto al tradizionale \textit{DCF (Distributed Coordination Function)}, consentendo una gestione più efficiente delle priorità di traffico. Questo è particolarmente rilevante in scenari in cui coesistono diversi tipi di traffico (e.g. video, voce e dati) ognuno con requisiti specifici di latenza e larghezza di banda. Discuteremo come EDCA assegni diverse code di accesso per garantire che le comunicazioni più critiche ricevano la priorità necessaria, migliorando così l'esperienza complessiva degli utenti.
+Un altro aspetto chiave che verrà trattato è il meccanismo \textit{EDCA (Enhanced Distributed Channel Access)}, che rappresenta un'evoluzione del livello \textit{MAC (Media Access Control)} nelle reti wireless. EDCA introduce un metodo di accesso al canale più sofisticato rispetto al tradizionale \textit{DCF (Distributed Coordination Function)}, consentendo una gestione più efficiente delle priorità di traffico. Questo è particolarmente rilevante in scenari in cui coesistono diversi tipi di traffico (e.g. video, voce e dati) ognuno con requisiti specifici di latenza e larghezza di banda. Verrà discusso come EDCA assegni diverse code di accesso per garantire che le comunicazioni più critiche ricevano la priorità necessaria, migliorando così l'esperienza complessiva degli utenti.
 
-Infine, esploreremo lo standard \textit{ETSI DCC (Dedicated Short Range Communications)}, che si integra con le tecnologie precedentemente menzionate per supportare comunicazioni a corto raggio e per applicazioni specifiche nel settore automotive. DCC è progettato per garantire comunicazioni affidabili e tempestive tra veicoli e tra veicoli e infrastrutture, contribuendo a una mobilità più sicura ed efficiente.
+Verrà, successivamente, esaminato lo standard \textit{ETSI DCC (Dedicated Short Range Communications)}, che si integra con le tecnologie precedentemente menzionate per supportare comunicazioni a corto raggio e per applicazioni specifiche nel settore automotive. DCC è progettato per garantire comunicazioni affidabili e tempestive tra veicoli e tra veicoli e infrastrutture, contribuendo a una mobilità più sicura ed efficiente.
+
+Per concludere, verrà delineato lo standard ETSI ITS-G5, illustrando le caratteristiche che lo accomunano con le controparti di IEEE e quelle che lo differenziano
 
 \section{IEEE 802.11}
 Viene fatto un excursus molto breve sull'IEEE 802.11, che servirà come introduzione agli argomenti successivi. L'IEEE 802.11 è un insieme di standard e successivi emendamenti sviluppati dall'Institute of Electrical and Electronics Engineers (IEEE) per le comunicazioni wireless, comunemente conosciuto come Wi-Fi. Questi standard definiscono le specifiche per la trasmissione di dati in reti locali senza fili, coprendo vari aspetti come il livello fisico (PHY) e il controllo dell'accesso al mezzo (MAC) \cite{ieee80211}.
 
-E' ormai all'ordine del giorno che l'adozione dell'IEEE 802.11 ha rivoluzionato il modo in cui ci connettiamo a Internet e scambiamo dati, rendendo possibile l'accesso wireless in una vasta gamma di dispositivi, dai computer portatili agli smartphone. Gli standard 802.11 sono stati aggiornati nel corso degli anni per migliorare la velocità, la sicurezza e l'affidabilità delle comunicazioni.
+E' ormai all'ordine del giorno che l'adozione dell'IEEE 802.11 ha rivoluzionato il modo in cui ci si connette a Internet e si scambiano le informazione, rendendo possibile l'accesso wireless ad una vasta gamma di dispositivi, dai computer portatili agli smartphone. Gli standard 802.11 sono stati aggiornati nel corso degli anni per migliorare la velocità, la sicurezza e l'affidabilità delle comunicazioni.
 
 Nel contesto delle comunicazioni \textit{C-ITS (Cooperative Intelligent Transport Systems)}, l'IEEE 802.11 è particolarmente rilevante poiché la sua architettura e le sue tecniche di accesso al canale sono state adottate nell'architettura ITS-G5 \cite{etsi302} e, quindi, comprendere le sue basi è essenziale per apprezzare come queste tecnologie possano essere integrate per supportare la comunicazione tra veicoli e infrastrutture, migliorando la sicurezza stradale e l'efficienza del traffico.
 
@@ -60,7 +62,7 @@ Per affrontare queste problematiche, esiste un'altra soluzione chiamata Point Co
 \section{IEEE WAVE}
 WAVE è progettato specificamente per ambienti di trasporto, consentendo la comunicazione tra veicoli (\textit{V2V: Vehicle-to-Vehicle}) e tra veicoli e infrastrutture stradali (\textit{V2I: Vehicle-to-Infrastructure}). Questo protocollo sfrutta canali wireless dedicati per garantire una bassa latenza e una maggiore affidabilità, elementi essenziali per applicazioni critiche come la prevenzione degli incidenti e la gestione del traffico. 
 
-Per facilitare questo, l'IEEE ha introdotto un emendamento specifico al protocollo 802.11, noto come 802.11p \cite{std2007wireless}. Questo emendamento si occupa sia del livello fisico, chiamato PHY, sia della gestione dell'accesso al canale, che riguarda il livello MAC. Non ci soffermeremo ulteriormente sui livelli superiori, se non attraverso un breve excursus, poiché il protocollo in questione supporta senza difficoltà qualsiasi tipo di livello, sia esso basato su IP o meno \cite{DSRC-Based-vehicular}. Degno di nota è il fatto che è stato previsto un apposito protocollo per l'invio di frame che non richiedono un livello di trasporto come TCP o UDP, denominato \textit{WAVE Short Message Protocol (WSMP)}.
+Per facilitare questo, l'IEEE ha introdotto un emendamento specifico al protocollo 802.11, noto come 802.11p \cite{std2007wireless}. Questo emendamento si occupa sia del livello fisico, chiamato PHY, sia della gestione dell'accesso al canale, che riguarda il livello MAC. Non ci si soffermerà ulteriormente sui livelli superiori, se non attraverso un breve excursus, poiché il protocollo in questione supporta senza difficoltà qualsiasi tipo di livello, sia esso basato su IP o meno \cite{DSRC-Based-vehicular}. E' importante sottolineare che è stato previsto un apposito protocollo per l'invio di frame che non richiedono un livello di trasporto come TCP o UDP, denominato \textit{WAVE Short Message Protocol (WSMP)}.
 
 \begin{figure}[h!]
     \centering
@@ -177,7 +179,7 @@ Questi parametri variano in base a determinate caratteristiche della connessione
      \textbf{AC\_BK (Background)} & aCWmin & aCWmax & 7 \\
      \hline
     \end{tabular}
-    \caption{Parametri delle diverse AC}
+    \caption{Parametri delle diverse AC (generici)}
     \label{table:2}
 \end{table}
 
@@ -197,7 +199,7 @@ Nella Tabella \ref{table:3}, invece, sono riportati i parametri nel caso di aCWm
      \textbf{AC\_BK (Background)} & 31 & 1023 & 7 \\
      \hline
     \end{tabular}
-    \caption{Parametri delle diverse AC}
+    \caption{Parametri delle diverse AC (Caso con OFDM e MIMO)}
     \label{table:3}
 \end{table}
 
@@ -235,12 +237,12 @@ Ad ogni differente AC viene assegnata una differente coda; i vari frame vengono 
 
 E', comunque, sempre presente una sorta di casualità tra un AIFSN e un altro in modo da evitare che frame messi nella coda con priorità maggiore monopolizzino il canale a discapito di quelli a priorità minore.
 
-\section[DCC]{Decentralized Congestion Control}
+\section[ETSI DCC]{Decentralized Congestion Control}
 Le comunicazioni C-ITS devono funzionare anche in condizioni di traffico stradale intenso. Se tutti i veicoli partecipano allo scambio di informazioni C-ITS trasmettendo messaggi periodici, è probabile che si verifichi congestione nel canale wireless. Per evitare il degrado delle prestazioni del sistema causato da un carico eccessivo del canale e garantire un accesso equo alle risorse tra le stazioni ITS-G5 vicine (ITS-S), è necessario implementare meccanismi di controllo della congestione. A tal fine, l'ETSI ha pubblicato la specifica \textit{TS 102 687}, che definisce un meccanismo di controllo della congestione decentralizzato (\textit{DCC - Decentralized Congestion Control}) come parte dello stack di protocolli ITS-G5 \cite{8535090}. Il DCC è un componente obbligatorio dell'ITS-S e opera nella banda di frequenza dei 5,9 GHz.
 
 Esso ha introdotto un approccio a macchina a stati finti al livello di accesso per adattare diversi parametri di trasmissione in base al carico del canale misurato. Ogni stato della macchina è associato a un determinato livello di carico del canale e a un insieme specifico di parametri di trasmissione. Questo consente al DCC di ottimizzare le comunicazioni in situazioni di congestione, migliorando l'efficienza e le prestazioni del sistema C-ITS.
 
-Esistono diverse configurazioni che prevedono molteplici stati nella macchina di stato, ma ci concentreremo in particolare sulla configurazione \textit{DCC 2+1}, che comprende tre stati distinti: \textit{Relaxed}, \textit{Active} e \textit{Restrictive} (Figura \ref{fig:dcc}).
+Esistono diverse configurazioni che prevedono molteplici stati nella macchina di stato, ma verrà approfondita solo la configurazione \textit{DCC 2+1}, che comprende tre stati distinti: \textit{Relaxed}, \textit{Active} e \textit{Restrictive} (Figura \ref{fig:dcc}).
 
 \begin{figure}[h!]
     \centering
@@ -324,3 +326,5 @@ Questa suddivisione in Access Categories consente all'ETSI di ottimizzare le pre
 Il valore \textit{ref} indica che il parametro è invariato e viene utilizzato il valore precedente del parametro di riferimento corrispondente.
 
 Da come si può notare in figura \ref{fig:dcc_edca}, in questo contesto non è stata esclusa la \textit{Transmit Datarate Control}, in quanto, vista l'applicazione del DCC con code EDCA in contesti generici e non strettamente legati alla sicurezza, non aveva più senso basarsi sullo standard \textit{de facto} della velocità di trasmissione di 6 Mbps.
+
+\section{ITS-G5}

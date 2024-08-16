@@ -77,11 +77,11 @@ Non si entrerà nel dettaglio di questi comandi, del resto abbastanza ovvi; ci s
 
 Per lo svoglimento del lavoro che viene descritto in questo elaborato, si è deciso di utilizzare una frequenza appartenente alla banda ISM (\textit{Industrial, Scientific and Medical}) anziché quelle specificamente designate dallo standard 802.11p. Questa scelta è stata motivata principalmente dalla necessità di semplificare l'implementazione e garantire la compatibilità hardware.
 
-La banda ISM è ampiamente utilizzata e supportata da numerosi dispositivi commerciali, inclusi quelli a nostra disposizione, il che facilita l'accesso e l'implementazione della tecnologia senza richiedere hardware specializzato. Al contrario, le frequenze stabilite dall'802.11p sono progettate specificamente per le comunicazioni veicolari e richiedono attrezzature più avanzate e costose.
+La banda ISM è ampiamente utilizzata e supportata da numerosi dispositivi commerciali, inclusi quelli a disposizione, il che facilita l'accesso e l'implementazione della tecnologia senza richiedere hardware specializzato. Al contrario, le frequenze stabilite dall'802.11p sono progettate specificamente per le comunicazioni veicolari e richiedono attrezzature più avanzate e costose.
 
 Infatti, l'hardware impiegato nel nostro progetto non era completamente compatibile con le frequenze specifiche dell'IEEE 802.11p, il che avrebbe comportato ulteriori complicazioni e ritardi nell'implementazione.
 
-Optando, invece, per la banda ISM, si è stati in grado di garantire una maggiore interoperabilità e una configurazione più rapida, permettendoci di dedicare maggiore tempo sulla configurazione del nostro sistema e sullo svoglimento delle prove necessarie. A livello pratico, questa scelta non ha comportato sostanziali differenze, se non per il fatto che, lavorando con un canale appartenente alla banda 5.9 GHz avremmo potuto ottenere prestazioni leggermente migliori grazie a una minore congestione della banda.
+Optando, invece, per la banda ISM, si è stati in grado di garantire una maggiore interoperabilità e una configurazione più rapida, permettendoci di dedicare maggiore tempo sulla configurazione del nostro sistema e sullo svoglimento delle prove necessarie. A livello pratico, questa scelta non ha comportato sostanziali differenze, se non per il fatto che, lavorando con un canale appartenente alla banda 5.9 GHz anzichè alla 2.4 GHz si sarebbero potute ottenere prestazioni leggermente migliori grazie a disturbi trascurabili e ad una minore congestione della banda.
 
 \section{Tweaking}
 Per rendere possibili alcune configurazioni nei dispositivi Rock e la raccolta dei dati, si è reso necessario mettere mano nalel codice sorgente del Kernel Linux ed applicare alcune patch.
