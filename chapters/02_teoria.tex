@@ -39,7 +39,7 @@ Non meno importante è l'emendamento IEEE 802.11p (IEEE WAVE), che sarà descrit
 
 Le caratteristiche tecniche degli standard 802.11 includono l'operatività nelle bande di frequenza a 2.4 GHz e 5 GHz, con l'802.11ax che introduce anche la banda a 6 GHz. Questi standard utilizzano diverse tecniche di modulazione, come BPSK, QPSK e 16-QAM, per ottimizzare la trasmissione dei dati. La larghezza di banda varia: mentre gli standard precedenti utilizzavano larghezze di banda di 20 MHz e 40 MHz, gli standard più recenti come 802.11ac e 802.11ax possono utilizzare larghezze di banda fino a 160 MHz. La tecnologia MIMO consente l'uso di più antenne per trasmettere e ricevere dati simultaneamente, migliorando la capacità e la velocità della rete, mentre il beamforming ottimizza la direzione del segnale verso il dispositivo ricevente, migliorando la portata e l'affidabilità della connessione.
 
-Per quanto riguarda la sicurezza, gli standard 802.11 hanno evoluto i protocolli di protezione nel tempo. Il primo protocollo, WEP (Wired Equivalent Privacy), si è rivelato vulnerabile a vari attacchi, portando all'introduzione di WPA (Wi-Fi Protected Access), che offriva una maggiore sicurezza. Successivamente, WPA2, basato su AES (Advanced Encryption Standard), ha fornito una protezione robusta, mentre WPA3, l'ultima evoluzione, migliora ulteriormente la sicurezza, specialmente in ambienti pubblici e per dispositivi IoT.
+Per quanto riguarda la sicurezza, gli standard 802.11 hanno evoluto i protocolli di protezione nel tempo. Il primo protocollo, WEP (\textit{Wired Equivalent Privacy}), si è rivelato vulnerabile a vari attacchi, portando all'introduzione di WPA (\textit{Wi-Fi Protected Access}), che offriva una maggiore sicurezza. Successivamente, WPA2, basato su AES (Advanced Encryption Standard), ha fornito una protezione robusta, mentre WPA3, l'ultima evoluzione, migliora ulteriormente la sicurezza, specialmente in ambienti pubblici e per dispositivi IoT.
 
 \subsection[DCF]{Distributed Coordination Function}
 La Distributed Coordination Function (DCF) è la modalità standard attraverso cui i dispositivi Wi-Fi accedono al canale di comunicazione, simile al protocollo CSMA/CA (\textit{Carrier-sense multiple access with collision avoidance}) utilizzato nelle reti cablate, tipo Ethernet et simila. Quando un nodo inizia a trasmettere dati, gli altri dispositivi devono attendere che il canale diventi libero prima di poter inviare le proprie informazioni (\textit{Carrier-sense}).
@@ -53,7 +53,16 @@ Dopo che una stazione ha completato la trasmissione dei dati, c'è un intervallo
     \label{fig:dcf}
 \end{figure}
 
-Se il canale risulta ancora occupato, il nodo non può semplicemente attendere il DIFS; deve considerare un ulteriore intervallo di backoff per evitare conflitti. Il backoff è un valore casuale scelto all'interno di un intervallo definito da [0, CW], dove CW rappresenta la congestion window, e il suo valore può variare a seconda della situazione della rete. Minore è il valore di CW, minore sarà l'intervallo di attesa. Durante il periodo di contesa, il canale rimarrà inattivo per uno slot temporale, consentendo di decrementare il valore di CW e ridurre l'intervallo di attesa, specialmente in caso di congestione.
+Se il canale risulta ancora occupato, il nodo non può semplicemente attendere il DIFS; deve considerare un ulteriore intervallo di backoff per evitare conflitti. Il backoff è un valore casuale scelto all'interno di un intervallo definito da [0, CW], dove CW rappresenta la \textit{congestion window}, e il suo valore può variare a seconda della situazione della rete. Minore è il valore di CW, minore sarà l'intervallo di attesa. Durante il periodo di contesa, il canale rimarrà inattivo per uno slot temporale, consentendo di decrementare il valore di CW e ridurre l'intervallo di attesa, specialmente in caso di congestione.
+
+Dallo standard è previsto anche un meccanismo chiamato \textit{RTS/CTS}, ovvero \textit{(Request-To-Send/Clear-To-Send)}, per ridurre le collisioni ed in particolare risolvere il \textit{hidden node problem} (problema del nodo nascosto). Esso prevede che la stazione trasmittente, prima di inviare dati, invii un frame RTS all'access point che, in caso di canale libero, risponda con un frame CTS (Figura \ref{fig:rts_cts}) \cite{rts}. Risulta essere facoltativo; viene utilizzato solo nella trasmissione di pacchetti con dimensione superiore ad una certa soglia, in genere 2346 bytes.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{rts_cts.png}
+    \caption{Trasmissione utilizzando il meccanismo RTS/CTS}
+    \label{fig:rts_cts}
+\end{figure}
 
 Sebbene DCF sia un meccanismo efficace per la condivisione del canale tra più stazioni, presenta alcune limitazioni significative. Innanzitutto, non esiste un controllo della congestione, il che può portare a collisioni. Le collisioni multiple possono limitare la banda disponibile e causare seri problemi di trasmissione. Inoltre, DCF non garantisce alcuna Quality of Service (QoS), non essendoci un metodo per prioritizzare i flussi di traffico.
 
