@@ -60,6 +60,7 @@ Sebbene DCF sia un meccanismo efficace per la condivisione del canale tra più s
 Per affrontare queste problematiche, esiste un'altra soluzione chiamata Point Coordination Function (PCF), che può essere utilizzata solo in configurazioni infrastrutturate, dove la connessione è gestita da un access point e include meccanismi per garantire la QoS. Tuttavia, poiché PCF non è adatta per il protocollo 802.11p, è necessario integrare la QoS direttamente nella Coordination Function (CF) per garantire prestazioni adeguate nelle reti che non possono utilizzare PCF. Tale problema è stato affrontato con lo sviluppo della EDCA con la \textit{EDCF (Enhanced Distributed Coordination Function)}, affrontata nella \autoref{edca}.
 
 \section{IEEE WAVE}
+\label{wave}
 WAVE è progettato specificamente per ambienti di trasporto, consentendo la comunicazione tra veicoli (\textit{V2V: Vehicle-to-Vehicle}) e tra veicoli e infrastrutture stradali (\textit{V2I: Vehicle-to-Infrastructure}). Questo protocollo sfrutta canali wireless dedicati per garantire una bassa latenza e una maggiore affidabilità, elementi essenziali per applicazioni critiche come la prevenzione degli incidenti e la gestione del traffico. 
 
 Per facilitare questo, l'IEEE ha introdotto un emendamento specifico al protocollo 802.11, noto come 802.11p \cite{std2007wireless}. Questo emendamento si occupa sia del livello fisico, chiamato PHY, sia della gestione dell'accesso al canale, che riguarda il livello MAC. Non ci si soffermerà ulteriormente sui livelli superiori, se non attraverso un breve excursus, poiché il protocollo in questione supporta senza difficoltà qualsiasi tipo di livello, sia esso basato su IP o meno \cite{DSRC-Based-vehicular}. E' importante sottolineare che è stato previsto un apposito protocollo per l'invio di frame che non richiedono un livello di trasporto come TCP o UDP, denominato \textit{WAVE Short Message Protocol (WSMP)}.
@@ -71,7 +72,7 @@ Per facilitare questo, l'IEEE ha introdotto un emendamento specifico al protocol
     \label{fig:wave_stack}
 \end{figure}
 
-Di seguito, presentiamo un elenco che fornisce ulteriori dettagli sui protocolli menzionati nella Figura \ref{fig:wave_stack}, partendo dal layer fisico e salendo di volta in volta:
+Di seguito, viene presentato un elenco che fornisce ulteriori dettagli sui protocolli menzionati nella Figura \ref{fig:wave_stack}, partendo dal layer fisico e salendo di volta in volta:
 
 \begin{itemize}
     \item \textit{IEEE 802.11-2016, IEEE Std 802.11p: Wireless Access in Vehicular Environments}.
@@ -237,7 +238,61 @@ Ad ogni differente AC viene assegnata una differente coda; i vari frame vengono 
 
 E', comunque, sempre presente una sorta di casualità tra un AIFSN e un altro in modo da evitare che frame messi nella coda con priorità maggiore monopolizzino il canale a discapito di quelli a priorità minore.
 
+\section{ITS-G5}
+Dopo la definizione, da parte di IEEE, dello standard WAVE, in Europa si è reso necessario andare ad adattare i vari standard e normative allo scenario del vecchio continente.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{wave_etsi.png}
+    \caption{Parametri DCC con code EDCA}
+    \label{fig:wave_etsi}
+\end{figure}
+
+Come è possibile notare dalla Figura \ref{fig:wave_etsi} \cite{etsi_security_standard}, i due standard condividono tutti i vari layer si occupano dell'accesso al canale, ovvero layer fisico, MAC e LLC, con la sola differenza che ITS prevede, in aggiunta, il \textit{Decentralized Congestion Control}, che verrà discusso in maniera approfondita nella \autoref{dcc}.
+
+Qui una descrizione dei layer specifici di ITS, tralasciando quelli condivisi con WAVE in quanto se n'è già parlato precedentemente nella \autoref{wave}:
+
+\begin{itemize}
+    \item \textit{ETSI TS 102 636}: descrive le funzionalità per il \textit{GeoNetworking} \cite{etsi2013intelligent}; infatti anche qui è possibile utilizzare dei protocolli ad hoc anzichè TCP/UDP e IP, ovvero GeoNet e BTP (\textit{Basic Transport Protocol}) \cite{vogt2024comprehensive}.
+    \item \textit{ETSI TS 723-x}: vari standard per definire le architetture e i requisiti per i sistemi di comunicazione DSRC \cite{etsi2012intelligent}.
+    \item \textit{ETSI TS 102 943 e vari}: per tutto ciò che rigurda la sicurezza delle comunicazioni \cite{etsi2012intelligent_security}.
+    \item \textit{ETSI TS 102 637-2/3}: messaggi CAM (\textit{Cooperative Awareness Message}) \cite{etsi2010102} e DENM (\textit{Decentralized Environmental Notification Message}) \cite{etsi2010etsi}.
+\end{itemize}
+
+Di tutto ciò, risultano di notevole importanza per questa trattazione i messaggi CAM e DENM e quindi richiedono un maggiore approfondimento.
+
+\subsection[CAM]{CAM}
+Il servizio CAM (Cooperative Awareness Message), definito dall'ETSI (European Telecommunications Standards Institute, 2011), fornisce una funzione di \textit{awareness} di base nelle reti ITS (Intelligent Transportation Systems) cooperative, attraverso l'invio periodico di dati di stato ai nodi adiacenti. Questo servizio funge da supporto per le applicazioni, consentendo la distribuzione regolare di messaggi contenenti informazioni sulla presenza, posizione e stato delle stazioni ITS.
+
+I messaggi CAM vengono trasmessi alle stazioni ITS vicine che si trovano entro una distanza di un singolo hop dal mittente. Ricevendo questi messaggi, una stazione ITS può acquisire conoscenza delle altre stazioni nella sua area di prossimità, nonché delle loro posizioni, movimenti e caratteristiche rilevanti. Il destinatario di un messaggio CAM deve valutare la pertinenza delle informazioni ricevute, permettendo così alle stazioni ITS di ottenere dati utili sull'ambiente circostante e di reagire di conseguenza.
+
+Lo standard ETSI definisce un insieme di informazioni che possono essere incluse in un messaggio CAM, rendendolo utile per varie applicazioni ITS, come l'avvicinamento di veicoli di emergenza o avvisi riguardanti veicoli lenti. Inoltre, lo standard è sufficientemente flessibile da permettere l'inclusione di nuove informazioni, garantendo la trasmissione di dati pertinenti per le applicazioni ITS \cite{cam_denm}.
+
+Secondo la specifica ETSI TS 102 637-2 \cite{etsi2010102}, il formato di un messaggio CAM è composto da un \textit{header} e un \textit{body}. L'intestazione contiene informazioni sul messaggio stesso, come la versione, l'identificatore del messaggio e il tempo di generazione. Il corpo include dettagli sulla stazione ITS mittente, quali:
+
+\begin{itemize}
+    \item Identificatore univoco della stazione ITS.
+    \item Tipo di stazione ITS (mobile, autorità pubblica, privata).
+    \item Posizione di riferimento, espressa in termini di latitudine, longitudine, elevazione e direzione.
+    \item Una serie di parametri CAM aggiuntivi, che possono essere inclusi facoltativamente in base al tipo di stazione ITS.
+\end{itemize}
+
+Oltre a specificare il formato dei messaggi CAM, lo standard ETSI fornisce anche indicazioni sui processi di gestione dei messaggi. Da un lato, vengono stabiliti requisiti temporali per la generazione periodica dei messaggi CAM, consentendo di regolare la frequenza in base al tipo di applicazione ITS per ottimizzare le prestazioni; è consentito l'invio ogni qualvolta il nodo presenta una variazione significativa delle sue coordinate spaziali, ovvero:
+
+\begin{itemize}
+    \item \textit{\textDelta \textalpha} maggiore di 4 gradi;
+    \item \textDelta x maggiore di 5 metri;
+    \item \textDelta v maggiore di 1 m/s;
+\end{itemize}
+
+Tali messaggi, tuttavia, non possono essere inviati con una frequenza superiore a 10 Hz e inferiore a 1 Hz.
+
+Dall'altro lato, lo standard descrive le regole generali per la generazione dei messaggi, lasciando tuttavia agli sviluppatori delle applicazioni la libertà di prendere decisioni specifiche riguardo all'implementazione delle strutture CAM.
+
+\subsection[DENM]{DENM}
+
 \section[ETSI DCC]{Decentralized Congestion Control}
+\label{dcc}
 Le comunicazioni C-ITS devono funzionare anche in condizioni di traffico stradale intenso. Se tutti i veicoli partecipano allo scambio di informazioni C-ITS trasmettendo messaggi periodici, è probabile che si verifichi congestione nel canale wireless. Per evitare il degrado delle prestazioni del sistema causato da un carico eccessivo del canale e garantire un accesso equo alle risorse tra le stazioni ITS-G5 vicine (ITS-S), è necessario implementare meccanismi di controllo della congestione. A tal fine, l'ETSI ha pubblicato la specifica \textit{TS 102 687}, che definisce un meccanismo di controllo della congestione decentralizzato (\textit{DCC - Decentralized Congestion Control}) come parte dello stack di protocolli ITS-G5 \cite{8535090}. Il DCC è un componente obbligatorio dell'ITS-S e opera nella banda di frequenza dei 5,9 GHz.
 
 Esso ha introdotto un approccio a macchina a stati finti al livello di accesso per adattare diversi parametri di trasmissione in base al carico del canale misurato. Ogni stato della macchina è associato a un determinato livello di carico del canale e a un insieme specifico di parametri di trasmissione. Questo consente al DCC di ottimizzare le comunicazioni in situazioni di congestione, migliorando l'efficienza e le prestazioni del sistema C-ITS.
@@ -326,5 +381,3 @@ Questa suddivisione in Access Categories consente all'ETSI di ottimizzare le pre
 Il valore \textit{ref} indica che il parametro è invariato e viene utilizzato il valore precedente del parametro di riferimento corrispondente.
 
 Da come si può notare in figura \ref{fig:dcc_edca}, in questo contesto non è stata esclusa la \textit{Transmit Datarate Control}, in quanto, vista l'applicazione del DCC con code EDCA in contesti generici e non strettamente legati alla sicurezza, non aveva più senso basarsi sullo standard \textit{de facto} della velocità di trasmissione di 6 Mbps.
-
-\section{ITS-G5}
