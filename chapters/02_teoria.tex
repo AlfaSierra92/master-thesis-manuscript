@@ -238,7 +238,7 @@ Ad ogni differente AC viene assegnata una differente coda; i vari frame vengono 
 
 E', comunque, sempre presente una sorta di casualità tra un AIFSN e un altro in modo da evitare che frame messi nella coda con priorità maggiore monopolizzino il canale a discapito di quelli a priorità minore.
 
-\section{ITS-G5}
+\section{ETSI ITS-G5}
 Dopo la definizione, da parte di IEEE, dello standard WAVE, in Europa si è reso necessario andare ad adattare i vari standard e normative allo scenario del vecchio continente.
 
 \begin{figure}[h!]
@@ -268,7 +268,7 @@ I messaggi CAM vengono trasmessi alle stazioni ITS vicine che si trovano entro u
 
 Lo standard ETSI definisce un insieme di informazioni che possono essere incluse in un messaggio CAM, rendendolo utile per varie applicazioni ITS, come l'avvicinamento di veicoli di emergenza o avvisi riguardanti veicoli lenti. Inoltre, lo standard è sufficientemente flessibile da permettere l'inclusione di nuove informazioni, garantendo la trasmissione di dati pertinenti per le applicazioni ITS \cite{cam_denm}.
 
-Secondo la specifica ETSI TS 102 637-2 \cite{etsi2010102}, il formato di un messaggio CAM è composto da un \textit{header} e un \textit{body}. L'intestazione contiene informazioni sul messaggio stesso, come la versione, l'identificatore del messaggio e il tempo di generazione. Il corpo include dettagli sulla stazione ITS mittente, quali:
+Secondo la specifica ETSI TS 102 637-2 \cite{etsi2010102}, il formato di un messaggio CAM è composto da un \textit{header} e un \textit{body}. L'intestazione contiene informazioni sul messaggio stesso, come la versione, l'identificatore del messaggio e il tempo di generazione. Il corpo include dettagli sulla stazione ITS mittente, quali (Figura \ref{fig:cam}):
 
 \begin{itemize}
     \item Identificatore univoco della stazione ITS.
@@ -276,6 +276,13 @@ Secondo la specifica ETSI TS 102 637-2 \cite{etsi2010102}, il formato di un mess
     \item Posizione di riferimento, espressa in termini di latitudine, longitudine, elevazione e direzione.
     \item Una serie di parametri CAM aggiuntivi, che possono essere inclusi facoltativamente in base al tipo di stazione ITS.
 \end{itemize}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{cam.png}
+    \caption{Struttura messaggio CAM}
+    \label{fig:cam}
+\end{figure}
 
 Oltre a specificare il formato dei messaggi CAM, lo standard ETSI fornisce anche indicazioni sui processi di gestione dei messaggi. Da un lato, vengono stabiliti requisiti temporali per la generazione periodica dei messaggi CAM, consentendo di regolare la frequenza in base al tipo di applicazione ITS per ottimizzare le prestazioni; è consentito l'invio ogni qualvolta il nodo presenta una variazione significativa delle sue coordinate spaziali, ovvero:
 
@@ -290,6 +297,12 @@ Tali messaggi, tuttavia, non possono essere inviati con una frequenza superiore 
 Dall'altro lato, lo standard descrive le regole generali per la generazione dei messaggi, lasciando tuttavia agli sviluppatori delle applicazioni la libertà di prendere decisioni specifiche riguardo all'implementazione delle strutture CAM.
 
 \subsection[DENM]{DENM}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{denm.png}
+    \caption{Struttura messaggio DENM}
+    \label{fig:denm}
+\end{figure}
 
 \section[ETSI DCC]{Decentralized Congestion Control}
 \label{dcc}
