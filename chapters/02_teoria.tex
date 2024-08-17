@@ -293,25 +293,70 @@ Secondo la specifica ETSI TS 102 637-2 \cite{etsi2010102}, il formato di un mess
     \label{fig:cam}
 \end{figure}
 
-Oltre a specificare il formato dei messaggi CAM, lo standard ETSI fornisce anche indicazioni sui processi di gestione dei messaggi. Da un lato, vengono stabiliti requisiti temporali per la generazione periodica dei messaggi CAM, consentendo di regolare la frequenza in base al tipo di applicazione ITS per ottimizzare le prestazioni; è consentito l'invio ogni qualvolta il nodo presenta una variazione significativa delle sue coordinate spaziali, ovvero:
+Oltre a specificare il formato dei messaggi CAM, lo standard ETSI fornisce anche indicazioni sui processi di gestione dei messaggi. Vengono, inoltre, stabiliti requisiti temporali per la generazione periodica dei messaggi CAM, consentendo di regolare la frequenza in base al tipo di applicazione ITS per ottimizzare le prestazioni.
+
+Essi sono generati quando si è in presenza di una delle seguenti condizioni:
 
 \begin{itemize}
-    \item \textit{\textDelta \textalpha} maggiore di 4 gradi;
-    \item \textDelta x maggiore di 5 metri;
-    \item \textDelta v maggiore di 1 m/s;
+    \item quando la differenza assoluta tra la direzione attuale (verso Nord) e la direzione dell'ultimo messaggio CAM generato è maggiore di 4°;
+    \item quando la distanza assoluta tra la posizione e la posizione dell'ultimo messaggio CAM generato è maggiore di 4 metri;
+    \item quando la differenza assoluta tra la velocità attuale e la velocità dell'ultimo messaggio CAM generato è maggiore di 1 m/s;
 \end{itemize}
 
-Tali messaggi, tuttavia, non possono essere inviati con una frequenza superiore a 10 Hz e inferiore a 1 Hz.
-
-Dall'altro lato, lo standard descrive le regole generali per la generazione dei messaggi, lasciando tuttavia agli sviluppatori delle applicazioni la libertà di prendere decisioni specifiche riguardo all'implementazione delle strutture CAM.
+Il controllo sulla sussistenza di questi requisiti viene effettuato ogni 100 ms. Indipendentemente dal verificarsi delle condizioni sopra menzionate, viene sempre generato un messaggio CAM ogni 1 secondo. Pertanto, l'intervallo di tempo tra un pacchetto e l'altro varierà tra 0,1 s e 1 s.
 
 \subsection[DENM]{DENM}
+Il \textit{Decentralized Environmental Notification Messages (DENM)} costituisce un altro tipo di servizio di supporto che fornisce avvisi sullo stato del traffico e della strada in generale. Nonostante questo tipo di servizio sia stato concepito dall'ETSI appositamente per supportare le applicazioni di sicurezza stradale attiva, la sua applicazione può essere estesa a qualsiasi applicazione ITS interessata a ottenere informazioni sulle condizioni del traffico stradale \cite{etsi2010etsi}.
+
 \begin{figure}[h!]
     \centering
     \includegraphics[width=1\textwidth]{denm.png}
     \caption{Struttura messaggio DENM}
     \label{fig:denm}
 \end{figure}
+
+Un messaggio DENM, la cui struttura può essere vista in Figura \ref{fig:denm}, viene inviato da una determinata applicazione ITS, chiamata \textit{Road Hazard Warning application (RHW)}, che rileva un ambiente di guida o un evento di traffico rilevante.
+
+Secondo le specifiche standard, un evento è caratterizzato da:
+\begin{itemize}
+    \item un \textit{event type}, che è un identificatore associato al tipo di evento rilevato (ad esempio, guasto del veicolo, ingorgo, ecc.); 
+    \item la posizione dell'evento che può essere una posizione effettiva o una più generica area geografica; 
+    \item il tempo di rilevamento dell'evento, da cui può essere tratto il tempo di scadenza che rappresenta il momento in cui si prevede che l'evento sia terminato;
+    \item un'area di destinazione che indica l'area geografica su cui il messaggio DENM deve essere diffuso tra le stazioni ITS;
+    \item la frequenza con cui devono essere trasmessi i messaggi DENM dalla stessa stazione ITS.
+\end{itemize}
+
+Alcune tipologie di eventi che possono innescare la generazione di messaggi DENM sono:
+
+\begin{itemize}
+    \item frenata improvvisa del veicolo;
+    \item incidente;
+    \item lavori di costruzione;
+    \item pericoli imminenti;
+    \item condizioni di scarsa visibilità, raffiche di vento, strada sdrucciolevole.
+\end{itemize}
+
+Queste informazioni devono essere fornite dall'applicazione ITS alla struttura DENM, che si occuperà di trasmettere periodicamente i messaggi DENM nell'area di destinazione specificata secondo la frequenza indicata (Figure \ref{fig:area1} e \ref{fig:area2}). Quando lo stato dell'evento cambia, l'applicazione ITS informa la struttura DENM di modificare le informazioni contenute nel messaggio DENM. Una volta raggiunto il tempo di scadenza, la struttura DENM interrompe l'invio dei messaggi DENM. 
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{area1.png}
+    \caption{Esempio di area di destinazione del DENM (Scenario autostrada)}
+    \label{fig:area1}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{area2.png}
+    \caption{Esempio di area di destinazione del DENM (Scenario incrocio)}
+    \label{fig:area2}
+\end{figure}
+
+In alternativa, gli eventi possono essere esplicitamente annullati inviando appositi messaggi DENM che informano di questa situazione.
+
+La stazione ITS che riceve un messaggio DENM deve determinare la rilevanza delle informazioni contenute nel messaggio e stabilire le azioni da intraprendere (ad esempio, avvisare il conducente). Inoltre, la stazione ricevente può probabilmente inoltrare il messaggio alle stazioni ITS vicine, sia del veicolo che della strada. Questo processo è necessario per diffondere il messaggio nell'area di destinazione indicata dalla stazione ITS che ha originato l'evento. 
+
+Pertanto, rispetto ai messaggi CAM, i DENM vengono diffusi a una distanza maggiore, cioè possono essere inoltrati a diversi hops di distanza dalla stazione ITS mittente. Una situazione particolare si verifica con le stazioni ITS a bordo strada, che devono raccogliere le informazioni trasmesse dalle stazioni ITS dei veicoli, elaborarle e inoltrarle a una stazione ITS centrale. Queste informazioni aggregate rappresentano un input prezioso per l'operatore stradale per migliorare l'efficienza e la gestione del traffico \cite{cam_denm}.
 
 \section[ETSI DCC]{Decentralized Congestion Control}
 \label{dcc}
