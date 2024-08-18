@@ -219,6 +219,22 @@ La patch, che per chiarezza di lettura non è stata inserita in questo paragrafo
 
 Da notare che la patch è stata sviluppata per la versione 2 del software (nello specifico la v2.2.0); esiste anche la versione 3 che, tuttavia, non è stata presa in considerazione in quanto i cambiamenti architetturali effettuati al programma non consentivano, facilmente, l'impletazione delle modifiche necessarie.
 
+\subsection[Parametri utilizzati]{Parametri utilizzati}
+Vengono qui elencati e brevemente spiegati alcuni dei parametri utilizzati per le varie esecuzioni di iPerf \cite{iperf}.
+
+\begin{itemize}
+    \item \textit{-s}: eseguire iPerf in modalità server.
+    \item \textit{-u}: usa UDP piuttosto che TCP. Se non inserito, viene utilizzato quest'ultimo in maniera predefinita.
+    \item \textit{-c aaa.bbb.ccc.ddd}: eseguire iPerf in modalità client, collegandosi a un server iPerf in esecuzione su un host con l'indirizzo IP passato come parametro.
+    \item \textit{-i n}: imposta il tempo di intervallo in secondi tra la larghezza di banda periodica, il jitter e i rapporti di perdita. Se diverso da zero, viene fatto un rapporto ogni intervallo di secondi della larghezza di banda dall'ultimo rapporto. Se zero, non vengono stampati rapporti periodici. Il valore predefinito è zero.
+    \item \textit{-t n}: il tempo in secondi per cui trasmettere.
+    \item \textit{-b n}: impostare la larghezza di banda di destinazione su n bit/sec.
+    \item \textit{-A xx}: classe di priorità da utilizzare; già spiegato precedentemente.
+    \item \textit{-y}: passandoci assieme il carattere C si avrà l'output come CSV (\textit{Comma Separated Value}).
+    \item \textit{-o filename}: output su file anzichè su \textit{stdout}.
+    \item \textit{-w 416K}: imposta le dimensioni del buffer del socket sul valore specificato (416 KB). Per TCP, questo imposta la dimensione della finestra TCP.
+\end{itemize}
+
 \section{Netcat OpenBSD}
 Netcat, spesso abbreviato in nc, è un potente strumento di rete utilizzato per leggere e scrivere dati attraverso connessioni di rete TCP o UDP. È spesso descritto come "il coltellino svizzero" degli strumenti di rete, grazie alla sua versatilità.
 
