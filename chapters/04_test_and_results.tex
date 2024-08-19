@@ -26,7 +26,7 @@ Sono previsti tre principali casi di test:
     \item \textit{T1\_C2}: assenza di QoS nei flussi dei dispositivi del \textit{Gruppo Tx} e totale congestione del canale, attuata mediante trasmissione UDP in \textit{flooding} in broadcast da parte di ognuno dei due dispositivi del \textit{Gruppo Cx}.
 \end{itemize}
 
-Questi stessi casi verranno, inoltre, ripetuti andando ad applicare delle politiche di QoS: un flusso verrà assegnato alla categoria con priorità maggiore, ovvero \textit{Access Category Voice} (AC\_VO), mentre l'altro alla categoria minore, ovvero \textit{Access Category Background} (AC\_BK).
+Questi stessi casi verranno, inoltre, ripetuti andando ad applicare delle politiche di QoS: un flusso (\textbf{Stream ID 1}) verrà assegnato alla categoria con priorità maggiore, ovvero \textit{Access Category Voice} (AC\_VO), mentre l'altro (\textbf{Stream ID 2}) alla categoria minore, ovvero \textit{Access Category Background} (AC\_BK).
 
 Per fare ciò, viene utilizzato il comando iPerf, già precedentemente discusso, con i dovuti parametri. Nella fattispecie:
 
@@ -304,7 +304,7 @@ Si passa da throughput elevato e relativamente stabile, a prestazioni man mano p
 
 Questo discorso è applicabile sia nei casi in cui non sono state implementate politiche di QoS, sia quando si assegna una maggiore priorità a uno dei flussi rispetto all'altro. Anche in queste situazioni, si osservano valori di throughput medio generalmente meno stabili e caratterizzati da oscillazioni nel tempo; in effetti, la variabilità tende a peggiorare in tutti i casi di congestione.
 
-Pertanto, si può concludere che l'uso di diverse Access Categories non ha effetti positivi sulla variabilità del throughput, che continua a oscillare in presenza di congestione. L'unico effetto riscontrato è la maggiore velocità del flusso con priorità maggiore a discapito di quello a priorità minore.
+Pertanto, si può concludere che l'uso di diverse \textit{Access Categories} non ha effetti positivi sulla variabilità del throughput, che continua a oscillare in presenza di congestione. L'unico effetto riscontrato è la maggiore velocità del flusso con priorità maggiore a discapito di quello a priorità minore.
 \clearpage
 \begin{table}[h!]
     \centering
@@ -337,9 +337,10 @@ Pertanto, si può concludere che l'uso di diverse Access Categories non ha effet
      \textbf{QoS presente e congestione totale (Stream 2)} & 0.30 & 0.01466\\
      \hline
     \end{tabular}
-    \caption{Confronti risultati (Valori in Mbps)}
+    \caption{Confronto risultati (Valori in Mbps)}
     \label{table:12}
 \end{table}
+Nei casi in cui sono state applicate politiche di QoS, lo \textbf{Stream 1} è quello con priorità \textit{AC\_VO}, mentre lo \textbf{Stream 2} è quello con priorità \textit{AC\_BK}.
 \section{Test 2}
 
 \section{Lost packets}
