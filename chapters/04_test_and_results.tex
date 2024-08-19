@@ -63,6 +63,7 @@ Verranno, ora, mostrati i risultati ottenuti mediante dei grafici per ogni singo
 \noindent Alla fine verranno fatte le dovute considerazioni del caso.
 
 \subsection[QoS assente e congestione assente]{QoS assente e congestione assente}
+L'assenza di politiche di QoS, unito ad un canale quasi completamente vuoto e libero da trasmissioni (Figura \ref{fig:t1_c0_load}), porta il throughput di ambedue i flussi ad essere simile al netto di una differenza trascurabile (Tabella \ref{table:6}). Sul canale è possibile trasmettere sino ad un massimo di 10 Mbps teorici, quindi si può tranquillamente notare che le due trasmissioni si suddividono equamente la banda disponibile (Figure \ref{fig:t1_c0} e \ref{fig:t1_c0_ensemble}).
 
 \begin{table}[h!]
     \centering
@@ -101,6 +102,8 @@ Verranno, ora, mostrati i risultati ottenuti mediante dei grafici per ogni singo
 \end{figure}
 
 \subsection[QoS assente e congestione parziale]{QoS assente e congestione parziale}
+L'assenza di politiche di QoS, unito ad un canale parzialmente disturbato da CAM inviati dagli altri due dispositivi (Figura \ref{fig:t1_c1_load}), porta il throughput di ambedue i flussi ad essere simile ma inferiore rispetto al caso precedentemente discusso di circa il 10\%: 3.49 Mbps circa contro 3.13 Mbps qui (Tabella \ref{table:7} e Figure \ref{fig:t1_c1} e \ref{fig:t1_c1_ensemble}).
+
 \begin{table}[h!]
     \centering
     \begin{tabular}{|>{\centering\arraybackslash}p{20em}|>{\centering\arraybackslash}p{7em}|} 
@@ -138,6 +141,7 @@ Verranno, ora, mostrati i risultati ottenuti mediante dei grafici per ogni singo
 \end{figure}
 
 \subsection[QoS assente e congestione totale]{QoS assente e congestione totale}
+La completa saturazione del canale qui si fa sentire notevolmente (Figura \ref{fig:t1_c2_load}), in quanto il throughput di ambedue i flussi viene ridotto notevolmente con una minore propensione ad essere stabile rispetto al caso senza congestione: 3.49 Mbps circa contro 1.14 Mbps circa qui (Tabella \ref{table:8} e Figure \ref{fig:t1_c2} e \ref{fig:t1_c2_ensemble}).
 \begin{table}[h!]
     \centering
     \begin{tabular}{|>{\centering\arraybackslash}p{20em}|>{\centering\arraybackslash}p{7em}|} 
@@ -169,12 +173,14 @@ Verranno, ora, mostrati i risultati ottenuti mediante dei grafici per ogni singo
 \clearpage
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=1\textwidth]{t1_c1_load.png}
+    \includegraphics[width=1\textwidth]{t1_c2_load.png}
     \caption{QoS assente e congestione totale (Carico del canale)}
     \label{fig:t1_c2_load}
 \end{figure}
 
 \subsection[QoS presente e congestione assente]{QoS presente e congestione assente}
+L'inserimento, qui, di politiche di QoS, unito ad un canale quasi completamente vuoto e libero da trasmissioni (Figura \ref{fig:t2_c0_load}), porta il throughput del flusso a priorità maggiore ad sorpaffare completamente l'altro a priorità minore (Tabella \ref{table:9} e Figure \ref{fig:t2_c0} e \ref{fig:t2_c0_ensemble}).
+
 \begin{table}[h!]
     \centering
     \begin{tabular}{|>{\centering\arraybackslash}p{20em}|>{\centering\arraybackslash}p{7em}|} 
@@ -249,6 +255,8 @@ Verranno, ora, mostrati i risultati ottenuti mediante dei grafici per ogni singo
 \end{figure}
 
 \subsection[QoS presente e congestione totale]{QoS presente e congestione totale}
+La completa saturazione del canale qui si fa sentire notevolmente (Figura \ref{fig:t2_c2_load}), in quanto il throughput di ambedue i flussi viene ridotto notevolmente con un inoltre minore propensione ad essere stabile rispetto al caso senza congestione. (Tabella \ref{table:11} e Figure \ref{fig:t2_c2} e \ref{fig:t2_c2_ensemble}). L'applicazione di politiche di QoS porta, naturalmente, ad un throughput medio maggiore del flusso a priorità maggiore.
+
 \begin{table}[h!]
     \centering
     \begin{tabular}{|>{\centering\arraybackslash}p{20em}|>{\centering\arraybackslash}p{7em}|} 

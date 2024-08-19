@@ -279,9 +279,9 @@
          stream_id_1 = filtered_data[filtered_data['flow_id'] == 1]
          throughput_avg_1_grouped = stream_id_1.groupby(stream_id_1['timestamp'].dt.floor('s'))['throughput_mbps'].mean()
          sample_indices_1 = range(len(throughput_avg_1_grouped))
-         plt.plot(sample_indices_1, throughput_avg_1_grouped.values, linestyle=line_style, color=color, markersize=8, label=f'File {i+1}')
+         plt.plot(sample_indices_1, throughput_avg_1_grouped.values, linestyle=line_style, color=color, markersize=8, label=f'Run {i+1}')
      plt.title(f'Throughput Medio per Stream ID 1', fontsize=16)
-     plt.xlabel('Numero di Campione', fontsize=14)
+     plt.xlabel('Secondi', fontsize=14)
      plt.ylabel('Throughput Medio (Mbps)', fontsize=14)
      plt.grid(True, linestyle='--', alpha=0.7)
      plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))  # Legenda fuori dal grafico
@@ -292,9 +292,9 @@
          stream_id_2 = filtered_data[filtered_data['flow_id'] == 2]
          throughput_avg_2_grouped = stream_id_2.groupby(stream_id_2['timestamp'].dt.floor('s'))['throughput_mbps'].mean()
          sample_indices_2 = range(len(throughput_avg_2_grouped))
-         plt.plot(sample_indices_2, throughput_avg_2_grouped.values, linestyle=line_style, color=color, markersize=8, label=f'File {i+1}')
+         plt.plot(sample_indices_2, throughput_avg_2_grouped.values, linestyle=line_style, color=color, markersize=8, label=f'Run {i+1}')
      plt.title(f'Throughput Medio per Stream ID 2', fontsize=16)
-     plt.xlabel('Numero di Campione', fontsize=14)
+     plt.xlabel('Secondi', fontsize=14)
      plt.ylabel('Throughput Medio (Mbps)', fontsize=14)
      plt.grid(True, linestyle='--', alpha=0.7)
      plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))  # Legenda fuori dal grafico
