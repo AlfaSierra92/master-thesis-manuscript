@@ -22,8 +22,8 @@ Sono previsti tre principali casi di test:
 
 \begin{itemize}
     \item \textit{T1\_C0}: assenza di QoS nei flussi dei dispositivi del \textit{Gruppo Tx} e assenza di congestione del canale, quindi il \textit{Gruppo Cx} sarà spento.
-    \item \textit{T1\_C1}: assenza di QoS nei flussi dei dispositivi del \textit{Gruppo Tx} e totale congestione del canale, attuata mediante l'invio in broadcast di CAM da ognuno dei due dispositivi facenti parte del \textit{Gruppo Cx} ogni 5 ms.
-    \item \textit{T1\_C2}: assenza di QoS nei flussi dei dispositivi del \textit{Gruppo Tx} e parziale congestione del canale, attuata mediante trasmissione UDP in \textit{flooding} in broadcast da parte di ognuno dei due dispositivi del \textit{Gruppo Cx}.
+    \item \textit{T1\_C1}: assenza di QoS nei flussi dei dispositivi del \textit{Gruppo Tx} e parziale congestione del canale, attuata mediante l'invio in broadcast di CAM da ognuno dei due dispositivi facenti parte del \textit{Gruppo Cx} ogni 5 ms.
+    \item \textit{T1\_C2}: assenza di QoS nei flussi dei dispositivi del \textit{Gruppo Tx} e totale congestione del canale, attuata mediante trasmissione UDP in \textit{flooding} in broadcast da parte di ognuno dei due dispositivi del \textit{Gruppo Cx}.
 \end{itemize}
 
 Questi stessi casi verranno, inoltre, ripetuti andando ad applicare delle politiche di QoS: un flusso verrà assegnato alla categoria con priorità maggiore, ovvero \textit{Access Category Voice} (AC\_VO), mentre l'altro alla categoria minore, ovvero \textit{Access Category Background} (AC\_BK).
@@ -50,54 +50,240 @@ Per quanto concerne il raggiungimento di un eventuale congestione del canale, es
 
 In quest'ultimo caso, a causa delle limitazioni architetturali di iPerf, non è stato possibile inviare pacchetti UDP in broadcast. Poiché solo due dispositivi sono incaricati di effettuare flooding, la congestione viene raggiunta trasmettendo messaggi UDP da un dispositivo del \textit{Gruppo Cx} all'altro, specificando come parametro per iPerf l'indirizzo IP dell'interfaccia \textit{wlp1so} del Rock destinatario.
 
-\subsection[T1 C1]{T1 C0}
-Viene, qui, simulato un ambiente in cui non sono presenti veicoli di alcun tipo; di conseguenza non verranno trasmessi, in alcun modo, messaggi CAM. In questo contesto, inoltre, il dispositivo client, facente parte del \textit{gruppo Tx}, si connetterà per scaricare, mediante due flussi separati, delle informazioni dal dispositivo server.
+In conclusione, per ogni simulazione sono state effettuati 5 \textit{run} distinti, ciascuno della durata di 30 secondi. Questa scelta è stata fatta per ottenere risultati il più affidabili possibile, escludendo la parte iniziale dell'handshake del protocollo TCP, che potrebbe influenzare i valori iniziali in modo non desiderato.
 
-In questo particolare caso, non verrà applicata alcuna politica di QoS e di conseguenza, ambedue i flussi avranno la medesima priorità.
-
-Per fare ciò, viene utilizzato il comando iPerf, già precedentemente discusso, con i dovuti parametri. Nella fattispecie:
+Verranno, ora, mostrati i risultati ottenuti mediante dei grafici per ogni singolo caso di studio:
 
 \begin{itemize}
-    \item \textit{Rock Server}: \verb|iperf -s -i 1 -w 416K -y C -o output.csv|.
-    \item \textit{Rock Client - flusso 1}: \verb|iperf -c 192.168.100.xxx -t 30 -b 10m| per quanto concerne il flusso 1.
-    \item \textit{Rock Client - flusso 2}: \verb|iperf -c 192.168.100.xxx -t 30 -b 10m| per quanto concerne il flusso 2.
+    \item il primo mostrerà l'andamento del throughput medio nel corso della simulazione;
+    \item il secondo consisterà nel \textit{plot} del throughput di ogni singola \textit{run};
+    \item il terzo visualizzerà il carico del canale per tutta la durata della simulazione, inclusi alcuni istanti primae e dopo in modo da mostrare le condizioni iniziali.
 \end{itemize}
 
-Alcune note particolari:
+\noindent Alla fine verranno fatte le dovute considerazioni del caso.
 
-\begin{itemize}
-    \item 
-\end{itemize}
+\subsection[QoS assente e congestione assente]{QoS assente e congestione assente}
 
-iperf senza qos con una connessione con due flussi tcp (t1 client e t2 server)
-Caso senza congestione: c1 e c2 spenti
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|>{\centering\arraybackslash}p{20em}|>{\centering\arraybackslash}p{7em}|} 
+     \hline
+     \textbf{} & \textbf{Valori} \\ 
+     \hline
+     \textbf{Throughput Medio per Stream ID 1} & 3.49 Mbps \\ 
+     \hline
+     \textbf{Throughput Medio per Stream ID 2} & 3.47 Mbps \\
+     \hline
+    \end{tabular}
+    \caption{Valori medi caso QoS assente e congestione assente}
+    \label{table:6}
+\end{table}
 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=1\textwidth]{t1_c0.png}
-    \caption{Distributed Coordination Function}
+    \caption{QoS assente e congestione assente (Throughput medio)}
     \label{fig:t1_c0}
 \end{figure}
 
-\subsection[T1 C1]{T1 C1}
-iperf senza qos con una connessione con due flussi tcp (t1 client e t2 server)
-Caso traffico stradale: c1 e c2 con cam ogni 5 ms in broadcast
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{t1_c0_ensemble.png}
+    \caption{QoS assente e congestione assente (Grafico ensemble)}
+    \label{fig:t1_c0_ensemble}
+\end{figure}
+\clearpage
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{t1_c0_load.png}
+    \caption{QoS assente e congestione assente (Carico del canale)}
+    \label{fig:t1_c0_load}
+\end{figure}
 
-\subsection[T1 C1]{T1 C2}
-iperf senza qos con una connessione con due flussi tcp (t1 client e t2 server)
-c1 client e c2 server con trasmissione udp in flooding
+\subsection[QoS assente e congestione parziale]{QoS assente e congestione parziale}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|>{\centering\arraybackslash}p{20em}|>{\centering\arraybackslash}p{7em}|} 
+     \hline
+     \textbf{} & \textbf{Valori} \\ 
+     \hline
+     \textbf{Throughput Medio per Stream ID 1} & 3.13 Mbps \\ 
+     \hline
+     \textbf{Throughput Medio per Stream ID 2} & 3.13 Mbps \\
+     \hline
+    \end{tabular}
+    \caption{Valori medi caso QoS assente e congestione parziale}
+    \label{table:7}
+\end{table}
 
-\subsection[T2 C1]{T1 C0}
-come T1 ma usando VO e BK (t1 client e t2 server)
-Caso senza congestione: c1 e c2 spenti
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{t1_c1.png}
+    \caption{QoS assente e congestione parziale (Throughput medio)}
+    \label{fig:t1_c1}
+\end{figure}
 
-\subsection[T2 C1]{T1 C1}
-come T1 ma usando VO e BK (t1 client e t2 server)
-Caso traffico stradale: c1 e c2 con cam ogni 5 ms in broadcast
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{t1_c1_ensemble.png}
+    \caption{QoS assente e congestione parziale (Grafico ensemble)}
+    \label{fig:t1_c1_ensemble}
+\end{figure}
+\clearpage
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{t1_c1_load.png}
+    \caption{QoS assente e congestione parziale (Carico del canale)}
+    \label{fig:t1_c1_load}
+\end{figure}
 
-\subsection[T2 C1]{T1 C2}
-come T1 ma usando VO e BK (t1 client e t2 server)
-c1 client e c2 server con trasmissione udp in flooding
+\subsection[QoS assente e congestione totale]{QoS assente e congestione totale}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|>{\centering\arraybackslash}p{20em}|>{\centering\arraybackslash}p{7em}|} 
+     \hline
+     \textbf{} & \textbf{Valori} \\ 
+     \hline
+     \textbf{Throughput Medio per Stream ID 1} & 1.14 Mbps \\ 
+     \hline
+     \textbf{Throughput Medio per Stream ID 2} & 1.19 Mbps \\
+     \hline
+    \end{tabular}
+    \caption{Valori medi caso QoS assente e congestione totale}
+    \label{table:8}
+\end{table}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{t1_c2.png}
+    \caption{QoS assente e congestione totale (Throughput medio)}
+    \label{fig:t1_c2}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{t1_c2_ensemble.png}
+    \caption{QoS assente e congestione totale (Grafico ensemble)}
+    \label{fig:t1_c2_ensemble}
+\end{figure}
+\clearpage
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{t1_c1_load.png}
+    \caption{QoS assente e congestione totale (Carico del canale)}
+    \label{fig:t1_c2_load}
+\end{figure}
+
+\subsection[QoS presente e congestione assente]{QoS presente e congestione assente}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|>{\centering\arraybackslash}p{20em}|>{\centering\arraybackslash}p{7em}|} 
+     \hline
+     \textbf{} & \textbf{Valori} \\ 
+     \hline
+     \textbf{Throughput Medio per Stream ID 1} & 7.96 Mbps \\ 
+     \hline
+     \textbf{Throughput Medio per Stream ID 2} & 0.61 Mbps \\
+     \hline
+    \end{tabular}
+    \caption{Valori medi caso QoS presente e congestione assente}
+    \label{table:9}
+\end{table}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{t2_c0.png}
+    \caption{QoS presente e congestione assente (Throughput medio)}
+    \label{fig:t2_c0}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{t2_c0_ensemble.png}
+    \caption{QoS presente e congestione assente (Grafico ensemble)}
+    \label{fig:t2_c0_ensemble}
+\end{figure}
+\clearpage
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{t2_c0_load.png}
+    \caption{QoS presente e congestione assente (Carico del canale)}
+    \label{fig:t2_c0_load}
+\end{figure}
+
+\subsection[QoS presente e congestione parziale]{QoS presente e congestione parziale}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|>{\centering\arraybackslash}p{20em}|>{\centering\arraybackslash}p{7em}|} 
+     \hline
+     \textbf{} & \textbf{Valori} \\ 
+     \hline
+     \textbf{Throughput Medio per Stream ID 1} & 6.73 Mbps \\ 
+     \hline
+     \textbf{Throughput Medio per Stream ID 2} & 0.77 Mbps \\
+     \hline
+    \end{tabular}
+    \caption{Valori medi caso QoS presente e congestione parziale}
+    \label{table:10}
+\end{table}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{t2_c1.png}
+    \caption{QoS presente e congestione parziale (Throughput medio)}
+    \label{fig:t2_c1}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{t2_c1_ensemble.png}
+    \caption{QoS presente e congestione parziale (Grafico ensemble)}
+    \label{fig:t2_c1_ensemble}
+\end{figure}
+\clearpage
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{t2_c1_load.png}
+    \caption{QoS presente e congestione parziale (Carico del canale)}
+    \label{fig:t2_c1_load}
+\end{figure}
+
+\subsection[QoS presente e congestione totale]{QoS presente e congestione totale}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|>{\centering\arraybackslash}p{20em}|>{\centering\arraybackslash}p{7em}|} 
+     \hline
+     \textbf{} & \textbf{Valori} \\ 
+     \hline
+     \textbf{Throughput Medio per Stream ID 1} & 6.19 Mbps \\ 
+     \hline
+     \textbf{Throughput Medio per Stream ID 2} & 0.30 Mbps \\
+     \hline
+    \end{tabular}
+    \caption{Valori medi caso QoS presente e congestione totale}
+    \label{table:11}
+\end{table}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{t2_c2.png}
+    \caption{QoS presente e congestione totale (Throughput medio)}
+    \label{fig:t2_c2}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{t2_c2_ensemble.png}
+    \caption{QoS presente e congestione totale (Grafico ensemble)}
+    \label{fig:t2_c2_ensemble}
+\end{figure}
+\clearpage
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{t2_c2_load.png}
+    \caption{QoS presente e congestione totale (Carico del canale)}
+    \label{fig:t2_c2_load}
+\end{figure}
 \section{Test 2}
 
 \section{Lost packets}
