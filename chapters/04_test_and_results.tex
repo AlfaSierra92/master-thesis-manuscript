@@ -222,6 +222,7 @@ L'inserimento, qui, di politiche di QoS, unito ad un canale quasi completamente 
 \end{figure}
 
 \subsection[QoS presente e congestione parziale]{QoS presente e congestione parziale}
+Che scrivo qui? XD
 \begin{table}[h!]
     \centering
     \begin{tabular}{|>{\centering\arraybackslash}p{20em}|>{\centering\arraybackslash}p{7em}|} 
@@ -296,6 +297,49 @@ La completa saturazione del canale qui si fa sentire notevolmente (Figura \ref{f
     \caption{QoS presente e congestione totale (Carico del canale)}
     \label{fig:t2_c2_load}
 \end{figure}
+\subsection[Analisi dei risultati]{Analisi dei risultati}
+Da come è stato possibile notare dai dati raccolti e mostrati nelle sottosezioni precendenti (Tabella \ref{table:12}), la presenza di disturbi più o meno marcati influenza, anche solo parzialmente, la trasmissione dei due flussi TCP dal nodo server al nodo client.
+
+Si passa da throughput elevato e relativamente stabile, a prestazioni man mano più basse, evidenziando anche una tendenza della velocità media ad essere meno stabile e più suscettibile di oscillazioni.
+
+Questo discorso è applicabile sia nei casi in cui non sono state implementate politiche di QoS, sia quando si assegna una maggiore priorità a uno dei flussi rispetto all'altro. Anche in queste situazioni, si osservano valori di throughput medio generalmente meno stabili e caratterizzati da oscillazioni nel tempo; in effetti, la variabilità tende a peggiorare in tutti i casi di congestione.
+
+Pertanto, si può concludere che l'uso di diverse Access Categories non ha effetti positivi sulla variabilità del throughput, che continua a oscillare in presenza di congestione. L'unico effetto riscontrato è la maggiore velocità del flusso con priorità maggiore a discapito di quello a priorità minore.
+\clearpage
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|p{20em}|>{\centering\arraybackslash}p{5em}|>{\centering\arraybackslash}p{5em}|} 
+     \hline
+     \textbf{Caso} & \textbf{Valori} & \textbf{Varianza}\\ 
+     \hline
+     \textbf{QoS assente e congestione assente (Stream 1)} & 3.49 & 0.000972\\ 
+     \hline
+     \textbf{QoS assente e congestione assente (Stream 2)} & 3.47 & 0.000972 \\
+     \hline
+     \textbf{QoS assente e congestione parziale (Stream 1)} & 3.13 & 0.00144\\ 
+     \hline
+     \textbf{QoS assente e congestione parziale (Stream 2)} & 3.13 & 0.00092\\
+     \hline
+     \textbf{QoS assente e congestione totale (Stream 1)} & 1.14 & 0.0919\\ 
+     \hline
+     \textbf{QoS assente e congestione totale (Stream 2)} & 1.19 & 0.01540\\
+     \hline
+     \textbf{QoS presente e congestione assente (Stream 1)} & 7.96 & 0.04425\\ 
+     \hline
+     \textbf{QoS presente e congestione assente (Stream 2)} & 0.61 & 0.01867\\
+     \hline
+     \textbf{QoS presente e congestione parziale (Stream 1)} & 6.73 & 0.1835\\ 
+     \hline
+     \textbf{QoS presente e congestione parziale (Stream 2)} & 0.77 & 0.04963\\
+     \hline
+     \textbf{QoS presente e congestione totale (Stream 1)} & 6.19 & 0.20920\\ 
+     \hline
+     \textbf{QoS presente e congestione totale (Stream 2)} & 0.30 & 0.01466\\
+     \hline
+    \end{tabular}
+    \caption{Confronti risultati (Valori in Mbps)}
+    \label{table:12}
+\end{table}
 \section{Test 2}
 
 \section{Lost packets}
