@@ -151,7 +151,7 @@
      done
 \end{lstlisting}
 
-\section{Plot media valori Tx\_Cx}
+\section{Grafico throughput medio Tx\_Cx}
 \label{plot_test1}
 \begin{lstlisting}
      import pandas as pd
@@ -232,7 +232,7 @@
      plt.show()     
 \end{lstlisting}
 
-\section{Plot Ensemble Tx\_Cx}
+\section{Grafico Run Ensemble Tx\_Cx}
 \label{plot_test_spaghetti}
 \begin{lstlisting}
      import pandas as pd
@@ -301,4 +301,37 @@
      
      plt.tight_layout()
      plt.show()     
+\end{lstlisting}
+
+\section{Grafico Carico canale Tx\_Cx}
+\label{plot_test_load}
+\begin{lstlisting}
+    import pandas as pd
+    import matplotlib.pyplot as plt
+    import seaborn as sns
+    
+    # Imposta lo stile di Seaborn
+    sns.set(style="whitegrid")
+    
+    # Carica i dati dal file CSV
+    data = pd.read_csv('Data/Channel_load/T1_C0.csv')
+    
+    # Converti la colonna 'timestamp' in formato datetime
+    data['timestamp'] = pd.to_datetime(data['timestamp'])
+    
+    # Imposta la colonna 'timestamp' come indice
+    data.set_index('timestamp', inplace=True)
+    
+    # Crea il plot
+    plt.figure(figsize=(12, 6))
+    plt.plot(data.index, data['minChannelLoad'], linestyle='-')
+    plt.title('Carico del canale durante la simulazione')
+    plt.xlabel('Timestamp')
+    plt.ylabel('Carico del canale')
+    plt.xticks(rotation=45)
+    plt.grid(True, linestyle='--', alpha=0.7)
+    plt.tight_layout()
+    
+    # Mostra il grafico
+    plt.show()
 \end{lstlisting}

@@ -62,7 +62,9 @@ Verranno, ora, mostrati i risultati ottenuti mediante dei grafici per ogni singo
     \item il terzo visualizzerà il carico del canale per tutta la durata della simulazione, inclusi alcuni istanti primae e dopo in modo da mostrare le condizioni iniziali.
 \end{itemize}
 
-\noindent Alla fine verranno fatte le dovute considerazioni del caso.
+\noindent I grafici sono stati generati mediante codice \textit{Python} usando la libreria \textit{matplotlib}; i codici sorgenti possono essere trovati nella \autoref{plot_test1}, \autoref{plot_test_spaghetti} e \autoref{plot_test_load}.
+
+Alla fine verranno fatte le dovute considerazioni del caso.
 
 \subsection[QoS assente e congestione assente]{QoS assente e congestione assente}
 L'assenza di politiche di QoS, unito ad un canale quasi completamente vuoto e libero da trasmissioni (Figura \ref{fig:t1_c0_load}), porta il throughput di ambedue i flussi ad essere simile al netto di una differenza trascurabile (Tabella \ref{table:6}). Sul canale è possibile trasmettere sino ad un massimo di 10 Mbps teorici, quindi si può tranquillamente notare che le due trasmissioni si suddividono equamente la banda disponibile (Figure \ref{fig:t1_c0} e \ref{fig:t1_c0_ensemble}).
