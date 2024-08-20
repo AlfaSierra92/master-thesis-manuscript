@@ -36,6 +36,11 @@ Per fare ciò, viene utilizzato il comando iPerf, già precedentemente discusso,
     \item \textit{Rock Client - flusso 2}: \\\verb|iperf -c 192.168.100.xxx -t 30 -b 10m -A BK| per il flusso a priorità minore.
 \end{itemize}
 
+I due comandi sul client sono stati lanciati contemporaneamente dalla stessa \textit{command line} mediante l'utilizzo dell'operatore \textit{\&}; per ragioni di comodità riguardo la raccolta dei dati, in modo che il primo processo iPerf a partire fosse quello con priorità \textit{VO}, si è usato un artificio del genere:
+
+\verb|iperf xxx -A VO & sleep 0.05 && iperf xxx -A BK| \\
+\noindent Questo perchè il primo iPerf, anche se lanciato in principio, può non essere loggato come \textit{Stream ID 1} dal dispositivo server, per ovvie ragioni di scheduling dei processi e per via dell'\textit{handshaking} TCP; l'uso del comando \textit{sleep}, anche se ad effetto trascurabile per gli scopi in analisi, evita ciò.
+
 L'indirizzo IP usato nei due comandi è relativo a quello appartenente all'interfaccia \textit{wlp1s0} del dispositivo facente funzione di server.
 
 Nei casi senza politiche di QoS sono stati utilizzati i medesimi comandi, senza ovviamente i parametri che delineano le varie priorità.
