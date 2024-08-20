@@ -222,7 +222,9 @@ L'inserimento, qui, di politiche di QoS, unito ad un canale quasi completamente 
 \end{figure}
 
 \subsection[QoS presente e congestione parziale]{QoS presente e congestione parziale}
-Che scrivo qui? XD
+In questa situazione, si osserva che il throughput fatica a stabilizzarsi, sia per il flusso a priorità maggiore che per l'altro flusso. Ci vuole un tempo considerevole affinché il throughput raggiunga un valore stabile. Il flusso VO inizia con una velocità di circa 6 Mbps e tende ad aumentare, a discapito dell'altro flusso, che parte da circa 1.2 Mbps e rallenta fino a scendere a 0.4 Mbps. 
+
+Il valore di throughput medio è ovviamente influenzato dal comportamento appena descritto.
 \begin{table}[h!]
     \centering
     \begin{tabular}{|>{\centering\arraybackslash}p{20em}|>{\centering\arraybackslash}p{7em}|} 
@@ -298,13 +300,16 @@ La completa saturazione del canale qui si fa sentire notevolmente (Figura \ref{f
     \label{fig:t2_c2_load}
 \end{figure}
 \subsection[Analisi dei risultati]{Analisi dei risultati}
-Da come è stato possibile notare dai dati raccolti e mostrati nelle sottosezioni precendenti (Tabella \ref{table:12}), la presenza di disturbi più o meno marcati influenza, anche solo parzialmente, la trasmissione dei due flussi TCP dal nodo server al nodo client.
+Dai dati raccolti e presentati nelle sezioni precedenti, riportati per comodità in Tabella 4.7, è evidente che la presenza di disturbi, anche se moderati, influisce sulla trasmissione dei due flussi TCP dal nodo server al nodo client. Si osserva una transizione da un throughput elevato e relativamente stabile a prestazioni via via più basse, con una tendenza della velocità media a diventare meno stabile e più soggetta a oscillazioni.
 
-Si passa da throughput elevato e relativamente stabile, a prestazioni man mano più basse, evidenziando anche una tendenza della velocità media ad essere meno stabile e più suscettibile di oscillazioni.
+Questa situazione si verifica sia in assenza di politiche di QoS, sia quando si assegna una priorità maggiore a uno dei flussi rispetto all'altro. In entrambe le circostanze, i valori di throughput medio risultano generalmente meno stabili e caratterizzati da oscillazioni temporali; la variabilità tende a aumentare in tutti i casi di congestione. Inoltre, applicando le priorità, si può notare un cambiamento nel tempo necessario affinché ciascun flusso raggiunga la velocità di throughput su cui si stabilizzerà:
+\begin{itemize}
+    \item \textit{Nessuna congestione}: il throughput di VO raggiunge immediatamente il valore massimo ed è apparentemente stabile, grazie a un canale libero che consente ad esso di trasmettere al massimo, mentre il flusso BK utilizza la banda rimanente.
+    \item \textit{Congestione parziale}: il throughput di VO ha una tendenza monotòna crescente, ma molto lenta a causa dei disturbi nel canale, che impediscono un rapido raggiungimento della massima velocità possibile; ne risete anche il flusso BK.
+    \item \textit{Piena congestione}: il throughput di ambedue i flussi rimane basso a causa della super congestione del canale.
+\end{itemize}
 
-Questo discorso è applicabile sia nei casi in cui non sono state implementate politiche di QoS, sia quando si assegna una maggiore priorità a uno dei flussi rispetto all'altro. Anche in queste situazioni, si osservano valori di throughput medio generalmente meno stabili e caratterizzati da oscillazioni nel tempo; in effetti, la variabilità tende a peggiorare in tutti i casi di congestione.
-
-Pertanto, si può concludere che l'uso di diverse \textit{Access Categories} non ha effetti positivi sulla variabilità del throughput, che continua a oscillare in presenza di congestione. L'unico effetto riscontrato è la maggiore velocità del flusso con priorità maggiore a discapito di quello a priorità minore.
+In conclusione, l'uso di diverse Access Categories non produce effetti positivi sulla variabilità del throughput, che continua a oscillare in presenza di congestione. L'unico effetto osservato è una maggiore velocità del flusso con priorità più alta, a discapito di quello con priorità più bassa.
 \clearpage
 \begin{table}[h!]
     \centering
