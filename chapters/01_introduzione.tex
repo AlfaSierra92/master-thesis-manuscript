@@ -9,7 +9,7 @@ I progressi verso la realizzazione dei sistemi ITS sono stati alimentati da impo
 Uno dei punti cardine, nell'implementazione delle comunicazioni V2V e V2I, è stato quello della standardizzazione, da parte di ETSI, dei cosiddetti \textit{Cooperative Awareness Messages (CAMs)} che trova la sua applicazione principale nelle applicazioni deputate alla \textit{Collision Avoidance}, ovvero tutti gli strumenti applicativi atti a prevenire tutta una serie di situazioni di pericolo tra i vari veicoli e tutto ciò che può essere presente sulla sede stradale.
 
 Le CA beneficiano dell'aumento del numero di sensori e della potenza di calcolo presenti nei veicoli moderni, che hanno già portato a funzionalità innovative come la Frenata Automatica d'Emergenza. Tuttavia, queste capacità sono limitate a una visione locale del veicolo; l'idea è di ampliare questa visione condividendo informazioni tramite le VANET con altri veicoli e unità stradali, con l'obiettivo di abilitare applicazioni sempre più complesse ed efficaci. 
-Questo porta implicitamente alla creazione di una rete composta da nodi, rappresentati da veicoli e infrastrutture stradali, che presenta una serie di sfide sia implementative che prestazionali. Questi problemi richiedono approcci specifici e soluzioni diverse rispetto a quelle adottate nelle reti tradizionali, poiché le condizioni operative e i vincoli presenti sono completamente diversi.
+Questo porta implicitamente alla creazione di una rete composta da nodi, rappresentati da veicoli e infrastrutture stradali, che presenta una serie di sfide sia implementative che prestazionali. Questi problemi richiedono approcci specifici e soluzioni diverse rispetto a quelle adottate nelle reti tradizionali, poiché le condizioni operative e i vincoli presenti sono completamente diversi \cite{risma2021implementation}.
 
 \section{VANET}
 Una \textit{VANET (Vehicular Ad-hoc Network)} è una classe distintiva di \textit{MANET (Mobile Ad-hoc Network)} in cui i veicoli in movimento fungono da nodi o router per scambiare messaggi tra di loro, o come \textit{Access Point (AP)}. Solitamente, una VANET può connettere veicoli entro un raggio di circa 1 chilometro al massimo utilizzando lo standard IEEE 802.11p. Il suo obiettivo è supportare sia la comunicazione \textit{Vehicle-to-Vehicular (V2V)} che \textit{Vehicle-to-Infrastructure (V2I)} in una rete senza infrastruttura. Sono state avviate numerose iniziative di ricerca, in Europa, negli Stati Uniti e in Giappone, per rendere gli ITS una realtà; alcune di queste sono \textit{COOPERS, CVIS, SAFESPOT, PReVENT}, \textit{Advanced Safety Vehicle Program (ASV)} ed infine \textit{Wireless Access in Vehicular Environments (WAVE)}, su cui si baserà in parte il lavoro descritto in questo elaborato.
@@ -28,13 +28,13 @@ Le VANET e le MANET condividono molte somiglianze, come la topologia dinamica, l
 Tipicamente, una VANET è composta da tre componenti principali (Figura \ref{fig:obu_rsu}): 
 \begin{itemize}
     \item \textbf{On Board Unit (OBU)}: dispositivo embedded inserito all'interno di ogni veicolo comunicante con gli altri mediante un'interfaccia Wireless.
-    \item \textbf{Road Side Unit (RSU)}: dispositivo fisso in genere posizionato ai lati della strada; funge da intermediario tra le \textit{On Board Unit} dei veicoli e le infrastrutture stradali o rete Internet.
+    \item \textbf{Road Side Unit (RSU)}: dispositivo fisso in genere posizionato ai lati della strada; funge da intermediario tra le \textit{On Board Unit} dei veicoli e le infrastrutture stradali e la rete Internet.
     \item \textbf{GNSS}: sistema di geolocalizzazione tipo \textit{GPS (Global Positioning System), GLONASS (GLObal NAvigation Satellite System) o Galileo}.
 \end{itemize}
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.8\textwidth]{routing_vanet.jpeg}
+    \includegraphics[width=1\textwidth]{routing_vanet.jpeg}
     \caption{OBU e RSU}
     \label{fig:obu_rsu}
 \end{figure}
