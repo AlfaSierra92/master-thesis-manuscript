@@ -8,7 +8,7 @@ Successivamente, ci si focalizzerà su \textit{WAVE (Wireless Access in Vehicula
 
 Un altro aspetto chiave che verrà trattato è il meccanismo \textit{EDCA (Enhanced Distributed Channel Access)}, che rappresenta un'evoluzione del livello \textit{MAC (Media Access Control)} nelle reti wireless. EDCA introduce un metodo di accesso al canale più sofisticato rispetto al tradizionale \textit{DCF (Distributed Coordination Function)}, consentendo una gestione più efficiente delle priorità di traffico. Questo è particolarmente rilevante in scenari in cui coesistono diversi tipi di traffico (e.g. video, voce e dati) ognuno con requisiti specifici di latenza e larghezza di banda. Verrà discusso come EDCA assegni diverse code di accesso per garantire che le comunicazioni più critiche ricevano la priorità necessaria, migliorando così l'esperienza complessiva degli utenti.
 
-Verrà in seguito esaminato lo standard \textit{ETSI DCC (Decentralized Congestion Control)}, che si integra con le tecnologie precedentemente menzionate per supportare comunicazioni a corto raggio e per applicazioni specifiche nel settore automotive. DCC è progettato per garantire comunicazioni affidabili e tempestive tra veicoli e tra veicoli e infrastrutture, contribuendo a una mobilità più sicura ed efficiente.
+Verrà in seguito esaminato lo standard \textit{ETSI DCC (Decentralized Congestion Control)}, che si integra con le tecnologie precedentemente menzionate al fine di migliorare la congestione del canale di trasmissione. 
 
 Per concludere, verrà delineato lo standard ETSI ITS-G5, illustrando le caratteristiche che lo accomunano con le controparti di IEEE e quelle che lo differenziano, soffermandosi, poi, sulla generazione e utilizzo dei messaggi CAM e DENM.
 
@@ -59,7 +59,7 @@ Dallo standard è previsto anche un meccanismo chiamato \textit{RTS/CTS}, ovvero
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.5\textwidth]{rts_cts.png}
+    \includegraphics[width=0.7\textwidth]{rts_cts.png}
     \caption{Trasmissione utilizzando il meccanismo RTS/CTS}
     \label{fig:rts_cts}
 \end{figure}
@@ -72,7 +72,7 @@ Per affrontare queste problematiche, esiste un'altra soluzione chiamata Point Co
 \label{wave}
 WAVE è progettato specificamente per ambienti di trasporto, consentendo la comunicazione tra veicoli (\textit{V2V: Vehicle-to-Vehicle}) e tra veicoli e infrastrutture stradali (\textit{V2I: Vehicle-to-Infrastructure}). Questo protocollo sfrutta canali wireless dedicati per garantire una bassa latenza e una maggiore affidabilità, elementi essenziali per applicazioni critiche come la prevenzione degli incidenti e la gestione del traffico. 
 
-Per facilitare questo, l'IEEE ha introdotto un emendamento specifico al protocollo 802.11, noto come 802.11p \cite{std2007wireless}. Questo emendamento si occupa sia del livello fisico, chiamato PHY, sia della gestione dell'accesso al canale, che riguarda il livello MAC. Non ci si soffermerà ulteriormente sui livelli superiori, se non attraverso un breve excursus, poiché il protocollo in questione supporta senza difficoltà qualsiasi tipo di livello, sia esso basato su IP o meno \cite{DSRC-Based-vehicular}. E' importante sottolineare che è stato previsto un apposito protocollo per l'invio di frame che non richiedono un livello di trasporto come TCP o UDP, denominato \textit{WAVE Short Message Protocol (WSMP)}.
+Per facilitare questo, l'IEEE ha introdotto un emendamento specifico al protocollo 802.11, noto come 802.11p \cite{std2007wireless}. Questo emendamento si occupa sia del livello fisico, chiamato PHY, sia della gestione dell'accesso al canale, che riguarda il livello MAC. Non ci si soffermerà ulteriormente sui livelli superiori, se non attraverso un breve excursus, poiché il protocollo in questione supporta senza difficoltà qualsiasi tipo di livello, sia esso basato su IP o meno \cite{DSRC-Based-vehicular}. E' importante sottolineare che è stato previsto un apposito protocollo per l'invio di frame che non richiede un livello di trasporto come TCP o UDP, denominato \textit{WAVE Short Message Protocol (WSMP)}.
 
 \begin{figure}[h!]
     \centering
@@ -298,7 +298,7 @@ Essi sono generati quando si è in presenza di una delle seguenti condizioni:
     \item quando la differenza assoluta tra la velocità attuale e la velocità dell'ultimo messaggio CAM generato è maggiore di 1 m/s;
 \end{itemize}
 
-Il controllo sulla sussistenza di questi requisiti viene effettuato ogni 100 ms. Indipendentemente dal verificarsi delle condizioni sopra menzionate, viene sempre generato un messaggio CAM ogni 1 secondo. Pertanto, l'intervallo di tempo tra un pacchetto e l'altro varierà tra 0,1 s e 1 s.
+Il controllo sulla sussistenza di questi requisiti viene effettuato ogni 100 ms. Indipendentemente dal verificarsi delle condizioni sopra menzionate, viene sempre generato un messaggio CAM ogni 1 secondo. Pertanto, l'intervallo di tempo tra un pacchetto e l'altro varierà tra un minimo di 0,1 s e un massimo di 1 s.
 
 \subsection[DENM]{DENM}
 Il \textit{Decentralized Environmental Notification Messages (DENM)} costituisce un altro tipo di servizio di supporto che fornisce avvisi sullo stato del traffico e della strada in generale. Nonostante questo tipo di servizio sia stato concepito dall'ETSI appositamente per supportare le applicazioni di sicurezza stradale attiva, la sua applicazione può essere estesa a qualsiasi applicazione ITS interessata a ottenere informazioni sulle condizioni del traffico stradale \cite{etsi2010etsi}.

@@ -2,7 +2,7 @@
 
 Per l'implementazione del testbed necessario a eseguire una varietà di test, sono state esaminate numerose schede di sviluppo disponibili sul mercato, caratterizzate da prezzi competitivi e disponibilità immediata. A causa dell'aumento esponenziale dei costi delle varie versioni di Raspberry Pi, soprattutto a seguito della pandemia di Covid-19 e della conseguente scarsità di offerta, si è deciso di escludere a priori queste opzioni.
 
-Inizialmente, si è considerata l'Arduino Yun, una scheda del noto brand Arduino. Tuttavia, si è subito riscontrato che le sue prestazioni erano insufficienti e che gli strumenti forniti non garantivano la flessibilità desiderata. In particolare, la shell risultava poco performante e non era possibile impostare tempi di sleep inferiori a un secondo. Inoltre, è importante notare che l'Arduino Yun è stato deprecato a favore di altre schede, che, sebbene più performanti, non offrivano lo stesso rapporto qualità-prezzo.
+Inizialmente, si è considerata l'Arduino Yun, una scheda del noto brand Arduino. Tuttavia, si sono subito riscontrato dei limiti invalicabili: le sue prestazioni erano insufficienti e che gli strumenti forniti non garantivano la flessibilità desiderata. In particolare, la shell risultava poco performante e non era possibile impostare tempi di sleep inferiori a un secondo. Inoltre, è importante notare che l'Arduino Yun è stato deprecato a favore di altre schede, che, sebbene più performanti, non offrivano lo stesso rapporto qualità-prezzo.
 
 Successivamente, si è passati all'analisi di router Mikrotik, ma anche in questo caso le prestazioni e la flessibilità nelle configurazioni non hanno soddisfatto le aspettative.
 
@@ -83,16 +83,16 @@ La banda ISM è ampiamente utilizzata e supportata da numerosi dispositivi comme
 
 Infatti, l'hardware impiegato nel nostro progetto non era completamente compatibile con le frequenze specifiche dell'IEEE 802.11p, il che avrebbe comportato ulteriori complicazioni e ritardi nell'implementazione.
 
-Optando, invece, per la banda ISM, si è stati in grado di garantire una maggiore interoperabilità e una configurazione più rapida, permettendoci di dedicare maggiore tempo sulla configurazione del nostro sistema e sullo svoglimento delle prove necessarie. A livello pratico, questa scelta non ha comportato sostanziali differenze, se non per il fatto che, lavorando con un canale appartenente alla banda 5.9 GHz anzichè alla 2.4 GHz si sarebbero potute ottenere prestazioni leggermente migliori grazie a disturbi trascurabili e ad una minore congestione della banda.
+Optando, invece, per la banda ISM, si è stati in grado di garantire una maggiore interoperabilità e una configurazione più rapida, permettendoci di dedicare maggiore tempo sulla configurazione del nostro sistema e sullo svoglimento delle prove necessarie. A livello pratico, questa scelta non ha comportato sostanziali differenze, se non per il fatto che, lavorando con un canale appartenente alla banda 5.9 GHz anzichè alla 2.4 GHz, si sarebbero potute ottenere prestazioni leggermente migliori grazie a disturbi trascurabili e ad una minore congestione della banda (dovuta a dispositivi terzi che trasmettono sul medesimo canale).
 
 \section{Tweaking}
-Per rendere possibili alcune configurazioni nei dispositivi Rock e la raccolta dei dati, si è reso necessario mettere mano nalel codice sorgente del Kernel Linux ed applicare alcune patch.
+Per rendere possibili alcune configurazioni nei dispositivi Rock e la raccolta dei dati, si è reso necessario mettere mano nel codice sorgente del Kernel Linux al fine di applicare alcune patch.
 
-Nella fattispecie, si è dovuto provvedere ad abilitare la \textit{Debug Mode} messa a disposizione dal driver \textit{Ath9k} della scheda di rete wireless ma disabilitata in maniera predefinita, una piccola modifica all'output delle statistiche di rete accessibili dall'utente e l'abilitazione delle code separate per le quattro \textit{Access Categories}.
+Nella fattispecie, si è dovuto provvedere ad abilitare la \textit{Debug Mode} messa a disposizione dal driver \textit{Ath9k} della scheda di rete wireless ma disabilitata in maniera predefinita, ad effettuare una piccola modifica all'output delle statistiche di rete accessibili dall'utente e all'abilitazione delle code separate per le quattro \textit{Access Categories}.
 
 Tutto ciò è stato reso possibile grazie a patch e a informazioni fornite dalla comunità open source e alla documentazione del produttore.
 
-Viene fornita, inizialmente, una descrizione separata delle varie modifiche apportate, esplicitiando alla fine del trittico il processo di compilazione necessario. Importante notare che le varie patch sono state scritte esclusivamente per la versione del kernel Linux \textit{rockchip64-6.6}, l'ultima disponibile al momento della configurazione del testbed; non si garantisce che possano essere applicate senza ulteriori modifiche ad altre versioni, sia che esse siano sulla architettura ARM che differente.
+Viene fornita, inizialmente, una descrizione separata delle varie modifiche apportate, esplicitiando alla fine del trittico il processo di compilazione necessario. Importante notare che le varie patch sono state scritte esclusivamente per la versione del kernel Linux \textit{rockchip64-6.6}, l'ultima disponibile al momento della configurazione del testbed; non si garantisce che possano essere applicate senza ulteriori modifiche ad altre versioni, sia che esse siano scritte appositamente per architettura ARM che per altre.
 
 \subsection[Debug Mode]{Debug Mode}
 Per l'abilitazione della suddetta modalità, si è semplicemente messo mano al file \textit{linux-rockchip64-current.config}, file di configurazione utilizzato dalla \textit{toolchain} di compilazione del Kernel del sistema Armbian, abilitando tre differenti flag \cite{linux_wireless}:
@@ -127,7 +127,7 @@ Il problema è dovuto all'introduzione delle cosiddette "code software intermedi
 \end{lstlisting}
 Questa caratteristica è stata introdotta per spostare l'implementazione delle code più verso il lato software del sottosistema wireless, consentendo all'hardware di mantenere solo code brevi e permettendo anche una maggiore equità tra le stazioni che comunicano.
 
-La possibilità di utilizzare correttamente le categorie di accesso insieme alle code software del \textit{mac80211} risulta essere in fase di implementazione da parte della comunità al momento della stesura di questo elaborato.
+La possibilità di utilizzare correttamente le categorie di accesso insieme alle code software del \textit{mac80211} risultava essere ancora in fase di implementazione da parte della comunità al momento della stesura di questo elaborato.
 
 Per ulteriori dettagli riguardo il sottosistema wireless di Linux e le sue componenti, come ad esempio \textit{mac80211}, vedere \autoref{subsystem}.
 
@@ -167,7 +167,7 @@ root@rock-3a:~# iw wlp1s0 survey dump
 	channel receive time:		1496 ms
 	channel transmit time:		0 ms
 \end{lstlisting}
-Per semplicità viene mostrato qui solo l'output relativo al canale 11, omettendo le informazioni relative agli altri canali.
+Per semplicità è riportato qui solo l'output relativo al canale 11, omettendo le informazioni relative agli altri canali.
 
 Per calcolare il carico del canale, ovvero la percentuale di tempo in cui il canale wireless è occupato, sono stati raccolti due valori fondamentali: il \textit{channel active time} e il \textit{channel busy time}. Il primo rappresenta il tempo in cui l'interfaccia è attiva per trasmettere, ricevere o ascoltare il canale, mentre il secondo indica il tempo in cui l'interfaccia è attiva ma in attesa a causa dell'occupazione del canale \cite{han2016adaptive}.
 
@@ -184,7 +184,7 @@ Non ci si dilungherà nelle modalità di download e installazione di tutto il pa
 
 \verb|~/build/patch/kernel/archive/rockchip64-6.6 |
 
-\noindent e si procede alla compilazione mediante il comando 
+\noindent si può procedere alla compilazione mediante il comando 
 
 \verb|./compile.sh kernel ARTIFACT_IGNORE_CACHE='yes' \| 
 

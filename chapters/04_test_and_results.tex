@@ -12,7 +12,7 @@ I due gruppi saranno:
 
 \begin{itemize}
     \item \textit{Gruppo Cx}: esso sarà composto da due dispositivi che simuleranno, con modalità che verranno discusse a breve, un ambiente in cui sono presenti uno svariato numero di veicoli che portano il canale di trasmissione a congestionarsi, in maniera completa o parziale.
-    \item \textit{Gruppo Tx}: esso, invece, sarà composto da due dispositivi che comunicheranno mediante due flussi TCP in parallelo. Uno di essi agirà come client, che andrà a connettersi e a scaricare delle informazioni dall'altro che fungerà da server.
+    \item \textit{Gruppo Tx}: esso, invece, sarà composto da due dispositivi che comunicheranno mediante due flussi TCP in parallelo mediante l'utilizzo del comando iPerf. Uno di essi agirà come client, che andrà a connettersi e a scaricare delle informazioni dall'altro che fungerà da server.
 \end{itemize}
 
 \begin{figure}[h!]
@@ -32,7 +32,7 @@ Sono previsti tre principali casi di test:
 
 Questi stessi casi verranno, inoltre, ripetuti andando ad applicare delle politiche di QoS: un flusso (\textbf{Stream ID 1}) verrà assegnato alla categoria con priorità maggiore, ovvero \textit{Access Category Voice} (AC\_VO), mentre l'altro (\textbf{Stream ID 2}) alla categoria minore, ovvero \textit{Access Category Background} (AC\_BK).
 
-Per fare ciò, viene utilizzato il comando iPerf, già precedentemente discusso, con i dovuti parametri. Nella fattispecie:
+Per fare ciò, verrà sempre utilizzato il comando iPerf, già precedentemente discusso, con i dovuti parametri. Nella fattispecie:
 
 \begin{itemize}
     \item \textit{Rock Server}: \verb|iperf -s -i 1 -w 416K -y C -o output.csv|.
@@ -47,7 +47,7 @@ I due comandi sul client sono stati lanciati contemporaneamente dalla stessa \te
 
 L'indirizzo IP usato nei due comandi è relativo a quello appartenente all'interfaccia \textit{wlp1s0} del dispositivo facente funzione di server.
 
-Nei casi senza politiche di QoS sono stati utilizzati i medesimi comandi, senza ovviamente i parametri che delineano le varie priorità.
+Nei casi senza politiche di QoS sono stati utilizzati i medesimi comandi, senza ovviamente il parametro \verb|-A| che delinea le varie priorità.
 
 Per quanto concerne il raggiungimento di un eventuale congestione del canale, essa è stata raggiunta nei seguenti modi:
 
@@ -57,23 +57,23 @@ Per quanto concerne il raggiungimento di un eventuale congestione del canale, es
     \item \textit{Caso con congestione totale}: i dispositivi appartenenti al \textit{Gruppo Cx} fanno flooding UDP mediante l'esecuzione del comando \verb|iperf -u -c 192.168.100.xxx| \verb| -t 300 -b 10m|; in questo caso si vuole simulare un ambiente con un numero veramente elevato di veicoli e molto maggiore del caso precedente.
 \end{itemize}
 
-In quest'ultimo caso, a causa delle limitazioni architetturali di iPerf, non è stato possibile inviare pacchetti UDP in broadcast. Poiché solo due dispositivi sono incaricati di effettuare flooding, la congestione viene raggiunta trasmettendo messaggi UDP da un dispositivo del \textit{Gruppo Cx} all'altro, specificando come parametro per iPerf l'indirizzo IP dell'interfaccia \textit{wlp1so} del Rock destinatario.
+In quest'ultimo caso, a causa delle limitazioni architetturali di iPerf, non è stato possibile inviare pacchetti UDP in broadcast. Poiché solo due dispositivi sono incaricati di effettuare flooding, la congestione viene raggiunta trasmettendo messaggi UDP da un dispositivo del \textit{Gruppo Cx} all'altro in unicast, specificando come parametro per iPerf l'indirizzo IP dell'interfaccia \textit{wlp1s0} del Rock destinatario.
 
 La scelta del protocollo UDP per effettuare \textit{flooding}, anzichè il TCP, è stata effettuata per ovvie ragioni: mancanza di politiche riguardanti il controllo di flusso, perdita dei pacchetti e controllo sull'ordine di ricezione di quest'ultimi. Inoltre, l'invio di essi con una dimensione inferiore a 2346 byte (iPerf, di default, invia pacchetti UDP di soli 1470 byte a differenza del TCP che hanno una dimensione pari a 8 KB \cite{iperf}), consente alle interfacce Wireless di poter trasmettere i vari frame senza attuare il meccanismo di RTS/CTS.
 
-In conclusione, per ogni simulazione sono state effettuati 5 \textit{run} distinti, ciascuno della durata di 30 secondi. Questa scelta è stata fatta per ottenere risultati il più affidabili possibile, escludendo la parte iniziale dell'handshake del protocollo TCP, che potrebbe influenzare i valori iniziali in modo non desiderato.
+In conclusione, per ogni simulazione sono state effettuati 5 \textit{run} distinti, ciascuno della durata di 30 secondi. Questa scelta è stata fatta per ottenere risultati il più affidabili possibile, permettendoci di escludere la parte iniziale dell'handshake del protocollo TCP, che potrebbe influenzare i valori iniziali in modo non desiderato.
 
 Verranno, ora, mostrati i risultati ottenuti mediante dei grafici per ogni singolo caso di studio:
 
 \begin{itemize}
     \item il primo mostrerà l'andamento del throughput medio nel corso della simulazione;
     \item il secondo consisterà nel \textit{plot} del throughput di ogni singola \textit{run};
-    \item il terzo visualizzerà il carico del canale per tutta la durata della simulazione, inclusi alcuni istanti primae e dopo in modo da mostrare le condizioni iniziali.
+    \item il terzo visualizzerà il carico del canale per tutta la durata della simulazione, inclusi alcuni istanti prima e dopo in modo da mostrare le condizioni iniziali.
 \end{itemize}
 
-\noindent I grafici sono stati generati mediante codice \textit{Python} usando la libreria \textit{matplotlib}; i codici sorgenti possono essere trovati nella \autoref{plot_test1}, \autoref{plot_test_spaghetti} e \autoref{plot_test_load}.
+\noindent I grafici sono stati generati mediante l'utilizzo di script in \textit{Python} usando la libreria \textit{matplotlib}; i codici sorgenti possono essere trovati nella \autoref{plot_test1}, \autoref{plot_test_spaghetti} e \autoref{plot_test_load}.
 
-Alla fine verranno fatte le dovute considerazioni del caso.
+Seguiranno, infine, alcune considerazioni finali.
 
 \subsection[QoS assente e congestione assente]{QoS assente e congestione assente}
 L'assenza di politiche di QoS, unito ad un canale quasi completamente vuoto e libero da trasmissioni (Figura \ref{fig:t1_c0_load}), porta il throughput di ambedue i flussi ad essere simile al netto di una differenza trascurabile (Tabella \ref{table:6}). Sul canale è possibile trasmettere sino ad un massimo di 10 Mbps teorici, quindi si può tranquillamente notare che le due trasmissioni si suddividono equamente la banda disponibile (Figure \ref{fig:t1_c0} e \ref{fig:t1_c0_ensemble}).
@@ -312,14 +312,14 @@ La completa saturazione del canale qui si fa sentire notevolmente (Figura \ref{f
 \subsection[Analisi dei risultati]{Analisi dei risultati}
 Dai dati raccolti e presentati nelle sezioni precedenti, riportati per comodità in Tabella 4.7, è evidente che la presenza di disturbi, anche se moderati, influisce sulla trasmissione dei due flussi TCP dal nodo server al nodo client. Si osserva una transizione da un throughput elevato e relativamente stabile a prestazioni via via più basse, con una tendenza della velocità media a diventare meno stabile e più soggetta a oscillazioni.
 
-Questa situazione si verifica sia in assenza di politiche di QoS, sia quando si assegna una priorità maggiore a uno dei flussi rispetto all'altro. In entrambe le circostanze, i valori di throughput medio risultano generalmente meno stabili e caratterizzati da oscillazioni temporali; la variabilità tende a aumentare in tutti i casi di congestione. Inoltre, applicando le priorità, si può notare un cambiamento nel tempo necessario affinché ciascun flusso raggiunga la velocità di throughput su cui si stabilizzerà:
+Questa situazione si verifica sia in assenza di politiche di QoS, sia quando si assegna una priorità maggiore a uno dei flussi rispetto all'altro. In entrambe le circostanze, i valori di throughput medio risultano generalmente meno stabili e caratterizzati da oscillazioni temporali; la variabilità tende a aumentare in tutti i casi di congestione. Inoltre, applicando le priorità, si può notare un cambiamento nel tempo necessario affinché ciascun flusso raggiunga un valore di velocità di throughput su cui si stabilizzerà:
 \begin{itemize}
     \item \textit{Nessuna congestione}: il throughput di VO raggiunge immediatamente il valore massimo ed è apparentemente stabile, grazie a un canale libero che consente ad esso di trasmettere al massimo, mentre il flusso BK utilizza la banda rimanente.
-    \item \textit{Congestione parziale}: il throughput di VO ha una tendenza monotòna crescente, ma molto lenta a causa dei disturbi nel canale, che impediscono un rapido raggiungimento della massima velocità possibile; ne risete anche il flusso BK.
+    \item \textit{Congestione parziale}: il throughput di VO ha una tendenza monotòna crescente, ma molto lenta a causa dei disturbi nel canale, che impediscono un rapido raggiungimento della massima velocità possibile; ovviamente ne risente anche il flusso BK.
     \item \textit{Piena congestione}: il throughput di ambedue i flussi rimane basso a causa della super congestione del canale.
 \end{itemize}
 
-In conclusione, l'uso di diverse Access Categories non produce effetti positivi sulla variabilità del throughput, che continua a oscillare in presenza di congestione. L'unico effetto osservato è una maggiore velocità del flusso con priorità più alta, a discapito di quello con priorità più bassa.
+In conclusione, l'uso di diverse Access Categories non produce effetti positivi sulla variabilità del throughput in presenza di congestione, in quanto esso continua a oscillare come nel caso di mancato utilizzo di politiche di \textit{QoS}. L'unico effetto osservato è una maggiore velocità del flusso con priorità più alta, a discapito di quello con priorità più bassa.
 \clearpage
 \begin{table}[h!]
     \centering
