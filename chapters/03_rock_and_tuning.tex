@@ -85,6 +85,20 @@ Infatti, l'hardware impiegato nel nostro progetto non era completamente compatib
 
 Optando, invece, per la banda ISM, si è stati in grado di garantire una maggiore interoperabilità e una configurazione più rapida, permettendoci di dedicare maggiore tempo sulla configurazione del nostro sistema e sullo svoglimento delle prove necessarie. A livello pratico, questa scelta non ha comportato sostanziali differenze, se non per il fatto che, lavorando con un canale appartenente alla banda 5.9 GHz anzichè alla 2.4 GHz, si sarebbero potute ottenere prestazioni leggermente migliori grazie a disturbi trascurabili e ad una minore congestione della banda (dovuta a dispositivi terzi che trasmettono sul medesimo canale).
 
+\subsection[Impostazione interfaccia Ethernet]{Impostazione interfaccia Ethernet}
+Non ci si soffermerà più di tanto sulla configurazione di tale interfaccia, alla quale è assegnato solo ed esclusivamente un indirizzo IP statico al fine di permettere la raggiungibilità dei dispositivi Rock da parte del PC per l'avvio e lo stop dei vari test.
+
+La configurazione è effettuata da linea di comando mediante il comando \textit{nmtui} (Figura \ref{fig:nmtui}); i vari indirizzi IP assegnati possono essere visti dalla Figura \ref{fig:etichetta}.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{nmtui.png}
+    \caption{Comando nmtui}
+    \label{fig:nmtui}
+\end{figure}
+
+Si fa notare che, purtroppo, i dispositivi Rock hanno tutti il medesimo indirizzo MAC in quanto sono cloni; è stato necessario, quindi, assegnare un nuovo MAC ad ognuno di essi prima di effettuare il collegamento allo switch.
+
 \section{Tweaking}
 Per rendere possibili alcune configurazioni nei dispositivi Rock e la raccolta dei dati, si è reso necessario mettere mano nel codice sorgente del Kernel Linux al fine di applicare alcune patch.
 
@@ -190,7 +204,7 @@ Non ci si dilungherà nelle modalità di download e installazione di tutto il pa
 
 \verb|BOARD=rock-3a BRANCH=current|
 
-\noindent Il processo restituirà il nuovo kernel pacchettizzato all'interno di file \textit{.deb}, che andranno installati sui dispositivi come di consueto.
+\noindent Il processo restituirà il nuovo kernel con i relativi \textit{header} pacchettizzati all'interno di file \textit{.deb}, che andranno installati sui dispositivi come di consueto.
 
 \subsection{Sottosistema Wireless in Linux}
 \label{subsystem}
