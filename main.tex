@@ -1,5 +1,5 @@
 % https://texblog.org/2013/02/13/latex-documentclass-options-illustrated/
-\documentclass[a4paper,12pt,onecolumn,twoside,openright,notitlepage,openany]{book}
+\documentclass[a4paper,12pt,onecolumn,oneside,openright,notitlepage,openany]{book}
 % RIMUOVI DRAFT PER LE IMMAGINI
 % Con openany rimuove le pagine bianche messe apposta per iniziare un nuovo capitolo su pagina bianca (io stampo solo fronte)
 
@@ -27,6 +27,11 @@
 \usepackage{fancyhdr}
 \setlength{\headheight}{15pt}
 \pagestyle{fancy}
+\fancyhf{} % Cancella intestazioni e piè di pagina predefiniti
+\fancyhead[L]{\leftmark} % Intestazione a sinistra
+%\fancyhead[C]{Intestazione Centrale} % Intestazione centrale
+\fancyhead[R]{\rightmark} % Intestazione a destra
+\fancyfoot[C]{\thepage} % Numero di pagina al centro del piè di pagina
 \setlength{\parskip}{0pt} % Spaziatura tra paragrafi
 \usepackage{titlesec}
 
