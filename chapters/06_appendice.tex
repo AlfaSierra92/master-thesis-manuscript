@@ -335,3 +335,35 @@
     # Mostra il grafico
     plt.show()
 \end{lstlisting}
+
+\section{Grafico Comparazione Throughput}
+\label{throughput_total_plot}
+\begin{lstlisting}
+    import seaborn as sns
+    import matplotlib.pyplot as plt
+    import pandas as pd
+    
+    # Dati delle categorie e dei totali
+    categorie = {
+        "QoS assente e congestione assente": 6.96,
+        "QoS presente e congestione assente": 8.57,
+        "QoS assente e congestione parziale": 6.26,
+        "QoS presente e congestione parziale": 7.50,
+        "QoS assente e congestione totale": 2.33,
+        "QoS presente e congestione totale": 6.49
+    }
+    
+    # Creazione di un DataFrame
+    df = pd.DataFrame(list(categorie.items()), columns=['Classe', 'Throughput'])
+    
+    # Creazione del grafico a barre orizzontali con Seaborn
+    plt.figure(figsize=(12, 6))
+    sns.barplot(x='Throughput', y='Classe', data=df, color='skyblue')
+    
+    plt.xlabel('Throughput totale')
+    plt.title('Throughput totale per Classe di QoS e Congestione')
+    plt.grid(axis='x')
+    
+    # Mostra il grafico
+    plt.show()
+\end{lstlisting}

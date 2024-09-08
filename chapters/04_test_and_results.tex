@@ -46,6 +46,8 @@ I due comandi sul client sono stati lanciati contemporaneamente dalla stessa \te
 
 L'indirizzo IP usato nei due comandi è relativo a quello appartenente all'interfaccia \textit{wlp1s0} del dispositivo facente funzione di server.
 
+La velocità massima teorica di trasmissione del canale è fissata a 10 Mbps (lo si può notare dal parametro \verb|-b 10m| del comando iPerf).
+
 Nei casi senza politiche di \textit{QoS} sono stati utilizzati i medesimi comandi, senza ovviamente il parametro \verb|-A| che delinea le varie priorità.
 
 Per quanto concerne il raggiungimento di un eventuale congestione del canale, essa è stata raggiunta nei seguenti modi:
@@ -362,14 +364,21 @@ Questa situazione si verifica sia in assenza di politiche di \textit{QoS}, sia q
 
 \noindent Questo comportamento non viene riscontrato nel caso in cui non siano state applicate classi di servizio specifiche.
 
-Volendosi focalizzare sui valori grezzi di throughput medio, si osserva che, in assenza di \textit{QoS} e in condizioni di congestione assente, la somma delle velocità dei flussi è pari a 6.96 Mbps. Questo valore, sebbene relativamente elevato, indica che, in condizioni ottimali, la trasmissione può operare in modo efficace. Tuttavia, l'introduzione della congestione comporta una diminuzione della somma, che scende a 6.26 Mbps in condizioni di congestione parziale e a 2.33 Mbps in condizioni di congestione totale. Tale calo significativo evidenzia come l'assenza di politiche di priorità renda i flussi vulnerabili agli effetti negativi della congestione, portando a una degradazione delle performance.
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{throughput_bar.png}
+    \caption{Throughput totale per Classe di QoS e Congestione}
+    \label{fig:throughput_bar}
+\end{figure}
+
+Volendosi focalizzare sui valori totali di throughput medio (Figura \ref{fig:throughput_bar}), si osserva che, in assenza di \textit{QoS} e in condizioni di congestione assente, la somma delle velocità dei flussi è pari a circa 6.96 Mbps. Questo valore, sebbene relativamente elevato, indica che, in condizioni ottimali, per un canale di trasmissione con throughput teorico massimo di 10 Mbps teorici, la trasmissione può operare in modo efficace. Tuttavia, l'introduzione della congestione comporta una diminuzione della somma, che scende a 6.26 Mbps in condizioni di congestione parziale e a 2.33 Mbps in condizioni di congestione totale. Tale calo significativo evidenzia come l'assenza di politiche di priorità renda i flussi vulnerabili agli effetti negativi della congestione, portando a una degradazione delle performance.
 
 Al contrario, quando la \textit{QoS} è presente, la somma delle velocità dei flussi presenta un comportamento nettamente diverso. In condizioni di congestione assente, la somma raggiunge 8.57 Mbps, rappresentando un incremento significativo rispetto alla somma riscontrata in assenza di \textit{QoS}. Questo risultato suggerisce che l'implementazione delle classi di priorità consente ai flussi di operare in maniera più efficiente, ottimizzando l'utilizzo della banda disponibile. Anche in condizioni di congestione parziale, la somma dei flussi rimane elevata, attestandosi a 7.50 Mbps. Tale risultato è particolarmente rilevante, in quanto indica che la \textit{QoS} è in grado di mantenere buone performance anche in situazioni che normalmente potrebbero compromettere la qualità del servizio.
 
 Infine, anche in condizioni di congestione totale, la somma dei flussi con \textit{QoS} presente è pari a 6.49 Mpbs, un valore notevolmente superiore rispetto al corrispondente 2.33 Mbps osservato in assenza di priorità. Questo dato mette ulteriormente in evidenza l'importanza di quest'ultima nella mitigazione degli effetti negativi della congestione. La capacità della \textit{QoS} di mantenere un livello accettabile di performance anche in condizioni avverse rappresenta un aspetto fondamentale per garantire un servizio affidabile e di qualità.
 
-In conclusione, l'analisi dei dati relativi al throughput dei flussi TCP in presenza e assenza di \textit{Quality of Service (QoS)} mette in evidenza l'importanza di politiche di gestione del traffico, specialmente in scenari di congestione. I risultati mostrano chiaramente che l'implementazione di essa consente di mantenere performance più elevate e stabili, anche in condizioni avverse. La somma dei flussi, che varia significativamente in base alla presenza di \textit{QoS} e al livello di congestione, evidenzia come la capacità di gestire il traffico dati possa influenzare direttamente l'efficacia della trasmissione.
+In conclusione, l'analisi dei dati relativi al throughput dei flussi TCP in presenza e assenza di \textit{Quality of Service (QoS)} mette in evidenza l'importanza di politiche di gestione del traffico, specialmente in scenari di congestione. I risultati mostrano chiaramente che l'implementazione di essa consente di mantenere performance più elevate e stabili, anche in condizioni avverse. La somma dei valori di throughput dei flussi, che varia significativamente in base alla presenza di \textit{QoS} e al livello di congestione, evidenzia come la capacità di gestire il traffico dati possa influenzare direttamente l'efficacia della trasmissione.
 
 Questi principi sono particolarmente rilevanti in contesti applicativi ad alta intensità di dati, come nel caso della guida di veicoli da remoto. Sebbene non sia l'unico ambito in cui la \textit{QoS} gioca un ruolo cruciale, la necessità di garantire una comunicazione affidabile e tempestiva è fondamentale in qualsiasi applicazione che richieda un'interazione in tempo reale. La capacità di mantenere un throughput elevato e una latenza ridotta è essenziale non solo per garantire la sicurezza e l'affidabilità delle operazioni, ma anche per migliorare l'esperienza complessiva dell'utente. Inoltre, è importante notare che le velocità di trasmissione raggiunte in condizioni ottimali, sono superiori a quanto effettivamente necessario per le applicazioni specifiche. Questo surplus di capacità non solo offre un margine di sicurezza contro eventuali fluttuazioni nel traffico di rete, ma consente anche di gestire situazioni impreviste, come picchi di richiesta o congestione temporanea.
 
-In sintesi, l'adozione di meccanismi di \textit{QoS} si rivela indispensabile per affrontare le sfide legate alla congestione e per ottimizzare le performance di rete.
+In sintesi, l'adozione di meccanismi di \textit{QoS} si rivela indispensabile per affrontare le sfide legate alla congestione e per ottimizzare le performance di rete, particolarmente in un contesto \textit{safety critical} come quello delle VANET.
