@@ -10,8 +10,8 @@ Nei casi di test che successivamente saranno analizzati, i quattro dispositivi R
 
 I due gruppi saranno:
 \begin{itemize}
-    \item \textit{Gruppo Cx}: esso sarà composto da due dispositivi che simuleranno, con modalità che verranno discusse a breve, un ambiente in cui sono presenti uno svariato numero di veicoli che porteranno il canale di trasmissione a congestionarsi, in maniera completa o parziale.
-    \item \textit{Gruppo Tx}: esso, invece, sarà composto da due dispositivi che comunicheranno mediante due flussi TCP in parallelo mediante l'utilizzo del comando iPerf. Uno di essi agirà come client, che andrà a connettersi e a scaricare delle informazioni dall'altro che fungerà da server.
+    \item \textit{Gruppo "CAM" (Cx)}: esso sarà composto da due dispositivi che simuleranno, con modalità che verranno discusse a breve, un ambiente in cui sono presenti uno svariato numero di veicoli che porteranno il canale di trasmissione a congestionarsi, in maniera completa o parziale.
+    \item \textit{Gruppo "Transmission" (Tx)}: esso, invece, sarà composto da due dispositivi che comunicheranno mediante due flussi TCP in parallelo mediante l'utilizzo del comando iPerf. Uno di essi agirà come client, che andrà a connettersi e a scaricare delle informazioni dall'altro che fungerà da server.
 \end{itemize}
 
 \begin{figure}[h!]
@@ -24,9 +24,9 @@ I due gruppi saranno:
 Sono previsti tre principali casi di test:
 
 \begin{itemize}
-    \item \textit{Congestione nulla}: assenza di \textit{QoS} nei flussi dei dispositivi del \textit{Gruppo Tx} e assenza di congestione del canale, quindi il \textit{Gruppo Cx} sarà spento.
-    \item \textit{Congestione parziale}: assenza di \textit{QoS} nei flussi dei dispositivi del \textit{Gruppo Tx} e parziale congestione del canale, attuata mediante l'invio in broadcast di CAM da ognuno dei due dispositivi facenti parte del \textit{Gruppo Cx} ogni 5 ms.
-    \item \textit{Congestione massima}: assenza di \textit{QoS} nei flussi dei dispositivi del \textit{Gruppo Tx} e totale congestione del canale, attuata mediante trasmissione UDP in \textit{flooding} in broadcast da parte di ognuno dei due dispositivi del \textit{Gruppo Cx}.
+    \item \textit{Congestione nulla}: assenza di \textit{QoS} nei flussi dei dispositivi del \textit{Gruppo "Transmission"} e assenza di congestione del canale, quindi il \textit{Gruppo "CAM"} sarà spento.
+    \item \textit{Congestione parziale}: assenza di \textit{QoS} nei flussi dei dispositivi del \textit{Gruppo "Transmission"} e parziale congestione del canale, attuata mediante l'invio in broadcast di CAM da ognuno dei due dispositivi facenti parte del \textit{Gruppo "CAM"} ogni 5 ms.
+    \item \textit{Congestione massima}: assenza di \textit{QoS} nei flussi dei dispositivi del \textit{Gruppo "Transmission"} e totale congestione del canale, attuata mediante trasmissione UDP in \textit{flooding} in broadcast da parte di ognuno dei due dispositivi del \textit{Gruppo "CAM"}.
 \end{itemize}
 
 Questi stessi casi verranno, inoltre, ripetuti andando ad applicare delle politiche di \textit{QoS}: un flusso (\textbf{Stream ID 1}) verrà assegnato alla categoria con priorità maggiore, ovvero \textit{Access Category Voice} (AC\_VO), mentre l'altro (\textbf{Stream ID 2}) alla categoria minore, ovvero \textit{Access Category Background} (AC\_BK).
@@ -50,15 +50,15 @@ La velocità massima teorica di trasmissione del canale è fissata a 10 Mbps (lo
 
 Nei casi senza politiche di \textit{QoS} sono stati utilizzati i medesimi comandi, senza ovviamente il parametro \verb|-A| che delinea le varie priorità.
 
-Per quanto concerne il raggiungimento di un eventuale congestione del canale, essa è stata raggiunta nei seguenti modi:
+Per quanto concerne il raggiungimento di un eventuale congestione del canale, essa all'atto pratico è stata raggiunta nei seguenti modi:
 
 \begin{itemize}
-    \item \textit{Caso senza congestione}: i dispositivi appartenenti al \textit{Gruppo Cx} non trasmettono alcunchè.
-    \item \textit{Caso con congestione parziale}: i dispositivi appartenenti al \textit{Gruppo Cx}, come già detto poc'anzi, trasmettono ognuno un singolo pacchetto CAM ogni 5 ms; per tale scopo è stato lanciato sia su uno che sull'altro Rock lo script riportato in \autoref{udp_packets} con, come parametri, un \textit{message\_size} pari a 256 byte e lo \textit{sleep\_time} pari a 0.005; è stata scelto questo intervallo di tempo in quanto, tenendo conto che in caso di veicolo fermo esso invierebbe un CAM ogni 1 secondo, viene simulato un ambiente con 200 veicoli presenti.
-    \item \textit{Caso con congestione totale}: i dispositivi appartenenti al \textit{Gruppo Cx} fanno flooding UDP mediante l'esecuzione del comando \verb|iperf -u -c 192.168.100.xxx| \verb| -t 300 -b 10m|; in questo caso si vuole simulare un ambiente con un numero veramente elevato di veicoli e molto maggiore del caso precedente.
+    \item \textit{Caso senza congestione}: i dispositivi appartenenti al \textit{Gruppo "CAM"} non trasmettono alcunchè.
+    \item \textit{Caso con congestione parziale}: i dispositivi appartenenti al \textit{Gruppo "CAM"}, come già detto poc'anzi, trasmettono ognuno un singolo pacchetto CAM ogni 5 ms; per tale scopo è stato lanciato sia su uno che sull'altro Rock lo script riportato in \autoref{udp_packets} con, come parametri, un \textit{message\_size} pari a 256 byte e lo \textit{sleep\_time} pari a 0.005; è stata scelto questo intervallo di tempo in quanto, tenendo conto che in caso di veicolo fermo esso invierebbe un CAM ogni 1 secondo, viene simulato un ambiente con 200 veicoli presenti.
+    \item \textit{Caso con congestione totale}: i dispositivi appartenenti al \textit{Gruppo "CAM"} fanno flooding UDP mediante l'esecuzione del comando \\\verb|iperf -u -c 192.168.100.xxx| \verb| -t 300 -b 10m|;\\ in questo caso si vuole simulare un ambiente con un numero veramente elevato di veicoli e molto maggiore del caso precedente.
 \end{itemize}
 
-In quest'ultimo caso, a causa delle limitazioni architetturali di iPerf, non è stato possibile inviare pacchetti UDP in broadcast. Poiché solo due dispositivi sono incaricati di effettuare flooding, la congestione viene raggiunta trasmettendo messaggi UDP da un dispositivo del \textit{Gruppo Cx} all'altro in unicast, specificando come parametro per iPerf l'indirizzo IP dell'interfaccia \textit{wlp1s0} del Rock destinatario.
+In quest'ultimo caso, a causa delle limitazioni architetturali di iPerf, non è stato possibile inviare pacchetti UDP in broadcast. Poiché solo due dispositivi sono incaricati di effettuare flooding, la congestione viene raggiunta trasmettendo messaggi UDP da un dispositivo del \textit{Gruppo "CAM"} all'altro in unicast, specificando come parametro per iPerf l'indirizzo IP dell'interfaccia \textit{wlp1s0} del Rock destinatario.
 
 La scelta del protocollo UDP per effettuare \textit{flooding}, anzichè il TCP, è stata effettuata per ovvie ragioni: mancanza di politiche riguardanti il controllo di flusso, perdita dei pacchetti e controllo sull'ordine di ricezione di quest'ultimi. Inoltre, l'invio di essi con una dimensione inferiore a 2346 byte (iPerf, di default, invia pacchetti UDP di soli 1470 byte a differenza del TCP che hanno una dimensione pari a 8 KB \cite{iperf}), consente alle interfacce Wireless di poter trasmettere i vari frame senza attuare il meccanismo di RTS/CTS.
 
