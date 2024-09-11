@@ -108,13 +108,14 @@ L'assenza di politiche di \textit{QoS}, unito ad un canale quasi completamente v
     \caption{QoS assente e congestione assente (Grafico ensemble)}
     \label{fig:t1_c0_ensemble}
 \end{figure}
-\clearpage
+
 \begin{figure}[h!]
     \centering
     \includegraphics[width=1\textwidth]{t1_c0_load.png}
     \caption{QoS assente e congestione assente (Carico del canale)}
     \label{fig:t1_c0_load}
 \end{figure}
+\clearpage
 \newpage
 \subsection[QoS assente e congestione parziale]{QoS assente e congestione parziale}
 L'assenza di politiche di \textit{QoS}, unito ad un canale parzialmente disturbato da CAM inviati dagli altri due dispositivi (Figura \ref{fig:t1_c1_load}), porta il throughput di ambedue i flussi ad essere simile ma inferiore rispetto al caso precedentemente discusso di circa il 10\%: 3.49 Mbps circa contro 3.13 Mbps qui (Tabella \ref{table:7} e Figure \ref{fig:t1_c1} e \ref{fig:t1_c1_ensemble}).
@@ -148,16 +149,17 @@ L'assenza di politiche di \textit{QoS}, unito ad un canale parzialmente disturba
     \caption{QoS assente e congestione parziale (Grafico ensemble)}
     \label{fig:t1_c1_ensemble}
 \end{figure}
-\clearpage
+
 \begin{figure}[h!]
     \centering
     \includegraphics[width=1\textwidth]{t1_c1_load.png}
     \caption{QoS assente e congestione parziale (Carico del canale)}
     \label{fig:t1_c1_load}
 \end{figure}
+\clearpage
 \newpage
 \subsection[QoS assente e congestione totale]{QoS assente e congestione totale}
-La completa saturazione del canale qui si fa sentire notevolmente (Figura \ref{fig:t1_c2_load}), in quanto il throughput di ambedue i flussi viene ridotto notevolmente con una minore propensione ad essere stabile rispetto al caso senza congestione: 3.49 Mbps circa contro 1.14 Mbps circa qui (Tabella \ref{table:8} e Figure \ref{fig:t1_c2} e \ref{fig:t1_c2_ensemble}).
+La completa saturazione del canale qui si fa sentire notevolmente (Figura \ref{fig:t1_c2_load}), in quanto il throughput di ambedue i flussi viene ridotto notevolmente con una minore propensione ad un valore stabile rispetto al caso senza congestione: 3.49 Mbps circa contro 1.14 Mbps circa qui (Tabella \ref{table:8} e Figure \ref{fig:t1_c2} e \ref{fig:t1_c2_ensemble}).
 \begin{table}[h!]
     \centering
     \begin{tabular}{|>{\centering\arraybackslash}p{20em}|>{\centering\arraybackslash}p{7em}|} 
@@ -187,16 +189,17 @@ La completa saturazione del canale qui si fa sentire notevolmente (Figura \ref{f
     \caption{QoS assente e congestione totale (Grafico ensemble)}
     \label{fig:t1_c2_ensemble}
 \end{figure}
-\clearpage
+
 \begin{figure}[h!]
     \centering
     \includegraphics[width=1\textwidth]{t1_c2_load.png}
     \caption{QoS assente e congestione totale (Carico del canale)}
     \label{fig:t1_c2_load}
 \end{figure}
+\clearpage
 \newpage
 \subsection[QoS presente e congestione assente]{QoS presente e congestione assente}
-L'inserimento, qui, di politiche di \textit{QoS}, unito ad un canale quasi completamente vuoto e libero da trasmissioni (Figura \ref{fig:t2_c0_load}), porta il throughput del flusso a priorità maggiore ad sorpaffare completamente l'altro a priorità minore (Tabella \ref{table:9} e Figure \ref{fig:t2_c0} e \ref{fig:t2_c0_ensemble}).
+L'inserimento, qui, di politiche di \textit{QoS}, unito ad un canale quasi completamente vuoto e libero da trasmissioni (Figura \ref{fig:t2_c0_load}), porta il throughput del flusso a priorità maggiore ad sopraffare completamente l'altro a priorità minore (Tabella \ref{table:9} e Figure \ref{fig:t2_c0} e \ref{fig:t2_c0_ensemble}). Salta, inoltre, palesemente all'occhio che la somma dei throughput dei flussi è maggiore rispetto al medesimo caso di congestione senza però l'applicazione di politiche di \textit{QoS} (8.57 Mbps vs 7.00 Mbps circa).
 
 \begin{table}[h!]
     \centering
@@ -215,8 +218,8 @@ L'inserimento, qui, di politiche di \textit{QoS}, unito ad un canale quasi compl
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=1\textwidth]{t2_c0.png}
-    \includegraphics[width=1\textwidth]{t2_c0_main.png}
+    \includegraphics[width=0.9\textwidth]{t2_c0.png}
+    \includegraphics[width=0.9\textwidth]{t2_c0_main.png}
     \caption{QoS presente e congestione assente (Throughput medio)}
     \label{fig:t2_c0}
 \end{figure}
@@ -227,16 +230,17 @@ L'inserimento, qui, di politiche di \textit{QoS}, unito ad un canale quasi compl
     \caption{QoS presente e congestione assente (Grafico ensemble)}
     \label{fig:t2_c0_ensemble}
 \end{figure}
-\clearpage
+
 \begin{figure}[h!]
     \centering
     \includegraphics[width=1\textwidth]{t2_c0_load.png}
     \caption{QoS presente e congestione assente (Carico del canale)}
     \label{fig:t2_c0_load}
 \end{figure}
+\clearpage
 \newpage
 \subsection[QoS presente e congestione parziale]{QoS presente e congestione parziale}
-In questa situazione, si osserva che il throughput fatica a stabilizzarsi, sia per il flusso a priorità maggiore che per l'altro flusso. Ci vuole un tempo considerevole affinché il throughput raggiunga un valore stabile. Il flusso VO inizia con una velocità di circa 6 Mbps e tende ad aumentare, a discapito dell'altro flusso, che parte da circa 1.2 Mbps e rallenta fino a scendere a 0.4 Mbps. 
+In questa situazione, si osserva che il throughput fatica a stabilizzarsi, sia per il flusso a priorità maggiore che per l'altro flusso. Ci vuole un tempo considerevole affinché il throughput raggiunga un valore stabile. Il flusso VO inizia con una velocità di circa 6 Mbps e tende ad aumentare, a discapito dell'altro flusso, che parte da circa 1.2 Mbps e rallenta fino a scendere a 0.4 Mbps. Palese anche qui un throughput maggiore rispetto al caso senza \textit{QoS} (7.50 Mbps vs 6.00 Mbps circa).
 
 Il valore di throughput medio è ovviamente influenzato dal comportamento appena descritto.
 
@@ -258,7 +262,7 @@ Il valore di throughput medio è ovviamente influenzato dal comportamento appena
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.9\textwidth]{t2_c1.png}
-    \includegraphics[width=0.9\textwidth]{t2_c1_main.png}
+    \includegraphics[width=0.8\textwidth]{t2_c1_main.png}
     \caption{QoS presente e congestione parziale (Throughput medio)}
     \label{fig:t2_c1}
 \end{figure}
@@ -269,16 +273,19 @@ Il valore di throughput medio è ovviamente influenzato dal comportamento appena
     \caption{QoS presente e congestione parziale (Grafico ensemble)}
     \label{fig:t2_c1_ensemble}
 \end{figure}
-\clearpage
+
 \begin{figure}[h!]
     \centering
     \includegraphics[width=1\textwidth]{t2_c1_load.png}
     \caption{QoS presente e congestione parziale (Carico del canale)}
     \label{fig:t2_c1_load}
 \end{figure}
+\clearpage
 \newpage
 \subsection[QoS presente e congestione totale]{QoS presente e congestione totale}
 La completa saturazione del canale qui si fa sentire notevolmente (Figura \ref{fig:t2_c2_load}), in quanto il throughput di ambedue i flussi viene ridotto notevolmente con un inoltre minore propensione ad essere stabile rispetto al caso senza congestione. (Tabella \ref{table:11} e Figure \ref{fig:t2_c2} e \ref{fig:t2_c2_ensemble}). L'applicazione di politiche di \textit{QoS} porta, naturalmente, ad un throughput medio maggiore del flusso a priorità maggiore.
+
+Cosa molto importante qui è il throughput totale raggiunto rispetto al caso senza code di priorità, ma questo verrà discusso a breve.
 
 \begin{table}[h!]
     \centering
@@ -297,8 +304,8 @@ La completa saturazione del canale qui si fa sentire notevolmente (Figura \ref{f
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=1\textwidth]{t2_c2.png}
-    \includegraphics[width=1\textwidth]{t2_c2_main.png}
+    \includegraphics[width=0.9\textwidth]{t2_c2.png}
+    \includegraphics[width=0.9\textwidth]{t2_c2_main.png}
     \caption{QoS presente e congestione totale (Throughput medio)}
     \label{fig:t2_c2}
 \end{figure}
@@ -309,16 +316,17 @@ La completa saturazione del canale qui si fa sentire notevolmente (Figura \ref{f
     \caption{QoS presente e congestione totale (Grafico ensemble)}
     \label{fig:t2_c2_ensemble}
 \end{figure}
-\clearpage
+
 \begin{figure}[h!]
     \centering
     \includegraphics[width=1\textwidth]{t2_c2_load.png}
     \caption{QoS presente e congestione totale (Carico del canale)}
     \label{fig:t2_c2_load}
 \end{figure}
+\clearpage
 \newpage
 \subsection[Analisi dei risultati]{Analisi dei risultati}
-Dai dati raccolti e presentati nelle sezioni precedenti, riportati tutti insieme per comodità in Tabella \ref{table:12} (nei casi in cui sono state applicate politiche di \textit{QoS}, lo \textbf{Stream 1} è quello con priorità \textit{AC\_VO}, mentre lo \textbf{Stream 2} è quello con priorità \textit{AC\_BK}), è evidente che la presenza di disturbi, anche se moderati, influisce sulla trasmissione dei due flussi TCP dal nodo server al nodo client. Si osserva una transizione da un throughput elevato e relativamente stabile a prestazioni via via più basse, con una tendenza della velocità media a diventare meno stabile e più soggetta a oscillazioni.
+Dai dati raccolti e presentati nelle sezioni precedenti, riportati tutti insieme per comodità in Tabella \ref{table:12} (nei casi in cui sono state applicate politiche di \textit{QoS}, lo \textbf{Stream 1} è quello con priorità \textit{AC\_VO}, mentre lo \textbf{Stream 2} è quello con priorità \textit{AC\_BK}), è evidente che la presenza di disturbi, anche se moderati, influisce sulla trasmissione dei due flussi TCP dal nodo server al nodo client. Si osserva, con l'aumento della congestione del canale, la transizione da un throughput elevato e relativamente stabile a prestazioni via via più basse, con una tendenza della velocità media a diventare meno stabile e più soggetta a oscillazioni.
 
 \begin{table}[h!]
     \centering
@@ -355,7 +363,9 @@ Dai dati raccolti e presentati nelle sezioni precedenti, riportati tutti insieme
     \label{table:12}
 \end{table}
 
-Questa situazione si verifica sia in assenza di politiche di \textit{QoS}, sia quando si assegna una priorità maggiore a uno dei flussi rispetto all'altro. In entrambe le circostanze, i valori di throughput medio risultano generalmente meno stabili e caratterizzati da oscillazioni temporali; la variabilità tende a aumentare in tutti i casi di congestione. Inoltre, applicando le priorità, si può notare un cambiamento nel tempo necessario affinché ciascun flusso raggiunga un valore di velocità di throughput su cui si stabilizzerà (anche per via delle politiche di controllo della congestione attuate \textit{under-the-hood} dal protocollo TCP):
+Questa situazione si verifica sia in assenza di politiche di \textit{QoS}, sia quando si assegna una priorità maggiore a uno dei flussi rispetto all'altro. In entrambe le circostanze, i valori di throughput medio risultano generalmente meno stabili e caratterizzati da oscillazioni temporali; la variabilità tende a aumentare in tutti i casi di congestione. 
+
+Inoltre, applicando le priorità, si può notare un cambiamento nel tempo necessario affinché ciascun flusso raggiunga un valore di velocità di throughput su cui si stabilizzerà (anche per via delle politiche di controllo della congestione attuate \textit{under-the-hood} dal protocollo TCP):
 \begin{itemize}
     \item \textit{Nessuna congestione}: il throughput di VO raggiunge immediatamente il valore massimo ed è apparentemente stabile, grazie a un canale libero che consente ad esso di trasmettere al massimo, mentre il flusso BK utilizza la banda rimanente.
     \item \textit{Congestione parziale}: il throughput di VO ha una tendenza monotòna crescente, ma molto lenta a causa dei disturbi nel canale, che impediscono un rapido raggiungimento della massima velocità possibile; ovviamente ne risente anche il flusso BK.
@@ -371,14 +381,14 @@ Questa situazione si verifica sia in assenza di politiche di \textit{QoS}, sia q
     \label{fig:throughput_bar}
 \end{figure}
 
-Volendosi focalizzare sui valori totali di throughput medio (Figura \ref{fig:throughput_bar}), si osserva che, in assenza di \textit{QoS} e in condizioni di congestione assente, la somma delle velocità dei flussi è pari a circa 6.96 Mbps. Questo valore, sebbene relativamente elevato, indica che, in condizioni ottimali, per un canale di trasmissione con throughput teorico massimo di 10 Mbps teorici, la trasmissione può operare in modo efficace. Tuttavia, l'introduzione della congestione comporta una diminuzione della somma, che scende a 6.26 Mbps in condizioni di congestione parziale e a 2.33 Mbps in condizioni di congestione totale. Tale calo significativo evidenzia come l'assenza di politiche di priorità renda i flussi vulnerabili agli effetti negativi della congestione, portando a una degradazione delle performance.
+Volendosi focalizzare, ora, sui valori totali di throughput medio (Figura \ref{fig:throughput_bar}), si osserva che, in assenza di \textit{QoS} e in condizioni di congestione assente, la somma delle velocità dei flussi è pari a circa 6.96 Mbps. Questo valore, sebbene relativamente elevato, indica che, in condizioni ottimali, per un canale di trasmissione con throughput teorico massimo di 10 Mbps teorici, la trasmissione può operare in modo efficace. Tuttavia, l'introduzione della congestione comporta una diminuzione della somma, che scende a 6.26 Mbps in condizioni di congestione parziale e a 2.33 Mbps in condizioni di congestione totale. Tale calo significativo evidenzia come apparentemente l'assenza di politiche di priorità renda i flussi vulnerabili agli effetti negativi della congestione, portando a una degradazione delle performance.
 
 Al contrario, quando la \textit{QoS} è presente, la somma delle velocità dei flussi presenta un comportamento nettamente diverso. In condizioni di congestione assente, la somma raggiunge 8.57 Mbps, rappresentando un incremento significativo rispetto alla somma riscontrata in assenza di \textit{QoS}. Questo risultato suggerisce che l'implementazione delle classi di priorità consente ai flussi di operare in maniera più efficiente, ottimizzando l'utilizzo della banda disponibile. Anche in condizioni di congestione parziale, la somma dei flussi rimane elevata, attestandosi a 7.50 Mbps. Tale risultato è particolarmente rilevante, in quanto indica che la \textit{QoS} è in grado di mantenere buone performance anche in situazioni che normalmente potrebbero compromettere la qualità del servizio.
 
-Infine, anche in condizioni di congestione totale, la somma dei flussi con \textit{QoS} presente è pari a 6.49 Mpbs, un valore notevolmente superiore rispetto al corrispondente 2.33 Mbps osservato in assenza di priorità. Questo dato mette ulteriormente in evidenza l'importanza di quest'ultima nella mitigazione degli effetti negativi della congestione. La capacità della \textit{QoS} di mantenere un livello accettabile di performance anche in condizioni avverse rappresenta un aspetto fondamentale per garantire un servizio affidabile e di qualità.
+Infine, anche in condizioni di congestione totale, la somma dei flussi con \textit{QoS} presente è pari a 6.49 Mpbs, un valore notevolmente superiore rispetto al corrispondente 2.33 Mbps osservato in assenza di priorità. Questo dato mette ulteriormente in evidenza l'importanza di quest'ultima nella mitigazione degli effetti negativi della congestione.
 
-In conclusione, l'analisi dei dati relativi al throughput dei flussi TCP in presenza e assenza di \textit{Quality of Service (QoS)} mette in evidenza l'importanza di politiche di gestione del traffico, specialmente in scenari di congestione. I risultati mostrano chiaramente che l'implementazione di essa consente di mantenere performance più elevate e stabili, anche in condizioni avverse. La somma dei valori di throughput dei flussi, che varia significativamente in base alla presenza di \textit{QoS} e al livello di congestione, evidenzia come la capacità di gestire il traffico dati possa influenzare direttamente l'efficacia della trasmissione.
+In conclusione, l'analisi dei dati relativi al throughput dei flussi TCP in presenza e assenza di \textit{Quality of Service (QoS)} enfatizza l'importanza di politiche di gestione del traffico, specialmente in scenari di congestione. I risultati mostrano chiaramente che l'implementazione di essa, dando maggiore priorità ad un flusso piuttosto che ad un altro, consente di mantenere performance più elevate e stabili, anche in condizioni avverse. Inoltre, la somma dei valori di throughput dei flussi, ovvero il throughput totale del canale, che varia significativamente in base alla presenza di \textit{QoS} e al livello di congestione, sottolinea ancora di più come la capacità di gestire il traffico dati possa influenzare direttamente l'efficacia della trasmissione.
 
-Questi principi sono particolarmente rilevanti in contesti applicativi ad alta intensità di dati, come nel caso della guida di veicoli da remoto. Sebbene non sia l'unico ambito in cui la \textit{QoS} gioca un ruolo cruciale, la necessità di garantire una comunicazione affidabile e tempestiva è fondamentale in qualsiasi applicazione che richieda un'interazione in tempo reale. La capacità di mantenere un throughput elevato e una latenza ridotta è essenziale non solo per garantire la sicurezza e l'affidabilità delle operazioni, ma anche per migliorare l'esperienza complessiva dell'utente. Inoltre, è importante notare che le velocità di trasmissione raggiunte in condizioni ottimali, sono superiori a quanto effettivamente necessario per le applicazioni specifiche. Questo surplus di capacità non solo offre un margine di sicurezza contro eventuali fluttuazioni nel traffico di rete, ma consente anche di gestire situazioni impreviste, come picchi di richiesta o congestione temporanea.
+Questi principi sono particolarmente rilevanti in contesti applicativi ad alta intensità di dati, come nel caso della guida di veicoli da remoto. Sebbene non sia l'unico ambito in cui la \textit{QoS} gioca un ruolo cruciale, la necessità di garantire una comunicazione affidabile e tempestiva è fondamentale in qualsiasi applicazione che richieda un'interazione in tempo reale. La capacità di mantenere un throughput elevato e una latenza ridotta è essenziale non solo per garantire la sicurezza e l'affidabilità delle operazioni, ma anche per migliorare l'esperienza complessiva dell'utente. Inoltre, è importante notare che le velocità di trasmissione raggiunte, persino nelle condizioni peggiori, sono superiori a quanto effettivamente necessario per le applicazioni specifiche. Questo surplus di capacità non solo offre un margine di sicurezza contro eventuali fluttuazioni nel traffico di rete, ma consente anche di gestire situazioni impreviste, come picchi di richiesta o congestione temporanea.
 
 In sintesi, l'adozione di meccanismi di \textit{QoS} si rivela indispensabile per affrontare le sfide legate alla congestione e per ottimizzare le performance di rete, particolarmente in un contesto \textit{safety critical} come quello delle VANET.
