@@ -53,7 +53,7 @@ Nei casi senza politiche di \textit{QoS} sono stati utilizzati i medesimi comand
 Per quanto concerne il raggiungimento di un eventuale congestione del canale, essa all'atto pratico è stata raggiunta nei seguenti modi:
 
 \begin{itemize}
-    \item \textit{Caso senza congestione}: i dispositivi appartenenti al \textit{Gruppo "CAM"} non trasmettono alcunchè.
+    \item \textit{Caso senza congestione}: i dispositivi appartenenti al \textit{Gruppo "CAM"}, essendo spenti, non trasmettono alcunchè.
     \item \textit{Caso con congestione parziale}: i dispositivi appartenenti al \textit{Gruppo "CAM"}, come già detto poc'anzi, trasmettono ognuno un singolo pacchetto CAM ogni 5 ms; per tale scopo è stato lanciato sia su uno che sull'altro Rock lo script riportato in \autoref{udp_packets} con, come parametri, un \textit{message\_size} pari a 256 byte e lo \textit{sleep\_time} pari a 0.005; è stata scelto questo intervallo di tempo in quanto, tenendo conto che in caso di veicolo fermo esso invierebbe un CAM ogni 1 secondo, viene simulato un ambiente con 200 veicoli presenti.
     \item \textit{Caso con congestione totale}: i dispositivi appartenenti al \textit{Gruppo "CAM"} fanno flooding UDP mediante l'esecuzione del comando \\\verb|iperf -u -c 192.168.100.xxx| \verb| -t 300 -b 10m|;\\ in questo caso si vuole simulare un ambiente con un numero veramente elevato di veicoli e molto maggiore del caso precedente.
 \end{itemize}
