@@ -67,9 +67,9 @@ In conclusione, per ogni simulazione sono state effettuati 5 \textit{run} distin
 Verranno, ora, mostrati i risultati ottenuti mediante dei grafici per ogni singolo caso di studio:
 
 \begin{itemize}
-    \item il primo mostrerà l'andamento del throughput medio nel corso della simulazione;
+    \item il primo mostrerà l'andamento del throughput medio nel corso della simulazione per ambedue gli stream (vengono mostrati sia separatamente che assieme, con la stessa scala, per rendere più evidente un eventuale differenza);
     \item il secondo consisterà nel \textit{plot} del throughput di ogni singola \textit{run};
-    \item il terzo visualizzerà il carico del canale per tutta la durata della simulazione, inclusi alcuni istanti prima e dopo in modo da mostrare le condizioni iniziali.
+    \item il terzo visualizzerà il carico del canale per tutta la durata della simulazione, inclusi alcuni istanti prima e dopo l'avvio del test in modo da evidenziare le condizioni di quiete.
 \end{itemize}
 
 \noindent I grafici sono stati generati mediante l'utilizzo di script in \textit{Python} usando la libreria \textit{matplotlib}; i codici sorgenti possono essere trovati nella \autoref{plot_test1}, \autoref{plot_test_spaghetti} e \autoref{plot_test_load}.
@@ -283,7 +283,7 @@ Il valore di throughput medio è ovviamente influenzato dal comportamento appena
 \clearpage
 \newpage
 \subsection[QoS presente e congestione totale]{QoS presente e congestione totale}
-La completa saturazione del canale qui si fa sentire notevolmente (Figura \ref{fig:t2_c2_load}), in quanto il throughput di ambedue i flussi viene ridotto notevolmente con un inoltre minore propensione ad essere stabile rispetto al caso senza congestione. (Tabella \ref{table:11} e Figure \ref{fig:t2_c2} e \ref{fig:t2_c2_ensemble}). L'applicazione di politiche di \textit{QoS} porta, naturalmente, ad un throughput medio maggiore del flusso a priorità maggiore.
+Come è ovvio, anche qui la completa saturazione del canale qui si fa sentire notevolmente (Figura \ref{fig:t2_c2_load}), in quanto il throughput di ambedue i flussi viene ridotto notevolmente con un inoltre minore propensione ad essere stabile rispetto al caso senza congestione. (Tabella \ref{table:11} e Figure \ref{fig:t2_c2} e \ref{fig:t2_c2_ensemble}). L'applicazione di politiche di \textit{QoS} porta, naturalmente, ad un throughput medio maggiore del flusso a priorità più alta.
 
 Cosa molto importante qui è il throughput totale raggiunto rispetto al caso senza code di priorità, ma questo verrà discusso a breve.
 
