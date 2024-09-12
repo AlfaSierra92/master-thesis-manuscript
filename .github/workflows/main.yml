@@ -2,10 +2,7 @@ permissions:
   contents: write
 
 name: Build LaTeX document
-on:
-  push:
-    branches:
-      - main  # Specifica il branch dove eseguire il workflow
+on: [push]
 jobs:
   build_latex:
     runs-on: ubuntu-latest
